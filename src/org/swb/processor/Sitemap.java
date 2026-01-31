@@ -15,8 +15,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.swb.Processor;
 
-import dev.stxt.Node;
-
 public class Sitemap implements Processor
 {
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");

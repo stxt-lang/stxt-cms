@@ -24,7 +24,7 @@ public class Executor
         File f = new File(file);
         if (!f.exists()||!f.isFile())
         {
-            System.out.println("No se ha encontrado el fichero de ejecución: " + f.getAbsolutePath());
+            System.out.println("No se ha encontrado el fichero de ejecuciï¿½n: " + f.getAbsolutePath());
             System.exit(1);
         }
         
@@ -57,13 +57,13 @@ public class Executor
         System.out.println("Time creation: " + time + " ms");
         
         // Creamos contexto y ejecutamos
-        Map context = new LinkedHashMap();
+        Map<String, Object> context = new LinkedHashMap<>();
         time = System.currentTimeMillis();
         for (Processor processor: processors) processor.execute(context);
         time = System.currentTimeMillis() - time;
         System.out.println("Time execution: " + time + " ms");
         
-        // Fin ejecución
+        // Fin ejecuciï¿½n
         System.out.println("End execution: " + commands);
     }
 
