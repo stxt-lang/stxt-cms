@@ -1,0 +1,64 @@
+@use "settings" as *;
+
+:root {
+	box-sizing: border-box;
+	font-size: 0.9em;
+}
+
+*,*::before, *::after {
+	box-sizing: inherit;
+}
+
+html {
+	background-color: $color3;
+	background-color: $color4;
+}
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	max-width: $main_width;
+	margin-left: auto;
+	margin-right: auto;
+	tab-size: 4;
+}
+
+/* ------- */
+/* Generic */
+/* ------- */
+
+a {
+	color: $color2;
+	text-decoration: none;
+}
+
+hr {
+	border: 1px solid $color2;
+}
+
+table {
+	border: 1px solid $color2;
+	margin-bottom: 15px;
+	border-collapse: collapse;
+}
+
+tr, td, th {
+	border: 1px solid $color2;
+	margin: 0;
+	padding: 0px 3px;
+	a {
+		text-decoration: none;
+		font-weight: bold;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	padding: 3px;
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+th {
+	background-color: $color2;
+	color: white;
+	text-align: center;
+}

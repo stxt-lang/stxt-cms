@@ -1,0 +1,20 @@
+@use "settings" as *;
+
+#index_content {
+	display:none;
+	@media (min-width: 750px) {
+		display:block;
+	}
+	
+	div.link {
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+		a.selected {
+			font-weight: bold;
+			background-color: $color3;
+			padding: 0.5rem 0.5rem 0.5rem 0;
+			margin-top: 0.5rem;
+			margin-bottom: 0.5rem;
+		}
+	}
+}

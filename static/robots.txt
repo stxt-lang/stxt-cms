@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /set
+
+Sitemap: https://stxt.dev/sitemap.xml

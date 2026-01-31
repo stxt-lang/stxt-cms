@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>Index</title>
+<script src="js/cookie.js"></script>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<script>
+	try
+	{
+		var lang = Cookies.get("lang");
+		if (lang && lang=="es") window.location.href = "es/index.html";
+		else window.location.href = "en/index.html";
+	}
+	catch (e)
+	{
+		window.location.href = "en/index.html";
+	}
+</script>
+</head>
+<body>
+	<noscript>
+		<a href="en/index.html">Click here to continue</a>
+	</noscript>
+</body>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+#parse("/init.vm")
+<html lang="${lang.get("lang")}">
+	<head>#parse("/head.vm")</head>
+	
+	<body>
+		#parse("/top_header.vm")
+		#parse("/top_bar.vm")
+		#parse("/main_content.vm")		
+		#parse("/footer.vm")		
+	</body>
+</html>

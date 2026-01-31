@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="Create Jar" name="SWB Jar">
+	<property file="packaging-build.properties" />
+	<target name="Create Jar" description="Create Jar">
+		<jar destfile="dist/swb-${version}.jar">
+			<zipfileset dir="bin">
+				<exclude name="test/**"/>
+				<exclude name="*.properties" />
+			</zipfileset>
+		</jar>
+	</target>
+</project>

@@ -1,0 +1,16 @@
+<div id="main_content" class="clearfix">
+	<article>
+		#parse("/navigation.vm")
+
+		#set($numPart = 0)
+		#foreach($node in ${doc.children})
+			#parse("/node.vm")
+		#end
+
+		#parse("/navigation.vm")
+  	</article>
+  
+	<aside id="index_content">
+		#parse("/main_content_index.vm")
+	</aside>
+</div>

@@ -1,0 +1,5 @@
+http-server
+
+node-sass web/scss -o web/static/css  --output-style expanded
+node-sass web/scss -o web/static/css  --output-style compressed
+node-sass web/scss -o web-out/css --output-style expanded

@@ -1,0 +1,29 @@
+#set($previous = "")
+#set($previous_ok = "")
+#set($next_ok = "")
+#set($encontrado = false)
+
+#if($index)
+	#foreach($node in $index.children)
+		#if(${node.normalizedName} == "link")
+			#if(${doc_name}==${node.getChild('page').getText()})
+				#set($encontrado = true)
+				#set($previous_ok = $previous)
+			#else
+				#if($encontrado && $next_ok == "")
+					#set($next_ok = $node)
+				#end
+			#end
+			#set($previous = $node)
+		#end
+	#end
+
+	<div class="column row book_nav clearfix">
+		#if($previous_ok != "")
+           	<a style="float:left;"	href="${previous_ok.getChild('page').getText()}" title="${previous_ok.text}">&#x25C4; ${previous_ok.text}</a>
+		#end
+		#if($next_ok != "")
+           	<a style="float:right;" href="${next_ok.getChild('page').getText()}" title="${next_ok.text}">${next_ok.text} &#x25BA;</a>
+		#end
+	</div>
+#end						

@@ -1,0 +1,65 @@
+@use "settings" as *;
+
+#main_content {
+	@media (min-width: 750px) {
+		article {
+			width: 60%;
+			float: left;
+		}
+		aside {
+			width: 40%; 
+			float: right;
+			padding-left: 2rem;
+		}
+	}
+	
+	aside {
+		h2 {
+			//text-decoration: underline;
+		}
+	}
+
+	background-color: #fff;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+	padding: 1em;
+	padding-top: 0.5em;
+	margin-top: 0;
+	
+	h1, h2, h3, h4 {
+		color: $color2;
+		font-weight: bold;
+	}
+	h1 {font-size: 1.9rem;}
+	h2 {font-size: 1.5rem;}
+	h3 {font-size: 1.1rem;}
+	h4 {font-size: 1.0rem;}
+	
+	.alert p, .assert p {
+		background-color: $color3;
+		text-align: center;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		padding: 0.7em;
+	}
+	
+	.alert p {
+		background-color: $alert;
+	}
+	
+	.assert ul, .alert ul {
+		background-color: $color3;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		padding: 1.7em;
+	}
+	
+	p {
+		text-align: justify;
+		line-height: 1.5rem;
+	}	
+	
+	div.preamble p
+	{
+		text-align: right;
+	}	
+}

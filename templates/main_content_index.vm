@@ -1,0 +1,7 @@
+#if($index)
+	<div class="d-none d-md-block">
+	#foreach($node in $index.children)
+		#parse("/node.vm")
+	#end
+	</div>
+#end

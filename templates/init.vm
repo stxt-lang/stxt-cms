@@ -1,0 +1,3 @@
+#set($meta = ${doc.getChild("metadata")})
+#set($nn = ${nav_lang.get("lang")})
+#set($lang = ${langs.get("pages_$nn")})

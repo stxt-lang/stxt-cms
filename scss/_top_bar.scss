@@ -1,0 +1,29 @@
+@use "settings" as *;
+
+.top-bar {
+	background-color: $color2;
+	
+	ul {
+		margin-top: 0;
+		margin-bottom: 0;
+		list-style: none;
+		padding-left: 0;
+		
+		li {
+			display: inline-block;
+			&.link_src {
+				float:right;
+				a {
+			    	color: $color3;
+				}
+			}
+		}		
+		a {
+			color: white;
+			font-weight: bold;
+			padding: 10px;
+			text-decoration: none;
+			display: inline-block;
+		}
+	}	
+}

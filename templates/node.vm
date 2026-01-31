@@ -1,0 +1,31 @@
+#if(${node.normalizedName} == "html")
+	${node.text}
+#elseif(${node.normalizedName} == "content" || ${node.normalizedName} == "text")
+	${wiki.render($node.text)}
+#elseif(${node.normalizedName} == "preamble")
+	<div class="preamble">${wiki.render($node.text)}</div>
+#elseif(${node.normalizedName} == "header")
+	<h1><a id="index_${numPart}"></a>$node.text</h1>
+	#parse("/table_of_content.vm")
+	#set($numPart = $numPart + 1)
+#elseif(${node.normalizedName} == "subheader")
+	<h2><a id="index_${numPart}"></a>$node.text</h2>
+	#set($numPart = $numPart + 1)
+#elseif(${node.normalizedName} == "subsubheader")
+	<h3><a id="index_${numPart}"></a>$node.text</h3>
+	#set($numPart = $numPart + 1)
+#elseif(${node.normalizedName} == "code")
+	<pre>${utils.escapeHtmlBold($node.text)}</pre>
+#elseif(${node.normalizedName} == "assert")
+	<div class="row">
+		<div class="assert">${wiki.render($node.text)}</div>
+	</div>
+#elseif(${node.normalizedName} == "alert")
+	<div class="row">
+		<div class="alert">${wiki.render($node.text)}</div>
+	</div>
+#elseif(${node.normalizedName} == "link")
+	<div class="link">
+		<a href="${node.getChild('page').getText()}" #if(${doc_name}==${node.getChild('page').getText()}) class="selected"  #end>${node.text}</a>
+	</div>
+#end

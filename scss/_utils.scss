@@ -1,0 +1,41 @@
+@use "settings" as *;
+
+/* **** */
+/* stxt */
+/* **** */
+
+span.stxt {
+	font-family: "Russo One", Courier, monospace;
+	color: $color1 !important;
+	font-weight: normal;
+}
+
+header {
+	span.stxt {
+		font-size: 1em;
+	}	
+}
+
+.top-bar {
+	span.stxt {
+		color: white !important;
+	}
+}
+
+.text-center {
+	text-align: center !important;
+}
+.float-left {
+	float: left;
+}
+.clearfix::before,
+.clearfix::after {
+	content: " ";
+	display: table;
+}
+.clearfix::after {
+	clear: both;
+}
+.hidden {
+	display: none !important;
+}

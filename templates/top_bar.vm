@@ -1,0 +1,9 @@
+<div class="top-bar">
+	<ul>
+		<li><a href="$indexPage" title="${lang.get("menu.hello")}">${lang.get("menu.hello")}</a></li>
+		<li><a href="lang-tutorial" title="${lang.get("menu.tutorial")}">${lang.get("menu.tutorial")}</a></li>
+		<li><a href="https://github.com/stxt-lang" target="_blank" title="${lang.get("menu.github")}" rel="noopener noreferrer">${lang.get("menu.github")}</a></li>
+		<li class="link_src"><a href="https://github.com/stxt-lang/stxt-web/blob/master/${lang.get("lang")}/${doc_name}.stxt" target="${doc_name}" title="File ${doc_name}.stxt">@STXT@</a></li>
+	</ul>
+</div>
+	

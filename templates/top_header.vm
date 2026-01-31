@@ -1,0 +1,21 @@
+<header id="main_header">
+    <div class="title">
+		<a href="$indexPage">@STXT@ - Semantic Text</a>
+	</div>
+	<div class="subtitle"><a href="index">${lang.get("title")}</a></div>
+	<ul>
+		<!--
+		<li><a href="contribute" title="${lang.get("menu.contrib")}" rel="nofollow">${lang.get("menu.contrib")}</a></li>
+		<li><b> | </b></li>
+		-->
+		
+		#if(${lang.get("lang")} == "es")
+			<li><b>${lang.get("menu.lang.es")}</b></li>
+			<li><a href="../${doc_name}" title="${lang.get("menu.lang.es")}"><i>${lang.get("menu.lang.en")}</i></a></li>
+		#end
+		#if(${lang.get("lang")} == "en")
+			<li><a href="./es/${doc_name}" title="${lang.get("menu.lang.es")}"><i>${lang.get("menu.lang.es")}</i></a></li>
+			<li><b>${lang.get("menu.lang.en")}</b></li>
+		#end
+	</ul>
+</header>

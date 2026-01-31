@@ -1,0 +1,11 @@
+@use "settings" as *;
+
+div.book_nav {
+	margin-top: 0.7em;
+	margin-bottom: 1em;	
+}
+
+div.book_nav a {
+	color: $color1;
+	text-decoration: none;
+}

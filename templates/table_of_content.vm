@@ -1,0 +1,19 @@
+#if(${doc_name.startsWith("stxt-")} || ${doc_name.startsWith("lang-")})
+	#set($numPartToc = 0)
+
+	#foreach($node in ${doc.children})
+		#if(${node.normalizedName} == "header")
+			<!--<h2><a href="#index_${numPartToc}">$node.text</a></h2>-->
+			#set($numPartToc = $numPartToc + 1)
+		#elseif(${node.normalizedName} == "subheader")
+			<a href="#index_${numPartToc}">$node.text</a><br>
+			#set($numPartToc = $numPartToc + 1)
+		#elseif(${node.normalizedName} == "subsubheader")
+			<!--<a href="#index_${numPartToc}" style="padding-left: 1em;">$node.text</a><br>-->
+			#set($numPartToc = $numPartToc + 1)
+		#end
+	#end
+#end
+
+
+
