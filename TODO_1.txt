@@ -1,3 +1,5 @@
+* Poner la especificación sólo en 1 sitio, no hace falta con claude, ya puede leer. 
+
 * system_path, user_path, local_path, execution_path
   stxt import -system|user|local file.stxt
   sudo stxt import -system file.stxt
