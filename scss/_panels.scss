@@ -15,6 +15,49 @@ pre {
 	}
 }
 
+// STXT syntax highlighting (Prism, custom grammar in static/js/prism-stxt.js).
+// Custom theme matching the site palette: blue node names, teal namespaces,
+// muted operators/comments, plain values.
+$stxt-accent: #1a7f6b;
+
+pre[class*="language-"] {
+	color: $black;
+
+	code {
+		background: none;
+		padding: 0;
+		color: inherit;
+	}
+
+	.token.comment {
+		color: #8a8a8a;
+		font-style: italic;
+	}
+
+	.token.node {
+		color: $color1;
+		font-weight: bold;
+	}
+
+	.token.operator {
+		color: #a0a0a0;
+	}
+
+	.token.namespace {
+		color: $stxt-accent;
+
+		.token.punctuation,
+		.token.operator {
+			color: #9bbdb5;
+		}
+
+		.token.important {
+			color: $stxt-accent;
+			font-weight: bold;
+		}
+	}
+}
+
 code {
 	background: $grey;
 	padding-left: 0.5rem;

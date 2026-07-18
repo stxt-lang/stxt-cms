@@ -15,7 +15,7 @@
 	<h3><a id="index_${numPart}"></a>$node.text</h3>
 	#set($numPart = $numPart + 1)
 #elseif(${node.normalizedName} == "code")
-	<pre>${utils.escapeHtml($node.text)}</pre>
+	<pre class="language-stxt"><code class="language-stxt">${utils.escapeHtml($node.text)}</code></pre>
 #elseif(${node.normalizedName} == "assert")
 	<div class="row">
 		<div class="assert">${wiki.render($node.text)}</div>

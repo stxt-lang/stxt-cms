@@ -1,1 +1,3 @@
 <footer>${lang.get("foot.1")}</footer>
+<script src="/js/prism-core.min.js"></script>
+<script src="/js/prism-stxt.js"></script>
