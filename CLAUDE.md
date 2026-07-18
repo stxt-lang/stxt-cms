@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **This project (`stxt-cms`)** and **`../stxt-web`**: free to read and edit.
 - **`../stxt-dev`**: read-only. **Never write, generate, or delete there** — the user regenerates it exclusively via `./generate.sh` (and the other scripts). Do not run `generate.sh`/`clean.sh`/`compile_sass.sh` to "rebuild"; propose changes and let the user generate.
 - **Git**: the user handles all commits and pushes, in every repo. Do not `git add`/`commit`/`push` unless explicitly asked.
+- **`../stxt-java`**: read-only reference — the source code of `lib/stxt-parser-0.1.0.jar` (the `dev.stxt` parser: `Parser`, `Node`, …). Consult it to see what those classes actually do when working here.
 
 ## What this is
 
