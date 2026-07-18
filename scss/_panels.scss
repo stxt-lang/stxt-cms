@@ -16,13 +16,15 @@ pre {
 }
 
 // STXT syntax highlighting (Prism, custom grammar in static/js/prism-stxt.js).
-// Custom theme matching the site palette: blue node names, teal namespaces,
-// muted operators/comments, plain values.
-$stxt-accent: #1a7f6b;
+// Colours mirror the stxt-vscode extension under VS Code's default Light theme,
+// so the portal and the editor look the same: navy node names + operators,
+// dark-red namespaces + values, green comments, plain block text.
+$stxt-node: #001080; // property / macro (node names, ':' and '>>')
+$stxt-namespace: #2a7ac9; // namespace (lighter blue, distinct from values)
+$stxt-string: #a31515; // string (inline values)
+$stxt-comment: #008000; // comment
 
 pre[class*="language-"] {
-	color: $black;
-
 	code {
 		background: none;
 		padding: 0;
@@ -30,31 +32,20 @@ pre[class*="language-"] {
 	}
 
 	.token.comment {
-		color: #8a8a8a;
-		font-style: italic;
+		color: $stxt-comment;
 	}
 
-	.token.node {
-		color: $color1;
-		font-weight: bold;
-	}
-
+	.token.node,
 	.token.operator {
-		color: #a0a0a0;
+		color: $stxt-node;
 	}
 
 	.token.namespace {
-		color: $stxt-accent;
+		color: $stxt-namespace;
+	}
 
-		.token.punctuation,
-		.token.operator {
-			color: #9bbdb5;
-		}
-
-		.token.important {
-			color: $stxt-accent;
-			font-weight: bold;
-		}
+	.token.value {
+		color: $stxt-string;
 	}
 }
 

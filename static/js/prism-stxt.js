@@ -7,9 +7,25 @@
  * and `#` starts a full-line comment. See ../stxt-vscode/stxt/src/core for the
  * authoritative parser this grammar mirrors (Constants: SEP_NODE ":",
  * SEP_TEXT_NODE ">>", COMMENT_CHAR "#").
+ *
+ * Token types are chosen to match the stxt-vscode extension's semantic tokens
+ * (see extension/TokenGeneratorObserver.ts) so the portal and the editor share
+ * one colour scheme: node names + operators = "property", namespaces =
+ * "namespace", inline values = "string", comments = "comment".
  */
 (function (Prism) {
 	Prism.languages.stxt = {
+		// A '>>' block: everything indented deeper than the header line (plus any
+		// blank lines) is LITERAL text and must never be tokenised, even when it
+		// contains ':' or '>>'. Indentation is the structure, so we anchor to the
+		// header's leading whitespace and match children that start with it plus
+		// at least one more whitespace char. The header line itself is kept out of
+		// the token (lookbehind = group 1) so it still gets node highlighting.
+		'block-text': {
+			pattern: /((^[ \t]*)[^\n]*?>>[ \t]*\r?\n)(?:\2[ \t]+.*(?:\r?\n|$)|[ \t]*\r?\n)*/m,
+			lookbehind: true,
+			greedy: true
+		},
 		// Full-line comment: (indentation) then '#' to end of line.
 		'comment': {
 			pattern: /(^[ \t]*)#.*/m,
@@ -21,17 +37,18 @@
 		'node': {
 			pattern: /(^[ \t]*)[^\s:()>][^\n:()>]*?(?=[ \t]*(?:\([^)\n]*\)[ \t]*)?(?::|>>))/m,
 			lookbehind: true,
-			alias: 'keyword'
+			alias: 'property'
 		},
-		// Namespace / annotation in parentheses: (a.b.c), (@stxt.template), (?), (1).
+		// Namespace / annotation in parentheses: (a.b.c), (@stxt.template),
+		// and schema markers such as (?) / (1). Coloured as one unit.
 		'namespace': {
-			pattern: /\([^)\n]*\)/,
-			inside: {
-				'punctuation': /[()]/,
-				'important': /@[a-z0-9]+/,
-				'operator': /\./,
-				'symbol': /[^().]+/
-			}
+			pattern: /\([^)\n]*\)/
+		},
+		// Inline value: everything after a ':' separator to end of line.
+		'value': {
+			pattern: /(:[ \t]*)[^\n]+/,
+			lookbehind: true,
+			alias: 'string'
 		},
 		// Node separators.
 		'operator': />>|:/
