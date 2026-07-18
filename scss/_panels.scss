@@ -15,22 +15,24 @@ pre {
 	}
 }
 
-// STXT syntax highlighting (Prism, custom grammar in static/js/prism-stxt.js).
-// Same token semantics as the stxt-vscode extension, but tuned to the portal
-// palette for a cohesive look: node names in the portal title blue ($color2),
-// namespaces in turquoise to stand apart, dark-red values, green comments.
+// Syntax highlighting (Prism). Shared: strip the inline <code> styling inside
+// a highlighted <pre> so tokens sit on the panel background.
+pre[class*="language-"] code {
+	background: none;
+	padding: 0;
+	color: inherit;
+}
+
+// STXT examples (grammar in static/js/prism-stxt.js). Token semantics match the
+// stxt-vscode extension, but the palette is tuned to the portal for a cohesive
+// look: node names in the portal title blue ($color2), namespaces in turquoise,
+// dark-red values, green comments.
 $stxt-node: $color2; // property / macro (node names, ':' and '>>') — portal title blue
 $stxt-namespace: #0a9396; // namespace (turquoise, distinct from node blue and values)
 $stxt-string: #a31515; // string (inline values)
 $stxt-comment: #008000; // comment
 
-pre[class*="language-"] {
-	code {
-		background: none;
-		padding: 0;
-		color: inherit;
-	}
-
+pre.language-stxt {
 	.token.comment {
 		color: $stxt-comment;
 	}
@@ -46,6 +48,34 @@ pre[class*="language-"] {
 
 	.token.value {
 		color: $stxt-string;
+	}
+}
+
+// EBNF grammar appendices (grammar in static/js/prism-ebnf.js). Deliberately a
+// DIFFERENT palette from STXT so it reads as a formal grammar, not an example:
+// purple rule names, olive literals, muted grey operators/punctuation/comments.
+$ebnf-rule: #8250df; // rule name being defined
+$ebnf-string: #8a6d00; // "terminal literals"
+$ebnf-muted: #999; // = | [] {} () and ; comments
+
+pre.language-ebnf {
+	.token.rule {
+		color: $ebnf-rule;
+		font-weight: bold;
+	}
+
+	.token.string {
+		color: $ebnf-string;
+	}
+
+	.token.operator,
+	.token.punctuation {
+		color: $ebnf-muted;
+	}
+
+	.token.comment {
+		color: $ebnf-muted;
+		font-style: italic;
 	}
 }
 
