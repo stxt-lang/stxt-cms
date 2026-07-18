@@ -79,6 +79,56 @@ pre.language-ebnf {
 	}
 }
 
+// Copy-to-clipboard button on code blocks (added by static/js/copy-code.js,
+// which wraps each highlighted <pre> in a .code-wrapper so the button stays
+// pinned even when the block scrolls horizontally).
+.code-wrapper {
+	position: relative;
+}
+
+.copy-code-button {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background: #fff;
+	color: #888;
+	cursor: pointer;
+	opacity: 0.55;
+	transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+	svg {
+		width: 1rem;
+		height: 1rem;
+		display: block;
+	}
+
+	&:hover,
+	&:focus {
+		opacity: 1;
+		color: $color2;
+		border-color: $color2;
+		outline: none;
+	}
+
+	&.copied {
+		opacity: 1;
+		color: #008000;
+		border-color: #008000;
+	}
+}
+
+.code-wrapper:hover .copy-code-button {
+	opacity: 1;
+}
+
 code {
 	background: $grey;
 	padding-left: 0.5rem;

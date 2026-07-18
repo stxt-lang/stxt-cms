@@ -2,3 +2,4 @@
 <script src="/js/prism-core.min.js"></script>
 <script src="/js/prism-stxt.js"></script>
 <script src="/js/prism-ebnf.js"></script>
+<script src="/js/copy-code.js"></script>
