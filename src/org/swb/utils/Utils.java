@@ -8,10 +8,6 @@ public class Utils
 	{
 		return StringEscapeUtils.escapeHtml(text);
 	}
-	public String escapeHtmlBold(String text)
-	{
-		return TextReplacer.replaceWithStrong(StringEscapeUtils.escapeHtml(text));
-	}
     public int parseInt(String text)
     {
         return Integer.parseInt(text);
