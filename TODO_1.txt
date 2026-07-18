@@ -1,3 +1,6 @@
+* En tutorial no se explican los comentarios!!!!!
+* Mejorar tutorial para explicar bien como hacer el entorno de trabajo, etc.
+
 * Poner la especificación sólo en 1 sitio, no hace falta con claude, ya puede leer. 
 
 * system_path, user_path, local_path, execution_path
