@@ -39,16 +39,19 @@
 			lookbehind: true,
 			alias: 'property'
 		},
-		// Namespace / annotation in parentheses: (a.b.c), (@stxt.template),
-		// and schema markers such as (?) / (1). Coloured as one unit.
-		'namespace': {
-			pattern: /\([^)\n]*\)/
-		},
-		// Inline value: everything after a ':' separator to end of line.
+		// Inline value: everything after the first ':' to end of line. Matched
+		// BEFORE 'namespace' so anything in the value that merely looks like a
+		// namespace — e.g. `Name: text (looks.like.ns)` — or a comment — e.g.
+		// `Name: text # not a comment` — stays part of the value, not re-coloured.
 		'value': {
 			pattern: /(:[ \t]*)[^\n]+/,
 			lookbehind: true,
 			alias: 'string'
+		},
+		// Namespace / annotation in parentheses in NAME position: (a.b.c),
+		// (@stxt.template), and schema markers such as (?) / (1).
+		'namespace': {
+			pattern: /\([^)\n]*\)/
 		},
 		// Node separators.
 		'operator': />>|:/
