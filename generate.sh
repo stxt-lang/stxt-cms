@@ -16,8 +16,8 @@ set -e
 # Ir al directorio donde está el script
 cd "$(dirname "$0")"
 
-# Compile sass
-sass scss:static/css --style=compressed
+# Compile sass (misma lógica que compile_sass.sh, fuente única de verdad)
+./compile_sass.sh
 
 # Ejecuta el programa Java con el classpath adecuado
 java -cp 'bin:lib/*' org.swb.Executor processor.properties main
