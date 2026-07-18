@@ -16,11 +16,11 @@ pre {
 }
 
 // STXT syntax highlighting (Prism, custom grammar in static/js/prism-stxt.js).
-// Colours mirror the stxt-vscode extension under VS Code's default Light theme,
-// so the portal and the editor look the same: navy node names + operators,
-// dark-red namespaces + values, green comments, plain block text.
-$stxt-node: #001080; // property / macro (node names, ':' and '>>')
-$stxt-namespace: #2a7ac9; // namespace (lighter blue, distinct from values)
+// Same token semantics as the stxt-vscode extension, but tuned to the portal
+// palette for a cohesive look: node names in the portal title blue ($color2),
+// namespaces in turquoise to stand apart, dark-red values, green comments.
+$stxt-node: $color2; // property / macro (node names, ':' and '>>') — portal title blue
+$stxt-namespace: #0a9396; // namespace (turquoise, distinct from node blue and values)
 $stxt-string: #a31515; // string (inline values)
 $stxt-comment: #008000; // comment
 
