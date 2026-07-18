@@ -1,5 +1,5 @@
 <footer>${lang.get("foot.1")}</footer>
-<script src="/js/prism-core.min.js"></script>
-<script src="/js/prism-stxt.js"></script>
-<script src="/js/prism-ebnf.js"></script>
-<script src="/js/copy-code.js"></script>
+<script src="/js/prism-core.min.js?v=${utils.version()}"></script>
+<script src="/js/prism-stxt.js?v=${utils.version()}"></script>
+<script src="/js/prism-ebnf.js?v=${utils.version()}"></script>
+<script src="/js/copy-code.js?v=${utils.version()}"></script>
