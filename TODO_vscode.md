@@ -1,5 +1,7 @@
 # Plugin VSCode
 
+* Configuración de preferencias. Por ejemplo modo desarrollador, por defecto no habilitado, que muestra lo actual del nodo.
+  En modo normal sólo se muestra la descripción del nodo si existe.
 * Eliminar freeze de node, no hace falta y molesta
 * Un @stxt.template con esto falla extraño (el error no está en la línea correcta):
 
