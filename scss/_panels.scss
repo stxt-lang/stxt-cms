@@ -39,8 +39,10 @@ pre.listing {
 // colour and weight so key+separator read as one unit; values/literals are magenta;
 // comments are green. Only EBNF operators/punctuation stay muted slate. Token
 // semantics still match the stxt-vscode extension.
-$stxt-node: $color2; // identifier — inline node names (STXT) + rule names (EBNF) — portal blue
-$stxt-block: #00a5ff; // '>>' text-block header — bright azure (its own hue, lighter than the key blue)
+// The two blues sit a small hue apart so key and block header separate without
+// either leaving "blue": the key leans true blue, the block header leans cyan.
+$stxt-node: #0d5cb6; // identifier — inline node names (STXT) + rule names (EBNF) — portal blue, nudged off $color2 (#0A6FAE) toward true blue
+$stxt-block: #00b2f0; // '>>' text-block header — bright azure, nudged toward cyan
 $stxt-namespace: #0a9396; // namespace / annotation in name position — turquoise
 $stxt-value: #d05a80; // value / literal string — magenta, a touch softer than the block azure's old hue
 $stxt-muted: #6a737d; // EBNF operators/punctuation — slate, so they recede
