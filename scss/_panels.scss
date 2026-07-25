@@ -35,12 +35,12 @@ pre.listing {
 
 // Syntax palette — ONE semantic scheme shared by STXT and EBNF so the two panels
 // read as a system. Keys (inline nodes / EBNF rules) lead the eye in bold blue;
-// the '>>' text-block header gets its own magenta; a separator takes its key's
-// colour so key+separator read as one unit; values/literals are terracotta;
+// the '>>' text-block header gets its own bright azure; a separator takes its key's
+// colour and weight so key+separator read as one unit; values/literals are terracotta;
 // comments are green. Only EBNF operators/punctuation stay muted slate. Token
 // semantics still match the stxt-vscode extension.
 $stxt-node: $color2; // identifier — inline node names (STXT) + rule names (EBNF) — portal blue
-$stxt-block: #d6336c; // '>>' text-block header — magenta (its own hue; blocks rarely carry a namespace so it won't clash with the turquoise)
+$stxt-block: #00a5ff; // '>>' text-block header — bright azure (its own hue, lighter than the key blue)
 $stxt-namespace: #0a9396; // namespace / annotation in name position — turquoise
 $stxt-value: #b06a3c; // value / literal string — calm terracotta (not error-red)
 $stxt-muted: #6a737d; // EBNF operators/punctuation — slate, so they recede
@@ -54,7 +54,7 @@ pre.language-stxt {
 		font-weight: 700;
 	}
 
-	// '>>' text-block header: bold like a node, but a distinct magenta so a text
+	// '>>' text-block header: bold like a node, but a distinct bright azure so a text
 	// block reads at a glance. Comes after .token.node (which it also matches via
 	// its alias) so this colour wins.
 	.token.block-node {
@@ -70,14 +70,16 @@ pre.language-stxt {
 		color: $stxt-value;
 	}
 
-	// Separators take their key's colour so key + separator read as one unit:
-	// ':' with the inline node (blue), '>>' with the block header (magenta).
+	// Separators take their key's colour *and* weight so key + separator read as
+	// one unit: ':' with the inline node (blue), '>>' with the block header (magenta).
 	.token.operator {
 		color: $stxt-node;
+		font-weight: 700;
 	}
 
 	.token.block-operator {
 		color: $stxt-block;
+		font-weight: 700;
 	}
 
 	.token.comment {
