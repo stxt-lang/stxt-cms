@@ -26,14 +26,17 @@ pre[class*="language-"] code {
 }
 
 // Syntax palette — ONE semantic scheme shared by STXT and EBNF so the two panels
-// read as a system: an identifier is blue in both, a value/literal is terracotta
-// in both, structure (operators, punctuation, comments) recedes into slate. Token
+// read as a system. Keys (inline nodes / EBNF rules) lead the eye in bold blue;
+// the '>>' text-block header gets its own magenta; a separator takes its key's
+// colour so key+separator read as one unit; values/literals are terracotta;
+// comments are green. Only EBNF operators/punctuation stay muted slate. Token
 // semantics still match the stxt-vscode extension.
 $stxt-node: $color2; // identifier — inline node names (STXT) + rule names (EBNF) — portal blue
-$stxt-block: #d6336c; // '>>' text-block header — magenta, its own hue (blocks rarely carry a namespace, so it won't clash with the turquoise)
+$stxt-block: #d6336c; // '>>' text-block header — magenta (its own hue; blocks rarely carry a namespace so it won't clash with the turquoise)
 $stxt-namespace: #0a9396; // namespace / annotation in name position — turquoise
 $stxt-value: #b06a3c; // value / literal string — calm terracotta (not error-red)
-$stxt-muted: #6a737d; // operators, punctuation and comments — slate, so they recede
+$stxt-muted: #6a737d; // EBNF operators/punctuation — slate, so they recede
+$stxt-comment: #008000; // comments — green, upright (no italic)
 
 // STXT examples (grammar in static/js/prism-stxt.js). Keys carry the weight (bold)
 // so they lead the eye; the '>>' block header additionally gets its own hue.
@@ -70,8 +73,7 @@ pre.language-stxt {
 	}
 
 	.token.comment {
-		color: $stxt-muted;
-		font-style: italic;
+		color: $stxt-comment;
 	}
 }
 
@@ -95,8 +97,7 @@ pre.language-ebnf {
 	}
 
 	.token.comment {
-		color: $stxt-muted;
-		font-style: italic;
+		color: $stxt-comment;
 	}
 }
 
