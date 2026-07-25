@@ -34,8 +34,9 @@
 		},
 		// Header name of a '>>' text block. Same shape as a plain node name but
 		// its separator is '>>'; kept as its own token (matched BEFORE 'node') so
-		// the portal can tint block headers a touch stronger than inline nodes.
-		// Carries the 'node'/'property' aliases so it still gets the base styling.
+		// the portal can give block headers their own colour (magenta) instead of
+		// the inline-node blue. Carries the 'node'/'property' aliases so it still
+		// falls back to node styling if the block colour is ever removed.
 		'block-node': {
 			pattern: /(^[ \t]*)[^\s:()>][^\n:()>]*?(?=[ \t]*(?:\([^)\n]*\)[ \t]*)?>>)/m,
 			lookbehind: true,

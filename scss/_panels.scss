@@ -25,30 +25,30 @@ pre[class*="language-"] code {
 	color: inherit;
 }
 
-// STXT examples (grammar in static/js/prism-stxt.js). Token semantics match the
-// stxt-vscode extension, but the palette is tuned to the portal for a cohesive
-// look: node names in the portal title blue ($color2), namespaces in turquoise,
-// dark-red values, green comments.
-$stxt-node: $color2; // property / macro (node names, ':' and '>>') — portal title blue
-$stxt-node-block: darken($color2, 14%); // '>>' text-block headers — same hue, a touch stronger
-$stxt-namespace: #0a9396; // namespace (turquoise, distinct from node blue and values)
-$stxt-string: #a31515; // string (inline values)
-$stxt-comment: #008000; // comment
+// Syntax palette — ONE semantic scheme shared by STXT and EBNF so the two panels
+// read as a system: an identifier is blue in both, a value/literal is terracotta
+// in both, structure (operators, punctuation, comments) recedes into slate. Token
+// semantics still match the stxt-vscode extension.
+$stxt-node: $color2; // identifier — inline node names (STXT) + rule names (EBNF) — portal blue
+$stxt-block: #d6336c; // '>>' text-block header — magenta, its own hue (blocks rarely carry a namespace, so it won't clash with the turquoise)
+$stxt-namespace: #0a9396; // namespace / annotation in name position — turquoise
+$stxt-value: #b06a3c; // value / literal string — calm terracotta (not error-red)
+$stxt-muted: #6a737d; // operators, punctuation and comments — slate, so they recede
 
+// STXT examples (grammar in static/js/prism-stxt.js). Keys carry the weight (bold)
+// so they lead the eye; the '>>' block header additionally gets its own hue.
 pre.language-stxt {
-	.token.comment {
-		color: $stxt-comment;
-	}
-
-	.token.node,
-	.token.operator {
+	.token.node {
 		color: $stxt-node;
+		font-weight: 700;
 	}
 
-	// '>>' block header name: same hue as a node, slightly stronger. Wins over
-	// the .token.node rule above because block headers carry both classes.
+	// '>>' text-block header: bold like a node, but a distinct magenta so a text
+	// block reads at a glance. Comes after .token.node (which it also matches via
+	// its alias) so this colour wins.
 	.token.block-node {
-		color: $stxt-node-block;
+		color: $stxt-block;
+		font-weight: 700;
 	}
 
 	.token.namespace {
@@ -56,34 +56,40 @@ pre.language-stxt {
 	}
 
 	.token.value {
-		color: $stxt-string;
+		color: $stxt-value;
+	}
+
+	.token.operator {
+		color: $stxt-muted;
+	}
+
+	.token.comment {
+		color: $stxt-muted;
+		font-style: italic;
 	}
 }
 
-// EBNF grammar appendices (grammar in static/js/prism-ebnf.js). Deliberately a
-// DIFFERENT palette from STXT so it reads as a formal grammar, not an example:
-// purple rule names, olive literals, muted grey operators/punctuation/comments.
-$ebnf-rule: #8250df; // rule name being defined
-$ebnf-string: #8a6d00; // "terminal literals"
-$ebnf-muted: #999; // = | [] {} () and ; comments
-
+// EBNF grammar appendices (grammar in static/js/prism-ebnf.js). Same palette as
+// STXT: rule names share the identifier blue, terminal literals share the value
+// terracotta, operators/punctuation/comments share the slate. Rules stay bold so
+// the defined symbol still stands out as the grammar's structural anchor.
 pre.language-ebnf {
 	.token.rule {
-		color: $ebnf-rule;
-		font-weight: bold;
+		color: $stxt-node;
+		font-weight: 700;
 	}
 
 	.token.string {
-		color: $ebnf-string;
+		color: $stxt-value;
 	}
 
 	.token.operator,
 	.token.punctuation {
-		color: $ebnf-muted;
+		color: $stxt-muted;
 	}
 
 	.token.comment {
-		color: $ebnf-muted;
+		color: $stxt-muted;
 		font-style: italic;
 	}
 }
