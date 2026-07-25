@@ -59,8 +59,14 @@ pre.language-stxt {
 		color: $stxt-value;
 	}
 
+	// Separators take their key's colour so key + separator read as one unit:
+	// ':' with the inline node (blue), '>>' with the block header (magenta).
 	.token.operator {
-		color: $stxt-muted;
+		color: $stxt-node;
+	}
+
+	.token.block-operator {
+		color: $stxt-block;
 	}
 
 	.token.comment {

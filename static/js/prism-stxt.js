@@ -63,7 +63,10 @@
 		'namespace': {
 			pattern: /\([^)\n]*\)/
 		},
-		// Node separators.
-		'operator': />>|:/
+		// Node separators, split into two tokens so each can share its key's
+		// colour and read as one unit: '>>' pairs with the magenta block header,
+		// ':' with the blue inline node. ('>>' must be tried before ':'.)
+		'block-operator': />>/,
+		'operator': /:/
 	};
 }(Prism));
