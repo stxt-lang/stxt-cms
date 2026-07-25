@@ -18,11 +18,19 @@ pre {
 }
 
 // Syntax highlighting (Prism). Shared: strip the inline <code> styling inside
-// a highlighted <pre> so tokens sit on the panel background.
-pre[class*="language-"] code {
+// a block <pre> so tokens (or plain listing text) sit on the panel background.
+pre[class*="language-"] code,
+pre.listing code {
 	background: none;
 	padding: 0;
 	color: inherit;
+}
+
+// Listing blocks: preformatted text that is NOT STXT (whitespace diagrams, other
+// formats, console output). Deliberately unhighlighted — same panel as the code
+// blocks, plain body-ink text, so it reads as verbatim text rather than syntax.
+pre.listing {
+	color: $black;
 }
 
 // Syntax palette — ONE semantic scheme shared by STXT and EBNF so the two panels

@@ -18,6 +18,8 @@
 	<pre class="language-stxt"><code class="language-stxt">${utils.escapeHtml($node.text)}</code></pre>
 #elseif(${node.normalizedName} == "grammar")
 	<pre class="language-ebnf"><code class="language-ebnf">${utils.escapeHtml($node.text)}</code></pre>
+#elseif(${node.normalizedName} == "listing")
+	<pre class="listing"><code>${utils.escapeHtml($node.text)}</code></pre>
 #elseif(${node.normalizedName} == "assert")
 	<div class="row">
 		<div class="assert">${wiki.render($node.text)}</div>

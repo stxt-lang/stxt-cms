@@ -1,8 +1,9 @@
 /*
- * Adds a "copy to clipboard" button to every highlighted code block
- * (<pre class="language-*">), for both STXT and EBNF blocks. Self-hosted, no
- * dependencies. Runs after Prism; copying uses the <code> element's textContent
- * so the copied text is the clean source, without highlight markup.
+ * Adds a "copy to clipboard" button to every preformatted block: the highlighted
+ * ones (<pre class="language-*">, STXT and EBNF) and the plain-text listings
+ * (<pre class="listing">, not highlighted). Self-hosted, no dependencies. Runs
+ * after Prism; copying uses the <code> element's textContent so the copied text
+ * is the clean source, without highlight markup.
  */
 (function () {
 	var isEs = (document.documentElement.lang || 'en').toLowerCase().indexOf('es') === 0;
@@ -72,7 +73,7 @@
 	}
 
 	function init() {
-		var pres = document.querySelectorAll('pre[class*="language-"]');
+		var pres = document.querySelectorAll('pre[class*="language-"], pre.listing');
 		for (var i = 0; i < pres.length; i++) { addButton(pres[i]); }
 	}
 
