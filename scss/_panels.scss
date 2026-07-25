@@ -36,13 +36,13 @@ pre.listing {
 // Syntax palette — ONE semantic scheme shared by STXT and EBNF so the two panels
 // read as a system. Keys (inline nodes / EBNF rules) lead the eye in bold blue;
 // the '>>' text-block header gets its own bright azure; a separator takes its key's
-// colour and weight so key+separator read as one unit; values/literals are terracotta;
+// colour and weight so key+separator read as one unit; values/literals are magenta;
 // comments are green. Only EBNF operators/punctuation stay muted slate. Token
 // semantics still match the stxt-vscode extension.
 $stxt-node: $color2; // identifier — inline node names (STXT) + rule names (EBNF) — portal blue
 $stxt-block: #00a5ff; // '>>' text-block header — bright azure (its own hue, lighter than the key blue)
 $stxt-namespace: #0a9396; // namespace / annotation in name position — turquoise
-$stxt-value: #b06a3c; // value / literal string — calm terracotta (not error-red)
+$stxt-value: #d05a80; // value / literal string — magenta, a touch softer than the block azure's old hue
 $stxt-muted: #6a737d; // EBNF operators/punctuation — slate, so they recede
 $stxt-comment: #008000; // comments — green, upright (no italic)
 
@@ -89,7 +89,7 @@ pre.language-stxt {
 
 // EBNF grammar appendices (grammar in static/js/prism-ebnf.js). Same palette as
 // STXT: rule names share the identifier blue, terminal literals share the value
-// terracotta, operators/punctuation/comments share the slate. Rules stay bold so
+// magenta, operators/punctuation/comments share the slate. Rules stay bold so
 // the defined symbol still stands out as the grammar's structural anchor.
 pre.language-ebnf {
 	.token.rule {
