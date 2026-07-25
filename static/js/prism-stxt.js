@@ -32,6 +32,15 @@
 			lookbehind: true,
 			greedy: true
 		},
+		// Header name of a '>>' text block. Same shape as a plain node name but
+		// its separator is '>>'; kept as its own token (matched BEFORE 'node') so
+		// the portal can tint block headers a touch stronger than inline nodes.
+		// Carries the 'node'/'property' aliases so it still gets the base styling.
+		'block-node': {
+			pattern: /(^[ \t]*)[^\s:()>][^\n:()>]*?(?=[ \t]*(?:\([^)\n]*\)[ \t]*)?>>)/m,
+			lookbehind: true,
+			alias: ['node', 'property']
+		},
 		// Node name at the start of a line, up to its ':' or '>>' separator
 		// (an optional namespace in parentheses may sit between them).
 		'node': {

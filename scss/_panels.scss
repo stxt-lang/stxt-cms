@@ -30,6 +30,7 @@ pre[class*="language-"] code {
 // look: node names in the portal title blue ($color2), namespaces in turquoise,
 // dark-red values, green comments.
 $stxt-node: $color2; // property / macro (node names, ':' and '>>') — portal title blue
+$stxt-node-block: darken($color2, 14%); // '>>' text-block headers — same hue, a touch stronger
 $stxt-namespace: #0a9396; // namespace (turquoise, distinct from node blue and values)
 $stxt-string: #a31515; // string (inline values)
 $stxt-comment: #008000; // comment
@@ -42,6 +43,12 @@ pre.language-stxt {
 	.token.node,
 	.token.operator {
 		color: $stxt-node;
+	}
+
+	// '>>' block header name: same hue as a node, slightly stronger. Wins over
+	// the .token.node rule above because block headers carry both classes.
+	.token.block-node {
+		color: $stxt-node-block;
 	}
 
 	.token.namespace {
