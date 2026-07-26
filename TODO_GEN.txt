@@ -1,3 +1,14 @@
+----
+Java
+----
+
+* ENUM Para tipos
+* Pasar cambios a clases java (errores, etc.)
+
+----------------------
+TODO General a revisar
+----------------------
+
 * STXT Logo: incluir en portal
 * Mejorar tutorial para explicar bien como hacer el entorno de trabajo, etc.
 
@@ -594,3 +605,22 @@ STX2HTML (@stxt.transforms):
         Template >>
             <h1>{{text}}</h1>
             {{childs}}
+
+            
+* T2: Transformation To xxx
+	Directa a xml
+	Directa a yaml
+	Directa a html
+           
+            
+==============================
+Continuar slots o deprecated??
+==============================
+
+* Recuperación de slots
+* Render
+* Gramática de slots y validación
+* Ejemplos de slots con transformaciones
+* Revisar indentación con slots
+* ...
+
