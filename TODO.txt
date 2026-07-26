@@ -4,6 +4,12 @@ Java
 
 * ENUM Para tipos, MARKDOWN
 * Pasar cambios a clases java (errores, etc.)
+* Node tiene una referencia a parent, y no puede tener 2 parents! si se añade a otro parent petará hasta que se elimine del parent y del hijo.
+  Quizá algún método de addChild que también modifique el hijo si no tiene parent. No hace falta freeze con esto.
+* Número de línea no sea obligatorio al crear un Node
+* Método fácil de addChild(name, value), addChild(name,value,isText), addchild(name,value,isText,namespace),...
+* Método fácil de añadir un texto directamente con muchas líneas en un nodo texto
+* Empezar a preparar para Maven
 
 -------------
 Plugin VSCode
