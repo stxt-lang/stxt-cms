@@ -1,7 +1,9 @@
+VSCode
 * Tipo MARKDOWN
+* Tabs y espacios correctos
+* Hijos que no existen deben dar error
+
 * STXT Logo: incluir en portal
-* En tutorial no se explican los comentarios!!!!!
-* CSS y js con timestamp de generación o sha1
 * Mejorar tutorial para explicar bien como hacer el entorno de trabajo, etc.
 
 * Poner la especificación sólo en 1 sitio, no hace falta con claude, ya puede leer. 
