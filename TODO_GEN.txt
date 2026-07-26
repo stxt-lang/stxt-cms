@@ -5,6 +5,20 @@ Java
 * ENUM Para tipos
 * Pasar cambios a clases java (errores, etc.)
 
+
+-------------
+Plugin VSCode
+-------------
+
+* Eliminar freeze de node, no hace falta y molesta
+* Configuración de preferencias. Por ejemplo modo desarrollador, por defecto no habilitado, que muestra lo actual del nodo.
+  En modo normal sólo se muestra la descripción del nodo si existe.
+* La descripción del namespace vendrá en `Namespace`, claro :-D
+* console.log a logger.info(), etc.
+* Parseo en proyecto node separado
+* Goto (click) para ir a la definición del schema
+
+
 ----------------------
 TODO General a revisar
 ----------------------
