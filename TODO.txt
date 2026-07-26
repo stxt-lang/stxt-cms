@@ -2,9 +2,8 @@
 Java
 ----
 
-* ENUM Para tipos
+* ENUM Para tipos, MARKDOWN
 * Pasar cambios a clases java (errores, etc.)
-
 
 -------------
 Plugin VSCode
@@ -23,7 +22,7 @@ Plugin VSCode
 TODO General a revisar
 ----------------------
 
-* STXT Logo: incluir en portal
+* STXT Logo.html: incluir en portal (se ha hecho ya un intento sin éxito)
 * Mejorar tutorial para explicar bien como hacer el entorno de trabajo, etc.
 
 * system_path, user_path, local_path, execution_path
@@ -51,23 +50,6 @@ roots por defecto de StxtPaths
 --root sirve para instalaciones personalizadas
 
 No: no mezclar --system con STXT_PATH, ni hacer magia.
-
-
-Componentes: xxx
-Filter: name(lang, es): lessThan(nodename,3)
-Template >>
-
-
-
-
-* Parser con namespace
-* Hacer todas las páginas:
-	Revisar especificación lang
-	Revisar especificiación schema
-	
-Github
-* Una plantilla de CI (GitHub Actions) para JS + Python + Java (github/mombiela/stxt)
-* Un .editorconfig para tener estilos consistentes en todo el repo (github/mombiela/stxt)
 
 ===
 Web
@@ -186,52 +168,6 @@ Herramientas
 	IDE's
 	Online Editor
 	
-
-Oswald: Esta es una excelente alternativa. Es una fuente sans-serif rediseñada y optimizada para pantallas digitales. Es estrecha, enérgica y tiene una presencia fuerte, pero mantiene un aire profesional y serio.
-Bebas Neue: Una opción muy popular para titulares. Es una fuente sans-serif de caja alta, con líneas limpias y un peso considerable que la hace muy contundente sin perder seriedad.
-Anton: Similar en estilo condensado y audaz a Russo One, Anton ofrece un impacto visual significativo, ideal para un lenguaje que necesita ser notado y tomado en serio.
-Archivo Narrow (en sus pesos Bold o Black): Ofrece una sensación más moderna y técnica, manteniendo la robustez y legibilidad que necesitas para un sistema lingüístico. 
-
-* Tipo por defecto: si tiene childs -> EMPTY, si no tiene childs INLINE_TEXT
-* nombre(namespace)[cardinal]  (representa en tabla siempre min,max), parecido a NUMBER, etc.
-	Example [*]
-	Example [?]
-* CASE-SENSITIVE para nombres!!
-* INLINE TEXT
-* MULTILINE TEXT 
-* INLINE TEXT ['']
-* MULTILINE TEXT[""] 
-* Namespace con @normativo, @especial, @privado... sin @ es estándar
-* Falta validar nombre namespace
-* Por defecto un nodo es empty!! Eso significa que necesita hijos
-* Trim espacios intermedios de nombres hasta 1!! Tabs también espacios!
-* Un documento entero puede tener mezcla o sólo hay problemas en la misma línea?
-* LANG: Se permite esto LANG[yaml], LANG[markdown], LANG[html], LANG[javascript]
-* CODE: Sin lang
-* Se podría hacer también: BOOLEAN, NUMBER, UUID, BASE64, HEX, BINARY 
-* Documentar en 4.* que el nombre con estilo recomendado es 
-	xxxx (@namespace): value
-	xxxx: value o 
-	xxxx: 
-* Revisar documentación! Cambian cosas!
-* Comentarios: eliminar con normalización de espacios, son sólo para el texto "en bruto"
-* stxt validate, stxt trim, stxt normalize (igual que trim), stxt validate, stxt import-schema (stxt -is), stxt transform -pdf, stxt import-transform (stxt -it)
-* carpeta local del usuario: normalmente /home/nombredeusuario/.stxt o C:\Users\nombredeusuario\.stxt
-	./schema:
-		dev.stxt.stxt (namespace dev.stxt)
-		org.apache.docs.stxt (namespace org.apache.docs)
-		com.google.docs.stxt
-	./transform
-		html
-			org.aapache.docs
-		yaml
-		xml
-
-STXT: Human-first
-STXT: Built for humans. Reliable for machines.
-Hacer intro de filosofia
-Hacer página entera filosofia
-
 Contactar Amaris!! Patrocinador/Impulsor
 	CMS: partner o patrocinador o colaborador o mentor o soci tecnològic o impulsora o sponsor o protector
 	APADRINAR!! Amaris es el padrino del lenguaje y lo hace crecer, cuida, etc.
@@ -280,19 +216,6 @@ Otras ideas a revisar
 * Node con npm stxt
 * Python con pip stxt
 * Correo: contact@stxt.dev
-* Dominios y aplicaciones
-	* ns.stxt.dev          → Repositorio de definiciones
-	* stxt.dev             → Landing + visión del proyecto
-	* spec.stxt.dev        → Especificación oficial
-	* docs.stxt.dev        → Documentación y tutoriales
-	* play.stxt.dev        → Playground (si lo haces)
-	* api.stxt.dev         → API REST del parser o servicios
-	* cli.stxt.dev         → Info del CLI e instaladores
-	* plugins.stxt.dev     → Extensiones de editores
-	* ai.stxt.dev          → Integraciones con IA
-	* lab.stxt.dev         → Experimentos	
-	* org.stxt.dev         → Sugerencias, lenguaje, etc.
-
 * GTM o Patrocinadores
 
 ===============
@@ -517,6 +440,14 @@ Esto ya no es esencial para lanzamiento, pero sí útil en equipos grandes.
 
 
 
+* Recuperación de slots
+* Render
+* Gramática de slots y validación
+* Ejemplos de slots con transformaciones
+* Revisar indentación con slots
+* ...
+
+
 ========================================================================================================================================
 @stxt.slots: Deprecated o en revisión. Después de hacer pruebas, parace demasiado verboso para hacer xml o yaml. Mirar proyecto @stxt.t2
 ========================================================================================================================================
@@ -627,14 +558,5 @@ STX2HTML (@stxt.transforms):
 	Directa a html
            
             
-==============================
-Continuar slots o deprecated??
-==============================
 
-* Recuperación de slots
-* Render
-* Gramática de slots y validación
-* Ejemplos de slots con transformaciones
-* Revisar indentación con slots
-* ...
 
