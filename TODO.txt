@@ -11,11 +11,17 @@ Java
 * Método fácil de añadir un texto directamente con muchas líneas en un nodo texto
 * Empezar a preparar para Maven
 
+* Versión 0.6.0
+	* Node (Abstract) con getName, CanonicalName, etc..., NodeInline (con addChild), NodeTextBlock (sin método para addChilds, con método para setTextBlock con un String,...)
+	* node.addInlineChild(name,ns?,value?) -> Node;
+	* node.addTextChild(name,ns?,textLines?) -> Node
+	* parent enlazado, si ya tiene no se puede volver a enlazar en otro, etc. Aseguramos integridad
+	* ...
+
 -------------
 Plugin VSCode
 -------------
 
-* Eliminar freeze de node, no hace falta y molesta
 * Configuración de preferencias. Por ejemplo modo desarrollador, por defecto no habilitado, que muestra lo actual del nodo.
   En modo normal sólo se muestra la descripción del nodo si existe.
 * La descripción del namespace vendrá en `Namespace`, claro :-D
