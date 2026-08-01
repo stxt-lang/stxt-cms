@@ -2,14 +2,11 @@
 Java
 ----
 
-* ENUM Para tipos, MARKDOWN
-* Pasar cambios a clases java (errores, etc.)
 * Node tiene una referencia a parent, y no puede tener 2 parents! si se añade a otro parent petará hasta que se elimine del parent y del hijo.
   Quizá algún método de addChild que también modifique el hijo si no tiene parent. No hace falta freeze con esto.
 * Número de línea no sea obligatorio al crear un Node
 * Método fácil de addChild(name, value), addChild(name,value,isText), addchild(name,value,isText,namespace),...
 * Método fácil de añadir un texto directamente con muchas líneas en un nodo texto
-* Empezar a preparar para Maven
 
 * Versión 0.6.0
 	* Node (Abstract) con getName, CanonicalName, etc..., NodeInline (con addChild), NodeTextBlock (sin método para addChilds, con método para setTextBlock con un String,...)
@@ -26,14 +23,18 @@ Plugin VSCode
   En modo normal sólo se muestra la descripción del nodo si existe.
 * La descripción del namespace vendrá en `Namespace`, claro :-D
 * console.log a logger.info(), etc.
-* Parseo en proyecto node separado
 * Goto (click) para ir a la definición del schema
+
+===
+CLI
+===
+
+Mirar apartado CLI
 
 ----------------------
 TODO General a revisar
 ----------------------
 
-* Eliminar freeze
 * Añadir métodos para modificar todo
 	* Valores
 	* Texto
