@@ -22,7 +22,6 @@ Plugin VSCode
 * Configuración de preferencias. Por ejemplo modo desarrollador, por defecto no habilitado, que muestra lo actual del nodo.
   En modo normal sólo se muestra la descripción del nodo si existe.
 * Goto (click) para ir a la definición del schema
-* Qué hacer si se abre un fichero y no hay esquemas en ninguna parte? Error, los buscamos arriba, los buscamos en usuario, o directamente no buscamos?
 
 ===
 CLI
