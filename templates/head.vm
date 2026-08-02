@@ -18,9 +18,6 @@
 
 	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
     <link rel="stylesheet" href="/css/site.css?v=${utils.assetHash('/css/site.css')}">
-    
-    
-    
 		
 	#if(${lang.get("lang")} == "en")
 		<link rel="alternate" hreflang="es" href="https://stxt.dev/es/${doc_name}" />
