@@ -21,13 +21,15 @@
 	}
 	
 	@media (max-width: 450px) {
-		h1 {
+		padding: 0 10px;
+
+		.title {
 			font-size: 1.7rem;
 		}
-		h2 {
-			display:none;
+		.subtitle {
+			display: none;
 		}
-	}	
+	}
 	
 	a {
 		color: $black;
