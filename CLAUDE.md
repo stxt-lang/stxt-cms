@@ -1,79 +1,79 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Este archivo proporciona orientación a Claude Code (claude.ai/code) cuando se trabaja con el código de este repositorio.
 
-## Working norms (session rules)
+## Normas de trabajo (reglas de la sesión)
 
-- **This project (`stxt-cms`)** and **`../stxt-web`**: free to read and edit.
-- **`../stxt-dev`**: read-only. **Never write, generate, or delete there** — the user regenerates it exclusively via `./generate.sh` (and the other scripts). Do not run `generate.sh`/`clean.sh`/`compile_sass.sh` to "rebuild"; propose changes and let the user generate.
-- **Git**: the user handles all commits and pushes, in every repo. Do not `git add`/`commit`/`push` unless explicitly asked.
-- **`../stxt-java`**: read-only reference — the source code of `lib/stxt-parser-0.1.0.jar` (the `dev.stxt` parser: `Parser`, `Node`, …). Consult it to see what those classes actually do when working here.
+- **Este proyecto (`stxt-cms`)** y **`../stxt-web`**: libres para leer y editar.
+- **`../stxt-dev`**: solo lectura. **Nunca escribir, generar ni borrar allí** — el usuario lo regenera exclusivamente mediante `./generate.sh` (y los demás scripts). No ejecutar `generate.sh`/`clean.sh`/`compile_sass.sh` para «reconstruir»; proponer cambios y dejar que el usuario genere.
+- **Git**: el usuario gestiona todos los commits y pushes en cada repositorio. No ejecutar `git add`/`commit`/`push` salvo que se indique explícitamente.
+- **`../stxt-java`**: referencia solo de lectura — el código fuente de `lib/stxt-parser-0.1.0.jar` (el analizador `dev.stxt`: `Parser`, `Node`, …). Consultarlo para ver lo que hacen realmente estas clases al trabajar aquí.
 
-## What this is
+## Qué es esto
 
-`stxt-cms` (internal package `org.swb`, "Semantic Web Builder") is a small Java static-site generator that builds the STXT language website/book. It reads `.stxt` content files, renders them through Velocity templates into HTML, compiles SCSS, and writes the finished site to a sibling output directory. It is a build tool with **no server component of its own** — the generated site is served with `http-server`.
+`stxt-cms` (paquete interno `org.swb`, «Semantic Web Builder») es un pequeño generador de sitios estáticos en Java que construye la web/libro del lenguaje STXT. Lee archivos de contenido `.stxt`, los renderiza mediante plantillas Velocity a HTML, compila SCSS y escribe el sitio terminado en un directorio de salida hermano. Es una herramienta de compilación sin **ningún componente de servidor propio** — el sitio generado se sirve con `http-server`.
 
-The engine is generic: what it does is entirely driven by [processor.properties](processor.properties), a declarative pipeline of named commands. Changing the build means editing that file, not the Java.
+El motor es genérico: lo que hace depende por completo de [processor.properties](processor.properties), un pipeline declarativo de comandos con nombre. Cambiar la compilación significa editar ese archivo, no Java.
 
-## Repository layout of inputs/outputs
+## Estructura del repositorio: entradas y salidas
 
-Paths are relative to this project and defined at the top of [processor.properties](processor.properties):
+Las rutas son relativas a este proyecto y se definen en la parte superior de [processor.properties](processor.properties):
 
-- **`../stxt-web`** (`$web_pages`) — Source content, one `.stxt` file per page, in `en/` and `es/`. This is a separate git repo with its own `CLAUDE.md` describing the STXT language and content conventions. Read it before touching content or the `dev.stxt.website` document format.
-- **`../stxt-dev`** (`$web_out`) — Generated output site (git-ignored territory; produced by the build, `es/` under a subfolder, English at root). Served on port 8080.
-- **[static/](static/)** — Static assets (incl. compiled `static/css/`) copied verbatim into the output.
-- **[scss/](scss/)** — Sass sources compiled to `static/css/` before generation.
-- **[templates/](templates/)** — Velocity templates (`.vm`). `page.vm` is the entry template.
-- **[lang/](lang/)** — Per-language i18n property files (`pages_es.properties`, `pages_en.properties`) with menu/footer strings and the `lang` code.
+- **`../stxt-web`** (`$web_pages`) — contenido fuente, un archivo `.stxt` por página, en `en/` y `es/`. Es un repositorio Git aparte con su propio `CLAUDE.md` que describe el lenguaje STXT y las convenciones de contenido. Léelo antes de tocar el contenido o el formato del documento `dev.stxt.website`.
+- **`../stxt-dev`** (`$web_out`) — sitio generado (territorio ignorado por Git; producido por la compilación, `es/` bajo una subcarpeta y el inglés en la raíz). Se sirve en el puerto 8080.
+- **[static/](static/)** — recursos estáticos (incluido el `static/css/` compilado) copiados literalmente en la salida.
+- **[scss/](scss/)** — fuentes Sass compiladas a `static/css/` antes de la generación.
+- **[templates/](templates/)** — plantillas Velocity (`.vm`). `page.vm` es la plantilla de entrada.
+- **[lang/](lang/)** — archivos de propiedades i18n por idioma (`pages_es.properties`, `pages_en.properties`) con textos de menú/pie y el código `lang`.
 
-## Commands
+## Comandos
 
-The `.sh` wrappers re-launch themselves in Konsole when not run from a terminal; the real work is the last line of each. From the project root:
+Los wrappers `.sh` se vuelven a lanzar en Konsole cuando no se ejecutan desde un terminal; el trabajo real está en la última línea de cada uno. Desde la raíz del proyecto:
 
 ```bash
-# Full build: compile SCSS, then run the "main" pipeline -> ../stxt-dev
+# Compilación completa: compilar SCSS y luego ejecutar el pipeline «main» -> ../stxt-dev
 ./generate.sh
-# equivalently:
+# de forma equivalente:
 sass scss:static/css --style=compressed
 java -cp 'bin:lib/*' org.swb.Executor processor.properties main
 
-# Compile SCSS only
+# Solo compilar SCSS
 ./compile_sass.sh          # sass scss:static/css --style=compressed
 
-# Delete the output directory (runs the "clean" pipeline)
+# Borrar el directorio de salida (ejecuta el pipeline «clean»)
 ./clean.sh                 # java -cp 'bin:lib/*' org.swb.Executor processor.properties clean
 
-# Serve the generated site (from ../stxt-dev on :8080)
+# Servir el sitio generado (desde ../stxt-dev en :8080)
 ./start_server.sh          # http-server . -p 8080 -c-1
 ```
 
-`Executor` takes two args: the properties file (default `processor.properties`) and the pipeline name / command list to run (default `main`). Compilation is done by Eclipse (JDT) into `bin/` — there is no Maven/Gradle/Ant build for the Java itself; `packaging-build.xml` only jars `bin/` for distribution. Dependencies are the loose jars in [lib/](lib/) (Velocity 1.7, commonmark, jackson, commons-*, and `stxt-parser-0.1.0.jar`). There is no test suite; several classes carry a `main()` for ad-hoc manual checks (e.g. `WikiRender`, `VelocityUtils`).
+`Executor` acepta dos argumentos: el archivo de propiedades (por defecto `processor.properties`) y el nombre del pipeline o la lista de comandos a ejecutar (por defecto `main`). La compilación se realiza con Eclipse (JDT) en `bin/` — no existe una build con Maven/Gradle/Ant para Java; `packaging-build.xml` solo empaqueta `bin/` para distribución. Las dependencias son los jars sueltos de [lib/](lib/) (Velocity 1.7, commonmark, jackson, commons-*, y `stxt-parser-0.1.0.jar`). No hay suite de pruebas; varias clases llevan un `main()` para comprobaciones manuales ad hoc (por ejemplo, `WikiRender`, `VelocityUtils`).
 
-## Architecture: the processor pipeline
+## Arquitectura: el pipeline de procesamiento
 
-The whole system is a **generic command runner** ([Executor.java](src/org/swb/Executor.java)) over an implicit shared context:
+Todo el sistema es un **ejecutor de comandos genérico** ([Executor.java](src/org/swb/Executor.java)) sobre un contexto compartido implícito:
 
-1. A pipeline (e.g. `main=`) in `processor.properties` is a comma-separated list of **command names**.
-2. For each command name `X`, the value `X=SomeType` names a Java class in `org.swb.processor`, and all `X.*` keys become that instance's config (`X.dir`, `X.todir`, `X.out`, …). `Executor` reflectively instantiates `org.swb.processor.<Type>` and calls `init(name, config)`.
-3. All processors then run in order, sharing a single `Map<String,Object> context`. Processors communicate purely through named context slots: a `Read*` writes its result under its `.out` key, and `Velocity` reads it back via `.in`.
+1. Un pipeline (por ejemplo, `main=`) en `processor.properties` es una lista separada por comas de **nombres de comandos**.
+2. Para cada nombre de comando `X`, el valor `X=SomeType` nombra una clase Java en `org.swb.processor`, y todas las claves `X.*` pasan a ser la configuración de esa instancia (`X.dir`, `X.todir`, `X.out`, …). `Executor` instancia reflectivamente `org.swb.processor.<Type>` y llama a `init(name, config)`.
+3. A continuación, todos los procesadores se ejecutan en orden, compartiendo un único `Map<String,Object> context`. Los procesadores se comunican únicamente a través de ranuras con nombre en el contexto: un `Read*` escribe su resultado bajo la clave `.out`, y `Velocity` lo lee de nuevo a través de `.in`.
 
-To add a build step, write a class implementing [`Processor`](src/org/swb/Processor.java) (`init` + `execute(context)`) and reference it from `processor.properties` — no wiring code. Directory-walking steps should extend [`AbstractDirProcessor`](src/org/swb/processor/AbstractDirProcessor.java) (handles `dir`/`todir`/`filter` with Ant-style glob matching); readers that parse a directory of files into a `name -> object` map should extend [`AbstractRead`](src/org/swb/processor/AbstractRead.java).
+Para añadir un paso de compilación, escribe una clase que implemente [`Processor`](src/org/swb/Processor.java) (`init` + `execute(context)`) y refiérela desde `processor.properties` — sin código de wiring. Los pasos de recorrido de directorios deben extender [`AbstractDirProcessor`](src/org/swb/processor/AbstractDirProcessor.java) (gestionan `dir`/`todir`/`filter` con coincidencia de estilo Ant); los lectores que analizan un directorio de archivos en un mapa `name -> object` deberían extender [`AbstractRead`](src/org/swb/processor/AbstractRead.java).
 
-### The `main` pipeline, in order
+### El pipeline `main`, en orden
 
-Copy assets → copy raw pages → **`ReadStxt`** parses each `.stxt` into a `dev.stxt.Node` tree (stored as `pages_es` / `pages_en`) → `ReadProperties` loads `lang/` → `VelocityInit` boots the engine against `templates/` → for each language: `InsertProperties` sets `nav_lang`, then **`Velocity`** renders every page's Node tree through `page.vm` → `ReplaceText` swaps the `@STXT@` token for styled markup → `Sitemap` emits `sitemap.xml`.
+Copiar recursos → copiar páginas en bruto → **`ReadStxt`** analiza cada `.stxt` en un árbol `dev.stxt.Node` (almacenado como `pages_es` / `pages_en`) → `ReadProperties` carga `lang/` → `VelocityInit` inicializa el motor frente a `templates/` → para cada idioma: `InsertProperties` establece `nav_lang`, y luego **`Velocity`** renderiza el árbol de nodos de cada página mediante `page.vm` → `ReplaceText` intercambia el token `@STXT@` por marcado con estilo → `Sitemap` genera `sitemap.xml`.
 
-### Rendering model
+### Modelo de renderizado
 
-[`Velocity.java`](src/org/swb/processor/Velocity.java) iterates the `in` map (page name → Node) and merges each through the `template` into `todir/<name>.html`. Every render exposes in the Velocity context: `$doc` (the page's root Node), `$doc_name`, `$index` (the `_index` page's Node, i.e. site navigation), `$nav_lang`/`$langs`, plus helper beans `$wiki` ([`WikiRender`](src/org/swb/utils/WikiRender.java), commonmark → HTML with GFM tables; `render` / `renderNoP`) and `$utils` ([`Utils.java`](src/org/swb/utils/Utils.java): `escapeHtml`, `parseInt`, and `assetHash('/path')` — a short sha1 of a file under [static/](static/), for asset cache-busting; see Editing notes).
+[`Velocity.java`](src/org/swb/processor/Velocity.java) itera el mapa `in` (nombre de página → Node) y combina cada uno mediante la plantilla en `todir/<name>.html`. Cada renderización expone en el contexto de Velocity: `$doc` (el nodo raíz de la página), `$doc_name`, `$index` (el nodo de la página `_index`, es decir, la navegación del sitio), `$nav_lang`/`$langs`, además de los beans auxiliares `$wiki` ([`WikiRender`](src/org/swb/utils/WikiRender.java), commonmark → HTML con tablas GFM; `render` / `renderNoP`) y `$utils` ([`Utils.java`](src/org/swb/utils/Utils.java): `escapeHtml`, `parseInt`, y `assetHash('/path')` — un sha1 corto de un archivo bajo [static/](static/), para cache-busting; véase Notas de edición).
 
-Templates in [templates/](templates/) walk the Node tree: [main_content.vm](templates/main_content.vm) `#foreach`es `$doc.children` and delegates to [node.vm](templates/node.vm), which switches on `$node.normalizedName` to emit HTML per STXT node type (`header`, `subheader`, `content`, `code`, `assert`, `alert`, `link`, …). Content text is run through `$wiki.render`. So the visual output of a given STXT node type is defined in `node.vm`, while page structure lives in `page.vm` → its `#parse`d partials.
+Las plantillas de [templates/](templates/) recorren el árbol de nodos: [main_content.vm](templates/main_content.vm) hace `#foreach` sobre `$doc.children` y delega en [node.vm](templates/node.vm), que comprueba `$node.normalizedName` para generar HTML por tipo de nodo STXT (`header`, `subheader`, `content`, `code`, `assert`, `alert`, `link`, …). El texto del contenido pasa por `$wiki.render`. Así, la salida visual de un tipo de nodo STXT concreto se define en `node.vm`, mientras que la estructura de la página vive en `page.vm` → sus parciales `#parse`.
 
-## Editing notes
+## Notas de edición
 
-- **Content and the STXT language itself live in `../stxt-web`** — see that repo's `CLAUDE.md`. `.stxt` files are tab-indented and indentation *is* the structure; do not reformat.
-- Property files under `lang/` and `processor.properties` are read with legacy encoding (`Cp1252`); non-ASCII in existing files may appear mangled (`Configuraci�n`) — preserve bytes rather than "fixing" them unless intentionally re-encoding.
-- Adding/renaming a page: drop the `.stxt` in `../stxt-web/{es,en}`; the pipeline discovers files by directory scan. Wiring it into site nav means editing `_index.stxt` there.
-- Adding a new STXT node type to the visuals: handle its `normalizedName` in [node.vm](templates/node.vm) and style it in [scss/](scss/).
-- Cache-busting static assets: reference CSS/JS/icons from templates as `href="/css/site.css?v=${utils.assetHash('/css/site.css')}"`. `assetHash` returns a short sha1 of the file resolved under [static/](static/), so the `?v=` token changes only when that file's bytes change. The `copy_resources` step copies `static/**` verbatim to the output root, so paths are site-absolute (`/css/…`, `/favicon.ico`, …). Favicons + `site.webmanifest` live in `static/` and are wired in [head.vm](templates/head.vm).
-- **Code-block syntax highlighting** is self-hosted Prism (no CDN) with two hand-written grammars: [static/js/prism-stxt.js](static/js/prism-stxt.js) for `Code >>` blocks (`class="language-stxt"`) and [static/js/prism-ebnf.js](static/js/prism-ebnf.js) for `Grammar >>` blocks (`class="language-ebnf"`); both loaded in [footer.vm](templates/footer.vm) after `prism-core.min.js`. The palette is **one semantic scheme shared by both languages**, defined once as `$stxt-*` vars in [scss/_panels.scss](scss/_panels.scss) and scoped under `pre.language-stxt` / `pre.language-ebnf`: inline key/rule = portal blue **bold**, `>>` block header = magenta bold (own token `block-node`, matched before `node`), value/literal = terracotta, namespace = turquoise, comments = green (upright), and only EBNF operators/punctuation stay muted slate. Separators share their key's colour (`:` blue via `operator`, `>>` magenta via `block-operator`) so key+separator read as one unit. Editing the look = editing those vars/rules, not the grammars (grammars only decide *what* is a token; order matters — see the header comments in `prism-stxt.js`).
+- **El contenido y el propio lenguaje STXT viven en `../stxt-web`** — consulta el `CLAUDE.md` de ese repositorio. Los archivos `.stxt` están indentados con tabulaciones y la indentación *es* la estructura; no reformatearlos.
+- Los archivos de propiedades en `lang/` y `processor.properties` se leen con codificación heredada (`Cp1252`); los caracteres no ASCII de los archivos existentes pueden aparecer alterados — conservar los bytes en lugar de «arreglarlos» salvo que se reencodifique intencionalmente.
+- Añadir o renombrar una página: dejar el archivo `.stxt` en `../stxt-web/{es,en}`; el pipeline lo descubre mediante escaneo de directorios. Integrarlo en la navegación del sitio significa editar `_index.stxt` allí.
+- Añadir un nuevo tipo de nodo STXT a los elementos visuales: manejar su `normalizedName` en [node.vm](templates/node.vm) y estilizarlo en [scss/](scss/).
+- Cache-busting de recursos estáticos: referenciar CSS/JS/iconos desde las plantillas como `href="/css/site.css?v=${utils.assetHash('/css/site.css')}"`. `assetHash` devuelve un sha1 corto del archivo resuelto bajo [static/](static/), de modo que el token `?v=` solo cambia cuando cambian los bytes de ese archivo. El paso `copy_resources` copia `static/**` literalmente en la raíz de la salida, por lo que las rutas son absolutas del sitio (`/css/…`, `/favicon.ico`, …). Favicons + `site.webmanifest` viven en `static/` y están conectados en [head.vm](templates/head.vm).
+- **El resaltado de sintaxis de los bloques de código** es Prism autohospedado (sin CDN) con dos gramáticas escritas a mano: [static/js/prism-stxt.js](static/js/prism-stxt.js) para bloques `Code >>` (`class="language-stxt"`) y [static/js/prism-ebnf.js](static/js/prism-ebnf.js) para bloques `Grammar >>` (`class="language-ebnf"`); ambas se cargan en [footer.vm](templates/footer.vm) después de `prism-core.min.js`. La paleta es **un esquema semántico compartido por ambos lenguajes**, definido una sola vez como variables `$stxt-*` en [scss/_panels.scss](scss/_panels.scss) y aplicado bajo `pre.language-stxt` / `pre.language-ebnf`: la clave/regla en línea = azul portal en negrita, el encabezado `>>` del bloque = magenta en negrita (token propio `block-node`, reconocido antes que `node`), el valor/literal = terracota, el espacio de nombres = turquesa, los comentarios = verde (recto), y solo los operadores y la puntuación EBNF permanecen en gris pizarra apagado. Los separadores comparten el color de su clave (`:` azul mediante `operator`, `>>` magenta mediante `block-operator`) para que la clave y el separador se lean como una unidad. Editar el aspecto = editar esas variables y reglas, no las gramáticas (las gramáticas solo deciden qué es un token; el orden importa — véase los comentarios de encabezado en `prism-stxt.js`).
