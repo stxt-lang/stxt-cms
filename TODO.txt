@@ -2,7 +2,17 @@
 CLI
 ---
 
-Mirar apartado CLI
+* validate alias de check
+* <file|dir|stdin> para la mayoría de ficheros
+* Hacer tabs o espacios para líneas en blanco de format
+* Hacer tabs o espacios para líneas en blanco de format en vscode + mirar lo que tiene (o hacer format spaces/ format tabs)
+* Mostrar color para bloque indentado (estilo gris)
+
+---
+Web
+---
+
+* Estilo de móvil no se ve bien el logo
 
 ----
 Java
