@@ -1,130 +1,26 @@
+-----------------------
+ESPECIFICACIÓN LENGUAJE
+-----------------------
+
+* Forma canónica en json
+
 ---
 CLI
 ---
 
+* parse: obtienes la forma canónica en json
+* spaces-4 no tiene sentido, siempre son 4 en el lenguaje
 * validate alias de check
 * <file|dir|stdin> para la mayoría de ficheros
 * Hacer tabs o espacios para líneas en blanco de format
 * Hacer tabs o espacios para líneas en blanco de format en vscode + mirar lo que tiene (o hacer format spaces/ format tabs)
-* Mostrar color para bloque indentado (estilo gris)
-
----
-Web
----
-
-* Estilo de móvil no se ve bien el logo
-
-----
-Java
-----
-
-* Node tiene una referencia a parent, y no puede tener 2 parents! si se añade a otro parent petará hasta que se elimine del parent y del hijo.
-  Quizá algún método de addChild que también modifique el hijo si no tiene parent. No hace falta freeze con esto.
-* Número de línea no sea obligatorio al crear un Node
-* Método fácil de addChild(name, value), addChild(name,value,isText), addchild(name,value,isText,namespace),...
-* Método fácil de añadir un texto directamente con muchas líneas en un nodo texto
-
-* Versión 0.6.0
-	* Node (Abstract) con getName, CanonicalName, etc..., NodeInline (con addChild), NodeTextBlock (sin método para addChilds, con método para setTextBlock con un String,...)
-	* node.addInlineChild(name,ns?,value?) -> Node;
-	* node.addTextChild(name,ns?,textLines?) -> Node
-	* parent enlazado, si ya tiene no se puede volver a enlazar en otro, etc. Aseguramos integridad
-	* ...
-
--------------
-Plugin VSCode
--------------
-
-* Configuración de preferencias. Por ejemplo modo desarrollador, por defecto no habilitado, que muestra lo actual del nodo.
-  En modo normal sólo se muestra la descripción del nodo si existe.
-* Goto (click) para ir a la definición del schema
-
-----------------------
-TODO General a revisar
-----------------------
-
-* Añadir métodos para modificar todo
-	* Valores
-	* Texto
-	* Líneas
-	* Childs
-	* Namespace
-	* …
-* getValueNormalized
-* Validación con value normalized en Java
-* Tipo MARKDOWN, JSON, etc
-* Pasar Fable para especificación, parsers, etc. y hacer todo
-* Comparar con HCL y hacer algo bonito para enseñar
-* Guía de convenciones de ficheros .stxt
-	* .stxt/ propio proyecto
-	* user/.stxt
-	* /etc/stxt
-	* Después hablar de rutas @‌stxt.schema, @stxt.template,...
-	* Métodos de organizar directamente
-	* stxt format -spaces -r *
-	* stxt format -tabs -r *
-	* stxt validate -r *
-	* ...
-
-* STXT Logo.html: incluir en portal (se ha hecho ya un intento sin éxito)
-* Mejorar tutorial para explicar bien como hacer el entorno de trabajo, etc.
-
-* system_path, user_path, local_path, execution_path
-  stxt import -system|user|local file.stxt
-  sudo stxt import -system file.stxt
-
-STXT CLI
-stxt install file.stxt                  # == --local
-stxt install --local file.stxt          # ./.stxt
-stxt install --user  file.stxt          # ~/.stxt
-stxt install --system file.stxt         # /etc/stxt   (o %PROGRAMDATA%\stxt)
-stxt install --root /opt/stxt file.stxt # ruta arbitraria
-
-Resolución (cuando STXT corre)
-Usa:
-
-STXT_HOME
-STXT_PATH
-roots por defecto de StxtPaths
-
-👉 Completamente independiente del CLI.
-
-5. Conclusión
---system, --user, --local deben tener rutas fijas
---root sirve para instalaciones personalizadas
-
-No: no mezclar --system con STXT_PATH, ni hacer magia.
-
-===
-Web
-===
-
-Mejorar estilo móbil (css)
-
-===
-CLI
-===
-
-stxt nombre.stxt nombre2.pdf (transforma a pdf)
-stxt nombre.stxt (todas las transforms que puede)
-stxt . (todo lo que puede con *.stxt)
-stxt in out
-
-stxt: hace todo lo que puede
-	-a -all: validate, transform2*, import-schema, import-transform (**** por defecto si no se dice nada!!!)
-	-v -validate: validate
-	-f -format: formato con treams, etc
-	-c -clean: format + clean comments
-	-4s: con 4 espacios
-	-t: con tabulador (por defecto)
-	-y: decir si a override
-	-r: busca de forma recursiva en directorios
-	-import-schema  (para @stxt.schema)
-	-import-transform (para @stxt.transform)
+* stxt: hace todo lo que puede. NOOOO!! Depende de instalación! No es portable!
+* Exportaciones de esquema?
 	-export-schema 'com.example.*' 'org.apache.docs' file.stxt: exporta schema
 	-export-transform 'com.example.*' 'org.apache.docs' file.stxt: exporta transform
 	-export-all 'com.example.*' file.stxt: exporta schema+transform+...
-
+	--list-schemas
+* Transformaciones? Hay que definir como hacerlas todavía
 	-2xml  -transform2xml  (@stxt.transform.xml)
 	-2html -transform2html (@stxt.transform.html)
 	-2yaml -transform2yaml
@@ -138,292 +34,60 @@ stxt: hace todo lo que puede
 	-html2 -transform-html2: pasa de un xml a un stxt, hay que decir el namespace de llegada, ya que los origen no son tan cuquis como stxt
 	-yaml2
 	-toml2
-	
 
+---
+Web
+---
 
-Ideas
-* Explicar que las webs (org.apache.*) pueden tener un documento donde explican todo!! Todos sus esquemas, transformaciones (incluye migraciones!!)
-* Para pasar a HTML no hace falta transformar markdown, esto se hace por javascript, igual que LATEX, por ejemplo! Sólo hace falta transformaciones del tipo:
-	Transform:
-		Src: com.example.docs.Document
-		Dst: div
-		Pattern: opcional, 
-	Transform:
-		Src: com.example.docs.Document
-		Dst: div
-		Pattern: opcional, si no va a por todos los nombres de fichero (valorar si realmente es necesario!) 
-	Transform:
-		Src: com.example.docs.Document
-		Custom Template >>
-			<div class="${doc.namespace}.${doc.name}" data-type="${doc.type}">
-				<pre>escapeHtml(${doc.text})</pre>
-				<div class="md">
-					markdown2Html(${doc.text})
-				</div>
-			</div>
-* CMS: hace como con proyecto de semantictextbuilder. Aquí si que puede transformar directamente markdown
-	* Una forma fácil se podría usar transformación direct con stxt2html usando custom con placeholder @HEADER@, @INDEX@, etc.
-		Después, ya por código sencillo transformar los @@ por un contenido general o personalizado para la página en cuestión,
-		al estilo de lo que hacemos con @STXT@
-		
-* Hacer ejemplos de Documentos corporativos para web, cms, etc.
-* Mirar como hacer transformación inversa, para poder migrar más fácil
-* Transformaciones pasar por un formato común para pasar luego a otro? valorar... quizá json, el propio stxt, etc.
-* .github/workflow para automático (hay que hacer personal token que permita insertar workflows)
+* Estilo de móvil no se ve bien el logo
+* Mostrar color para bloque indentado (estilo gris)?
+* STXT Logo.html: incluir en portal (se ha hecho ya un intento sin éxito)
+* Mejorar tutorial para explicar bien como hacer el entorno de trabajo, etc.
+* Mejorar estilo móbil (css)
 
+-----------------------------------------------------------------------------------------------
+Implementación parsers: Pseudocódigo / Java / Javascript / Python / (más adelante C#, Go, Rust)
+-----------------------------------------------------------------------------------------------
 
+* Node tiene una referencia a parent, y no puede tener 2 parents! si se añade a otro parent petará hasta que se elimine del parent y del hijo.
+  Quizá algún método de addChild que también modifique el hijo si no tiene parent. No hace falta freeze con esto.
+* Número de línea no sea obligatorio al crear un Node
+* Método fácil de addChild(name, value), addChild(name,value,isText), addchild(name,value,isText,namespace),...
+* Método fácil de añadir un texto directamente con muchas líneas en un nodo texto
+* Añadir métodos para modificar todo
+	* Valores
+	* Texto
+	* Líneas
+	* Childs
+	* Namespace
+	* …
 
-Filosofía
-Principio: Human-first
-Consecuencias:
-	* Visualmente coherente (con que editor o visualizador siga 4S=1T)
-	* Fácil de usar e implementar
-	
-stxt file.stxt file.html
-	Pasar todo a divs con data-type, data-value para inline's, data-text dependiendo del tipo... Definir en transformaciones
-	El css da formato
-	
-stxt es "Glue language!!"
-
-
-El lenguaje
-	* 1 minuto
-	* tutorial
-	* STXT REF
-	* STXT Schema REF
-	* Grammar
-Casos de uso
-	* Conversores stxt2
-		* RFC
-		* Config (tomcat, etc.)
-		* ...
-	* Documentos corporativos (fuente de verdad)
-		* Wiki corp
-		* Manuales
-		* Contratos
-		* ...
-	* AI con docs corporativos!! Para RAG
-	* CMS/gestores de contenido
-	* Formatos editoriales: recetas, manuales, especificaciones,...
-	* Wikipedia
-	* Ficheros de configuración: con descripción dentro!! mirar que Node: permita description!!!
-Herramientas
-	Parsers
-	IDE's
-	Online Editor
-	
-Contactar Amaris!! Patrocinador/Impulsor
-	CMS: partner o patrocinador o colaborador o mentor o soci tecnològic o impulsora o sponsor o protector
-	APADRINAR!! Amaris es el padrino del lenguaje y lo hace crecer, cuida, etc.
-
-=====================
-Otras ideas a revisar
-=====================
-
-* Parser Java
-	* stxt in -> json canonico, stxt compact, ns json cononico, error parseo
-* Parser Javascript (+Node.js)
-* Plugin VSCode
-* Parser Python
-* cli con node: stxt
-	* Validate: stxt file.stxt
-	* List namespaces: stxt --list-ns
-	* Import namespace:	stxt --import-ns file.stxt|uri.stxt
-	* JSON canónico: stxt --json-canonical file.stxt
-	* Clean (spaces): stxt --clean
+* Versión 0.6.0
+	* Node (Abstract) con getName, CanonicalName, etc..., NodeInline (con addChild), NodeTextBlock (sin método para addChilds, con método para setTextBlock con un String,...)
+	* node.addInlineChild(name,ns?,value?) -> Node;
+	* node.addTextChild(name,ns?,textLines?) -> Node
+	* parent enlazado, si ya tiene no se puede volver a enlazar en otro, etc. Aseguramos integridad
 	* ...
-* cli con node, transformadores: stxt2
-		* stxt2 file.stxt file.json
-		* stxt2 file.stxt file.xml
-		* stxt2 file.stxt file.xxx
-	* Transformadores
-* Otros cli's?
-* WYSIWYG: editor en javascript para cms's
-* Contactar con Costaisa (si quieren patrocinar proyecto)
-* Documentación:
-	* Parseo en pseudocódigo
-	* Pruebas canónicas
-	* Casos de uso:
-		* Documentos corporativos (fuente de verdad)
-			* Wiki corp
-			* Manuales
-			* Contratos
-			* ...
-		* CMS/gestores de contenido
-		* Wikipedia!! Contactar comunidad
-		* AI con docs corporativos!! Para RAG
-		* Ficheros de configuración
-		* Formatos editoriales: recetas, manuales, especificaciones,...
-		* Ficheros stxt2
-	* ...
-* Maven con stxt
-* Node con npm stxt
 * Python con pip stxt
-* Correo: contact@stxt.dev
-* GTM o Patrocinadores
 
-===============
-ROADMAP INFO AI
-===============
+-------------
+Plugin VSCode
+-------------
 
+* Configuración de preferencias. Por ejemplo modo desarrollador, por defecto no habilitado, que muestra lo actual del nodo.
+  En modo normal sólo se muestra la descripción del nodo si existe.
+* Goto (click) para ir a la definición del schema
+* Mostrar color para bloque indentado (estilo gris)?
 
-# 🧩 Orden final recomendado (roadmap oficial)
+----------------------
+Editor online lenguaje
+----------------------
 
-### **FASE 1 — núcleo del lenguaje**
-
-1. Parser: 
-	Javascript/Typescript
-	Python
-	Java	
-2. Serializador JSON + pretty-printer
-3. CLI mínima (en node.js)
-
-### **FASE 2 — utilidad real**
-
-4. Validador de schemas
-5. Extensión VSCode
-6. Playground
-
-### **FASE 3 — ecosistema**
-
-7. Serializadores a otros formatos
-8. Generador de documentación
-9. Linter semántico
-
-# ✅ **1. Parser oficial (core STXT-SPEC) — obligatorio**
-
-El parser es la base para absolutamente todo lo demás.
-
-Debe implementar **100% del STXT-SPEC**:
-
-* indentación estricta
-* mezcla espacios/tabs prohibida
-* nodos `:`
-* nodos `>>`
-* comentarios fuera de bloques
-* normalización (nombres, inline, bloques)
-* errores formales
-
-**Lenguajes prioritarios:**
-
-1. **JavaScript / TypeScript**
-
-   * Porque sirve para web, para Node, y para integraciones.
-2. **Python**
-
-   * Para automatizaciones, pipelines, IA, APIs.
-3. **Java**
-
-   * Importante en enterprise.
-
-Después: C#, Go, Rust.
-
-**En cada versión:**
-
-* parsear → entregar árbol canónico → sin validación semántica.
-
----
-
-# ✅ **2. Serializador (canonical JSON / stxt pretty-print)** — imprescindible
-
-Un parser sin serializador no permite test unitarios reproducibles.
-
-Necesitas:
-
-### 2.1. JSON canónico
-
-Basado en lo que ya definiste:
-
-```json
-{
-  "documents": [
-      { "name": "Documento", "namespace": "@x", "children": [...] }
-  ]
-}
-```
-
-* siempre orden estable
-* sin espacios sobrantes
-* sin claves opcionales vacías
-
-Sirve para:
-
-* comparar dos parsers
-* test cross-language
-* herramientas de CI
-
-### 2.2. Pretty-printer stxt (opcional pero muy útil)
-
-Transforma el árbol parseado en stxt formateado uniformemente.
-
-Sirve para:
-
-* estilizar documentos
-* editor / extension VSCode
-* auto-format
-
----
-
-# ✅ **3. Validador de schemas (STXT-SCHEMA-SPEC)** — muy prioritario
-
-Una vez el parser existe, el validador es el segundo gran pilar.
-
-Debe implementar:
-
-* carga de schemas
-* asociación por namespace
-* tipos (TEXT, NUMBER, BASE64, CODE, etc.)
-* cardinalidades
-* modo **strict** y modo **non-strict**
-* regla 7.1 obligatoria
-* errores precisos con línea y tipo
-
-Este componente es el que transforma stxt en un lenguaje *útil para datos reales* (similar a JSON Schema, pero human-first).
-
----
-
-# ✅ **4. CLI oficial (`stxt`)** — altísimo valor práctico
-
-Una herramienta de línea de comandos que haga:
-
-* `stxt parse file.stxt` → JSON canónico
-* `stxt validate file.stxt` → aplica schema
-* `stxt format file.stxt` → pretty-print
-* `stxt check file.stxt` → lint básico + errores de indentación
-
-Esto también alimenta:
-
-* CI/CD
-* Makefiles
-* integración con editores
-* scripts automáticos
-
-Idealmente escrito en Node.js (cross-platform inmediato) o Rust (portabilidad + velocidad + binarios pequeños).
-
----
-
-# ✅ **5. Extensión VSCode** — imprescindible a nivel de adopción
-
-Incluye:
-
-### Mínimo viable:
-
-* coloreado (syntax highlighting)
-* plegado de bloques (folding de jerarquía)
-* reconocimiento básico de `:` y `>>`
-
-### Fase 2:
-
-* autocompletado de nombres según schema
-* validación en tiempo real
-* tooltip con tipo / cardinalidad
-* auto-format
-
-Esta herramienta multiplica la adopción del lenguaje.
-
----
-
-# ✅ **6. Playground web**
+* Falta realizar!
+* Playground
+* Tendrá una librería que se podrá usar por separado, que tendrá coloreado, editor, etc.
+  Se usará para colorear stxt.dev!
+* WYSIWYG: editor en javascript para cms's
 
 Una web interactiva:
 
@@ -436,171 +100,36 @@ Ideal ejemplo: “JSON Editor Online” pero para stxt.
 
 Esto es fantástico para documentación y demos.
 
----
+------------------------------------------
+Patrocinador / Mentor / Padrino / Impulsor
+------------------------------------------
 
-# ✅ **7. Libraries para serializar stxt a otros formatos (opcional pero útil)**
+* Costaisa, Amaris,...
+* CMS: partner o patrocinador o colaborador o mentor o soci tecnològic o impulsora o sponsor o protector
+* APADRINAR!! Amaris es el padrino del lenguaje y lo hace crecer, cuida, etc.
+* Correo: contact@stxt.dev
+* GTM o Patrocinadores
 
-* Serializador stxt → **YAML**
-* Serializador stxt → **JSON**
-* Serializador stxt → **Markdown**
-* Serializador stxt → **HTML**
 
-La más esencial es stxt → JSON (ya cubierto), pero un par de extras pueden dar mucho valor en algunos contextos.
+---------------------------------------
+Linter semántico (encima del validador)
+---------------------------------------
 
----
+Reglas de estilo: 
 
-# ✅ **8. Generador de documentación a partir de schemas**
-
-Similar a:
-
-* JSON Schema → documentación HTML
-* OpenAPI → swagger UI
-
-Con un schema stxt, generar:
-
-* tabla de nodos
-* cardinalidades
-* tipos
-* descripciones
-* ejemplos de uso
-
-Muy útil para publicar APIs semánticas basadas en stxt.
-
----
-
-# ✅ **9. Linter semántico (encima del validador)**
-
-Reglas de estilo:
-
-* evitar nombres ambiguos
+* evitar nombres ambiguos (que no sean iguales con acentos y sin acentos)
 * evitar nodos vacíos sin necesidad
 * recomendación sobre orden de nodos
 * guías de estilo corporativo
 
-Esto ya no es esencial para lanzamiento, pero sí útil en equipos grandes.
 
 ---
+CMS
+---
 
-
-
-
-* Recuperación de slots
-* Render
-* Gramática de slots y validación
-* Ejemplos de slots con transformaciones
-* Revisar indentación con slots
-* ...
-
-
-========================================================================================================================================
-@stxt.slots: Deprecated o en revisión. Después de hacer pruebas, parace demasiado verboso para hacer xml o yaml. Mirar proyecto @stxt.t2
-========================================================================================================================================
-
-
-* STXT Slots, pasa de STXT a otros
-	* Import xml: hace un STXT estándard, del que se dirá el schema de llegada. Esto para migración. Después, se pasa STXT Slots para pasarlo al de destino.
-	  Ejemplo: 
-	  	<demo id="3">
-	  		<otro>Valor</valor>
-	  	</demo>
-	  	
-	  STXT:
-	  	demo:
-	  		content: ""
-	  		attr:
-	  			id: 3
-	  		childs:
-	  			otro: 
-	  				content: Valor
-	* Igual para YAML
-
-
-
-Template:
-
-Mini lenguaje de templates:
-
-Separador ini: {{ (permitimos cambiar a otra cosa, como  @@ o << ?
-Separador end: }} (permitimos cambiar a otra coas como   @@ o >> ? 
-
-Tienen la forma: {{op1:op2:op3:...opn}}
-
-op1: name_op[param opcional]
-
-Las operaciones retornan o bien texto o bien un nodo o un listado de nodos y se van concatenando las operaciones.
-Las operaciones DEBEN terminar en un texto.
-
-----------------------------------------
-Operaciones básicas que DEBE implementar
-----------------------------------------
-
-text: Retorna el texto de un nodo. Aplicable a nodo. Si se aplica a un string retorna el mismo string
-children: Retorna los hijos
-name: Retorna el nombre (aplicable a un nodo)
-name[a name]: Filtra por 'a name' de un listado de nodos
-type: Retorna el tipo de un nodo. Aplicable a nodo.
-type[a type]: Filtra por 'a type' de un listado de nodos
-subtype: Retorna el subtipo de un nodo. Aplicable a nodo
-subtype[a subtype]: Filtra por el subtipo de un listado de nodos
-render: Renderiza el listado y concatena con ''
-render[',']: Renderiza el listado y concatena con
-to_upper_case: Aplica a texto
-to_lower_case: Aplica a texto
-escape_html: Escapa como html
-escape_xml: Escapa como xml
-escape_js: Escapa como javascript
-escape_attrib: Escapa como atrib de xml (quizá otro nombre?)
-
-to_canonic_html???
-
--------------------------------------------
-Operaciones comunes que 'PUEDE' implementar
--------------------------------------------
-
-markdown: Aplica a un texto (NO a un nodo!) y retorna un markdown. Si no está disponible retorna el mismo texto
-
-Ejemplos:
-
-{{text}}	Hola Mundo!
-{{type}}    NUMBER, LANG
-{{type:subtype}}  markdown
-{{children}}  Iteramos childs
-{{children:name[apellido]:render}}  Iteramos childs sólo con nombre 'apellido'
-{{child:a name}}   Sólo un child (si sólo hay uno, si hay más error)
-{{text:markdown}}       Text a markdown
-{{text:escape_html}} Text escapado
-
-
-
-
-
-Sólo se transforman automáticos documentos con namespace. Los que no tienen usan transformación por defecto pero a demanda. 
-Si tienen namespace DEBEN tener definida una transformación, ni que sea la de defecto, sinó error de transformación.
-
-STXT2HTML
-	- Divs con namespace:
-		<div class="${doc.namespace}.${doc.name}" data-type="${doc.type}">
-			${doc.text}
-		</div>
-	- Divs sin namespace:
-		<div class="${doc.name}">
-			${doc.text}
-		</div>
-
-STX2HTML (@stxt.transforms):
-    Namespace: com.example.docs
-
-    Node: Document
-        Template >>
-            <h1>{{text}}</h1>
-            {{childs}}
-
-            
-* T2: Transformation To xxx
-	Directa a xml
-	Directa a yaml
-	Directa a html
-           
-            
+Hace como con proyecto de semantictextbuilder. Aquí si que puede transformar directamente markdown
+	* Una forma fácil se podría usar transformación direct con stxt2html usando custom con placeholder @HEADER@, @INDEX@, etc.
+		Después, ya por código sencillo transformar los @@ por un contenido general o personalizado para la página en cuestión,
+		al estilo de lo que hacemos con @STXT@
 
 
