@@ -20,4 +20,4 @@ cd "$(dirname "$0")"
 ./compile_sass.sh
 
 # Ejecuta el programa Java con el classpath adecuado
-java -cp 'bin:lib/*' org.swb.Executor processor.properties main
+java -cp "target/classes:lib/*:target/dependency/*" org.swb.Executor processor.properties main
