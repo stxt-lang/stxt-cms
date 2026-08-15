@@ -30,6 +30,11 @@
 	</div>
 #elseif(${node.normalizedName} == "link")
 	<div class="link">
+	#if($node.getChild('url'))
+		## External link (Url instead of Page): opens in a new tab, never "selected"
+		<a href="${node.getChild('url').getText()}" target="_blank" rel="noopener noreferrer">${node.text}</a>
+	#else
 		<a href="${node.getChild('page').getText()}" #if(${doc_name}==${node.getChild('page').getText()}) class="selected"  #end>${node.text}</a>
+	#end
 	</div>
 #end
