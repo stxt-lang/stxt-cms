@@ -6,7 +6,7 @@
 #if($index)
 	#foreach($node in $index.children)
 		## Only links to pages of the site take part in previous/next; external links (Url) do not
-		#if(${node.normalizedName} == "link" && $node.getChild('page'))
+		#if(${node.canonicalName} == "link" && $node.getChild('page'))
 			#if(${doc_name}==${node.getChild('page').getText()})
 				#set($encontrado = true)
 				#set($previous_ok = $previous)
