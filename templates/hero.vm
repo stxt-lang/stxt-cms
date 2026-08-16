@@ -1,0 +1,12 @@
+## Home page banner: the wordmark in Russo One, the tagline and the three entry points.
+<section class="hero">
+	<div class="hero-inner">
+		<div class="hero-title">STXT</div>
+		<p class="hero-tagline">${lang.get("title")}</p>
+		<p class="hero-actions">
+			<a class="btn btn-primary" href="lang-tutorial">${lang.get("hero.tutorial")}</a>
+			<a class="btn" href="https://play.stxt.dev" target="stxt-play">${lang.get("hero.playground")}</a>
+			<a class="btn" href="lang-tools">${lang.get("hero.tools")}</a>
+		</p>
+	</div>
+</section>

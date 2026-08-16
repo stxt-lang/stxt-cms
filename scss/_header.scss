@@ -1,0 +1,135 @@
+@use "settings" as *;
+
+// Sticky blue bar, the same chrome as the playground's top bar: wordmark left,
+// section links, language switch and source link right.
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	background: $color2;
+	color: #fff;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.12);
+
+	.site-header-inner {
+		max-width: $main_width;
+		margin: 0 auto;
+		min-height: $header_height;
+		padding: 0 $gutter;
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		flex-wrap: wrap;
+	}
+
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.55rem;
+		white-space: nowrap;
+		.brand-name {
+			font-family: $font-brand;
+			font-size: 1.45rem;
+			letter-spacing: 0.02em;
+			line-height: 1;
+		}
+		.brand-sub {
+			font-size: 0.9rem;
+			opacity: 0.85;
+		}
+		&:hover {
+			text-decoration: none;
+			.brand-sub {
+				opacity: 1;
+			}
+		}
+	}
+
+	.site-nav {
+		display: flex;
+		align-items: center;
+		gap: 0.15rem;
+		a {
+			font-weight: 600;
+			font-size: 0.95rem;
+			padding: 0.4rem 0.7rem;
+			border-radius: 6px;
+			white-space: nowrap;
+			&:hover {
+				background: rgba(255, 255, 255, 0.14);
+				text-decoration: none;
+			}
+			&[aria-current="page"] {
+				background: rgba(255, 255, 255, 0.2);
+			}
+		}
+	}
+
+	.site-actions {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		font-size: 0.85rem;
+	}
+
+	.lang-switch {
+		display: inline-flex;
+		border: 1px solid rgba(255, 255, 255, 0.55);
+		border-radius: 6px;
+		overflow: hidden;
+		a, b {
+			padding: 0.2rem 0.55rem;
+			font-weight: 600;
+			line-height: 1.4;
+		}
+		b {
+			background: #fff;
+			color: $color1;
+		}
+		a:hover {
+			background: rgba(255, 255, 255, 0.14);
+			text-decoration: none;
+		}
+	}
+
+	.source-link {
+		font-family: $font-mono;
+		font-size: 0.8rem;
+		opacity: 0.8;
+		&:hover {
+			opacity: 1;
+			text-decoration: underline;
+		}
+	}
+
+	@media (max-width: 900px) {
+		position: static; // a two-row header would eat too much of a small screen
+		.site-header-inner {
+			gap: 0.5rem 1rem;
+			padding-top: 0.4rem;
+			padding-bottom: 0.4rem;
+		}
+		.brand .brand-sub {
+			display: none;
+		}
+		.site-nav {
+			order: 3;
+			flex-basis: 100%;
+			flex-wrap: wrap;
+			gap: 0;
+			margin: 0 -0.5rem;
+			a {
+				font-size: 0.85rem;
+				padding: 0.3rem 0.45rem;
+			}
+		}
+		.source-link {
+			display: none;
+		}
+	}
+}

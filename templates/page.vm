@@ -2,11 +2,29 @@
 #parse("/init.vm")
 <html lang="${lang.get("lang")}">
 	<head>#parse("/head.vm")</head>
-	
+
 	<body>
-		#parse("/top_header.vm")
-		#parse("/top_bar.vm")
-		#parse("/main_content.vm")		
-		#parse("/footer.vm")		
+		#parse("/site_header.vm")
+		#if(${doc_name} == "index")
+			#parse("/hero.vm")
+		#end
+		<div class="layout">
+			<aside class="sidebar">
+				#parse("/sidebar.vm")
+			</aside>
+			<main class="content">
+				<article>
+					#set($numPart = 0)
+					#foreach($node in ${doc.children})
+						#parse("/node.vm")
+					#end
+				</article>
+				#parse("/navigation.vm")
+			</main>
+			<aside class="toc">
+				#parse("/toc.vm")
+			</aside>
+		</div>
+		#parse("/footer.vm")
 	</body>
 </html>

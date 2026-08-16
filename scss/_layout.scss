@@ -1,0 +1,38 @@
+@use "settings" as *;
+
+// Three columns on wide screens: site index · content · "on this page".
+// The right column folds first, then the index moves under the content.
+.layout {
+	max-width: $main_width;
+	margin: 0 auto;
+	padding: 2rem $gutter 1rem;
+	display: grid;
+	grid-template-columns: $sidebar_width minmax(0, 1fr) $toc_width;
+	gap: 2.5rem;
+	align-items: start;
+
+	.content {
+		min-width: 0;
+		max-width: $content_width;
+	}
+
+	@media (max-width: 1100px) {
+		grid-template-columns: $sidebar_width minmax(0, 1fr);
+		.toc {
+			display: none;
+		}
+	}
+
+	@media (max-width: 800px) {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2rem;
+		padding-top: 1.25rem;
+		.sidebar {
+			order: 2;
+			position: static;
+			max-height: none;
+			border-top: 1px solid $border;
+			padding-top: 1.25rem;
+		}
+	}
+}

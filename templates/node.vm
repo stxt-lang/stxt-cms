@@ -6,7 +6,6 @@
 	<div class="preamble">${wiki.render($node.text)}</div>
 #elseif(${node.normalizedName} == "header")
 	<h1><a id="index_${numPart}"></a>$node.text</h1>
-	#parse("/table_of_content.vm")
 	#set($numPart = $numPart + 1)
 #elseif(${node.normalizedName} == "subheader")
 	<h2><a id="index_${numPart}"></a>$node.text</h2>

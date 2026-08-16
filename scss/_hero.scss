@@ -1,0 +1,59 @@
+@use "settings" as *;
+
+// Home page banner under the header: the wordmark, the tagline and the entry points.
+.hero {
+	background: linear-gradient(180deg, $color3 0%, #fff 100%);
+	border-bottom: 1px solid $border;
+	text-align: center;
+	padding: 3.25rem $gutter 2.75rem;
+
+	.hero-inner {
+		max-width: $main_width;
+		margin: 0 auto;
+	}
+
+	.hero-title {
+		font-family: $font-brand;
+		font-size: clamp(3rem, 9vw, 5.5rem);
+		line-height: 1;
+		letter-spacing: 0.03em;
+		color: $color1;
+	}
+
+	.hero-tagline {
+		margin: 1rem 0 0;
+		font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+		color: $muted;
+	}
+
+	.hero-actions {
+		margin: 1.75rem 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+	}
+}
+
+.btn {
+	display: inline-block;
+	padding: 0.6rem 1.15rem;
+	border-radius: 8px;
+	border: 1px solid $color1;
+	color: $color1;
+	background: #fff;
+	font-weight: 600;
+	text-decoration: none;
+	transition: background 0.15s ease, color 0.15s ease;
+	&:hover {
+		background: $color3;
+		text-decoration: none;
+	}
+	&.btn-primary {
+		background: $color1;
+		color: #fff;
+		&:hover {
+			background: #085d92;
+		}
+	}
+}

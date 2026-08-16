@@ -1,0 +1,25 @@
+## Sticky site header: brand (Russo One, the identity font), section links, language
+## switch and a link to the page source. Replaces the old top_header.vm + top_bar.vm.
+<header class="site-header">
+	<div class="site-header-inner">
+		<a class="brand" href="$indexPage" title="STXT - Semantic Text"><span class="brand-name">STXT</span><span class="brand-sub">Semantic Text</span></a>
+		<nav class="site-nav" aria-label="${lang.get("nav.site")}">
+			<a href="$indexPage" #if(${doc_name} == "index")aria-current="page"#end>${lang.get("menu.hello")}</a>
+			<a href="lang-tutorial" #if(${doc_name} == "lang-tutorial")aria-current="page"#end>${lang.get("menu.tutorial")}</a>
+			<a href="lang-tools" #if(${doc_name} == "lang-tools")aria-current="page"#end>${lang.get("menu.tools")}</a>
+			<a href="https://play.stxt.dev" target="stxt-play">${lang.get("menu.playground")}</a>
+			<a href="https://github.com/stxt-lang" target="_blank" rel="noopener noreferrer" title="${lang.get("menu.github")}">GitHub</a>
+		</nav>
+		<div class="site-actions">
+			<span class="lang-switch">
+			#if(${lang.get("lang")} == "es")
+				<b lang="es">ES</b><a lang="en" href="../${doc_name}" title="${lang.get("menu.lang.en")}">EN</a>
+			#end
+			#if(${lang.get("lang")} == "en")
+				<a lang="es" href="./es/${doc_name}" title="${lang.get("menu.lang.es")}">ES</a><b lang="en">EN</b>
+			#end
+			</span>
+			<a class="source-link" href="https://github.com/stxt-lang/stxt-web/blob/master/${lang.get("lang")}/${doc_name}.stxt" target="${doc_name}" title="${doc_name}.stxt">.stxt</a>
+		</div>
+	</div>
+</header>

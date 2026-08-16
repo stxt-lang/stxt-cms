@@ -2,8 +2,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${doc.getText()}</title>
+#if($meta && $meta.getChild("description"))
 	<meta name="description" content="${meta.getChild("description").text}">
+#end
+#if($meta && $meta.getChild("author"))
 	<meta name="author" content="${meta.getChild("author").value}">
+#end
 
 	<meta name="theme-color" content="#0A6FAE">
 	<link rel="icon" href="/favicon.ico?v=${utils.assetHash('/favicon.ico')}" sizes="48x48">
@@ -16,7 +20,6 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
 
-	<style>@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');</style>
     <link rel="stylesheet" href="/css/site.css?v=${utils.assetHash('/css/site.css')}">
 		
 	#if(${lang.get("lang")} == "en")

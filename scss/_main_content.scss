@@ -1,65 +1,79 @@
 @use "settings" as *;
 
-#main_content {
-	@media (min-width: 750px) {
-		article {
-			width: 65%;
-			float: left;
-		}
-		aside {
-			width: 35%; 
-			float: right;
-			padding-left: 2rem;
-		}
+.content {
+	h1, h2, h3, h4 {
+		color: $color1;
+		font-weight: 700;
+		line-height: 1.25;
+		scroll-margin-top: calc(#{$header_height} + 1rem);
 	}
-	
-	aside {
-		h2 {
-			//text-decoration: underline;
-		}
+	h1 {
+		font-size: 2.1rem;
+		margin: 0 0 1.25rem;
+		letter-spacing: -0.01em;
+	}
+	h2 {
+		font-size: 1.5rem;
+		margin: 2.5rem 0 0.9rem;
+		padding-bottom: 0.35rem;
+		border-bottom: 1px solid $border;
+	}
+	h3 {
+		font-size: 1.15rem;
+		margin: 2rem 0 0.6rem;
+	}
+	h4 {
+		font-size: 1rem;
+		margin: 1.5rem 0 0.5rem;
 	}
 
-	background-color: #fff;
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-	padding: 1em;
-	padding-top: 0.5em;
-	margin-top: 0;
-	
-	h1, h2, h3, h4 {
-		color: $color2;
-		font-weight: bold;
+	p, li {
+		line-height: 1.65;
 	}
-	h1 {font-size: 1.9rem;}
-	h2 {font-size: 1.5rem;}
-	h3 {font-size: 1.1rem;}
-	h4 {font-size: 1.0rem;}
-	
-	.alert p, .assert p {
-		background-color: $color3;
-		text-align: center;
-		margin-top: 1em;
-		margin-bottom: 1em;
-		padding: 0.7em;
-	}
-	
-	.alert p {
-		background-color: $alert;
-	}
-	
-	.assert ul, .alert ul {
-		background-color: $color3;
-		margin-top: 1em;
-		margin-bottom: 1em;
-		padding: 1.7em;
-	}
-	
 	p {
-		text-align: justify;
-		line-height: 1.5rem;
-	}	
-	
-	div.preamble p
-	{
+		margin: 0 0 1rem;
+	}
+	ul, ol {
+		padding-left: 1.5rem;
+		margin: 0 0 1rem;
+	}
+	li {
+		margin: 0.2rem 0;
+	}
+	img {
+		max-width: 100%;
+	}
+
+	// Callouts: Assert (statement to remember) and Alert (warning).
+	.assert, .alert {
+		margin: 1.25rem 0;
+		padding: 0.9rem 1.15rem;
+		border-radius: 8px;
+		border-left: 4px solid $color1;
+		background: $color3;
+		p, ul {
+			margin: 0;
+			background: none;
+			padding: 0;
+		}
+		ul {
+			padding-left: 1.25rem;
+		}
+		p + p, p + ul, ul + p {
+			margin-top: 0.6rem;
+		}
+	}
+	.assert p {
+		text-align: center;
+	}
+	.alert {
+		background: $alert;
+		border-left-color: #d9534f;
+	}
+
+	div.preamble p {
 		text-align: right;
-	}	
+		color: $muted;
+		font-size: 0.95rem;
+	}
 }

@@ -19,12 +19,14 @@
 		#end
 	#end
 
-	<div class="column row book_nav clearfix">
+	<nav class="book-nav" aria-label="${lang.get("nav.book")}">
 		#if($previous_ok != "")
-           	<a style="float:left;"	href="${previous_ok.getChild('page').getText()}" title="${previous_ok.text}">&#x25C4; ${previous_ok.text}</a>
+			<a class="prev" href="${previous_ok.getChild('page').getText()}" title="${previous_ok.text}"><span class="book-nav-arrow">&#x25C4;</span>&nbsp;${previous_ok.text}</a>
+		#else
+			<span></span>
 		#end
 		#if($next_ok != "")
-           	<a style="float:right;" href="${next_ok.getChild('page').getText()}" title="${next_ok.text}">${next_ok.text} &#x25BA;</a>
+			<a class="next" href="${next_ok.getChild('page').getText()}" title="${next_ok.text}">${next_ok.text}&nbsp;<span class="book-nav-arrow">&#x25BA;</span></a>
 		#end
-	</div>
-#end						
+	</nav>
+#end

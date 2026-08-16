@@ -1,11 +1,35 @@
 @use "settings" as *;
 
-div.book_nav {
-	margin-top: 0.7em;
-	margin-bottom: 1em;	
-}
+// Previous / next page, at the end of the content.
+.book-nav {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-top: 3rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid $border;
 
-div.book_nav a {
-	color: $color1;
-	text-decoration: none;
+	a {
+		flex: 1 1 0;
+		max-width: 48%;
+		padding: 0.75rem 1rem;
+		border: 1px solid $border;
+		border-radius: 8px;
+		color: $ink;
+		font-weight: 600;
+		line-height: 1.35;
+		&:hover {
+			text-decoration: none;
+			border-color: $color1;
+			color: $color1;
+		}
+		&.next {
+			text-align: right;
+			margin-left: auto;
+		}
+	}
+	.book-nav-arrow {
+		font-size: 0.75em;
+		color: $muted;
+	}
 }

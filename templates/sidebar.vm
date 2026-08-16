@@ -1,0 +1,16 @@
+## Site index (the _index.stxt page) rendered as the left navigation column.
+#if($index)
+	<nav class="site-index" aria-label="${lang.get("nav.index")}">
+	#foreach($node in $index.children)
+		#if(${node.canonicalName} == "subheader")
+			<h2 class="site-index-title">$node.text</h2>
+		#elseif(${node.canonicalName} == "link")
+			#if($node.getChild('url'))
+				<a class="site-index-link" href="${node.getChild('url').getText()}" target="_blank" rel="noopener noreferrer">${node.text}</a>
+			#else
+				<a class="site-index-link#if(${doc_name}==${node.getChild('page').getText()}) selected#end" href="${node.getChild('page').getText()}"#if(${doc_name}==${node.getChild('page').getText()}) aria-current="page"#end>${node.text}</a>
+			#end
+		#end
+	#end
+	</nav>
+#end

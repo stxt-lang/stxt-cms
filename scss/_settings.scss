@@ -1,11 +1,27 @@
-$color1: #005A8E;
-$color1: #0A6FAE;
-$color2: #0A6FAE;
-$color3: #E8F4FA;
-$color4: #f7fcff;
+// Palette — shared with the playground (stxt-play): the same portal blue on both.
+$color1: #0A6FAE; // brand blue (links, headings, wordmark)
+$color2: #0A6FAE; // header background
+$color3: #E8F4FA; // light blue: selected item, callouts
+$color4: #f7fcff; // page tint
 $grey: #f5f5f5;
 $black: #444;
 $alert: #fae8e8;
 
-$main_width: 1200px;
-$ads_width: 290px;
+// Neutral system, close to the playground's chrome
+$ink: #24313f;      // body text
+$muted: #5b6b7b;    // secondary text
+$border: #dbe6ee;   // hairlines
+$panel: #f6f9fc;    // code / listing panels
+
+// Type
+$font-brand: "Russo One", "Arial Black", sans-serif; // identity font: wordmark, hero, @STXT@ token
+$font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+// Layout
+$main_width: 1280px;
+$sidebar_width: 240px;
+$toc_width: 220px;
+$content_width: 820px;
+$header_height: 52px;
+$gutter: 1.25rem;

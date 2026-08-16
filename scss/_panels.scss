@@ -1,19 +1,21 @@
 @use "settings" as *;
 
+// Code / listing / grammar panels: light card, same family as the playground's chrome.
 .panel, pre {
-	margin-bottom: 1.0rem;
-	padding: 1.0rem;
-	background: $grey;
-	line-height: 1;	
-	font-size: 0.95rem;
+	margin: 0 0 1.25rem;
+	padding: 0.9rem 1.1rem;
+	background: $panel;
+	border: 1px solid $border;
+	border-radius: 8px;
+	line-height: 1.5;
+	font-size: 0.9rem;
+	font-family: $font-mono;
 	overflow-x: auto;
 }
 
 pre {
-	border-left: 4px solid #e0e0e0;
-
 	strong {
-		color: $color2;
+		color: $color1;
 	}
 }
 
@@ -24,6 +26,7 @@ pre.listing code {
 	background: none;
 	padding: 0;
 	color: inherit;
+	font-size: inherit;
 }
 
 // Listing blocks: preformatted text that is NOT STXT (whitespace diagrams, other
@@ -171,11 +174,14 @@ pre.language-ebnf {
 	opacity: 1;
 }
 
+// Inline code
 code {
-	background: $grey;
-	padding-left: 0.5rem;
-	padding-right: 0.5rem;
-	color: $color2;
+	font-family: $font-mono;
+	font-size: 0.9em;
+	background: #eef3f7;
+	border-radius: 4px;
+	padding: 0.1em 0.4em;
+	color: $color1;
 }
 
 #advertisement {
@@ -187,4 +193,4 @@ code {
 			display:block;
 		}
 	}
-}
+}

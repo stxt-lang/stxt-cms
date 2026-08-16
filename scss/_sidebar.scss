@@ -1,0 +1,45 @@
+@use "settings" as *;
+
+// Left column: the site index (_index.stxt), sticky under the header.
+.sidebar {
+	position: sticky;
+	top: calc(#{$header_height} + 1.5rem);
+	max-height: calc(100vh - #{$header_height} - 3rem);
+	overflow-y: auto;
+	font-size: 0.95rem;
+
+	.site-index-title {
+		margin: 1.4rem 0 0.35rem;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+		color: $muted;
+		&:first-child {
+			margin-top: 0;
+		}
+		span.stxt {
+			font-size: 1rem;
+			letter-spacing: 0.02em;
+		}
+	}
+
+	.site-index-link {
+		display: block;
+		padding: 0.3rem 0.6rem;
+		margin: 1px 0;
+		border-radius: 6px;
+		color: $ink;
+		line-height: 1.4;
+		&:hover {
+			background: $panel;
+			text-decoration: none;
+			color: $color1;
+		}
+		&.selected {
+			background: $color3;
+			color: $color1;
+			font-weight: 600;
+		}
+	}
+}
