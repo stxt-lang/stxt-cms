@@ -3,7 +3,9 @@
  * ones (<pre class="language-*">, STXT and EBNF) and the plain-text listings
  * (<pre class="listing">, not highlighted). Self-hosted, no dependencies. Runs
  * after Prism; copying uses the <code> element's textContent so the copied text
- * is the clean source, without highlight markup.
+ * is the clean source, without highlight markup. STXT blocks come from node.vm
+ * already wrapped in a .code-wrapper (with the "open in the playground" link);
+ * the others are wrapped here.
  */
 (function () {
 	var isEs = (document.documentElement.lang || 'en').toLowerCase().indexOf('es') === 0;
@@ -41,16 +43,22 @@
 
 	function addButton(pre) {
 		var parent = pre.parentNode;
-		if (!parent || (parent.classList && parent.classList.contains('code-wrapper'))) {
-			return; // already processed
-		}
+		if (!parent) { return; }
 		var code = pre.querySelector('code');
 		if (!code) { return; }
 
-		var wrapper = document.createElement('div');
-		wrapper.className = 'code-wrapper';
-		parent.insertBefore(wrapper, pre);
-		wrapper.appendChild(pre);
+		var wrapper;
+		if (parent.classList && parent.classList.contains('code-wrapper')) {
+			if (parent.querySelector('.copy-code-button')) {
+				return; // already processed
+			}
+			wrapper = parent; // wrapped by the template (STXT blocks)
+		} else {
+			wrapper = document.createElement('div');
+			wrapper.className = 'code-wrapper';
+			parent.insertBefore(wrapper, pre);
+			wrapper.appendChild(pre);
+		}
 
 		var btn = document.createElement('button');
 		btn.type = 'button';

@@ -113,17 +113,20 @@ pre.language-ebnf {
 	}
 }
 
-// Copy-to-clipboard button on code blocks (added by static/js/copy-code.js,
-// which wraps each highlighted <pre> in a .code-wrapper so the button stays
-// pinned even when the block scrolls horizontally).
+// Buttons on code blocks: copy to clipboard (added by static/js/copy-code.js)
+// and, on STXT blocks, the link that opens the block in the playground (emitted
+// by templates/node.vm). Both live in a .code-wrapper around the <pre>, so they
+// stay pinned even when the block scrolls horizontally, and share one look.
 .code-wrapper {
 	position: relative;
 }
 
-.copy-code-button {
+.copy-code-button,
+.play-code-link {
 	position: absolute;
 	top: 0.5rem;
 	right: 0.5rem;
+	text-decoration: none;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -159,7 +162,12 @@ pre.language-ebnf {
 	}
 }
 
-.code-wrapper:hover .copy-code-button {
+.play-code-link {
+	right: 2.9rem; // to the left of the copy button
+}
+
+.code-wrapper:hover .copy-code-button,
+.code-wrapper:hover .play-code-link {
 	opacity: 1;
 }
 
@@ -179,4 +187,4 @@ code {
 			display:block;
 		}
 	}
-}
+}
