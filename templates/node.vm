@@ -16,8 +16,10 @@
 	#set($numPart = $numPart + 1)
 #elseif(${node.normalizedName} == "code")
 	## STXT block: wrapped already (copy-code.js adds its button to an existing wrapper) and
-	## with a link that opens the block as a new document in the playground ("#d=" fragment)
-	<div class="code-wrapper"><pre class="language-stxt"><code class="language-stxt">${utils.escapeHtml($node.text)}</code></pre><a class="play-code-link" href="${utils.escapeHtml($utils.playgroundUrl($node.text, $doc.getText()))}" target="_blank" rel="noopener noreferrer" title="${lang.get("code.playground")}" aria-label="${lang.get("code.playground")}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg></a></div>
+	## with a link that opens the block as a new document in the playground ("#d=" fragment).
+	## The named target reuses one playground tab for every click; no rel="noopener", since it
+	## would put the tab in another browsing context group and defeat the reuse.
+	<div class="code-wrapper"><pre class="language-stxt"><code class="language-stxt">${utils.escapeHtml($node.text)}</code></pre><a class="play-code-link" href="${utils.escapeHtml($utils.playgroundUrl($node.text, $doc.getText()))}" target="stxt-play" title="${lang.get("code.playground")}" aria-label="${lang.get("code.playground")}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg></a></div>
 #elseif(${node.normalizedName} == "grammar")
 	<pre class="language-ebnf"><code class="language-ebnf">${utils.escapeHtml($node.text)}</code></pre>
 #elseif(${node.normalizedName} == "listing")
