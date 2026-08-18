@@ -116,6 +116,64 @@ pre.language-ebnf {
 	}
 }
 
+// Other languages (Java, TypeScript, Python, JSON, XML — grammars bundled in
+// static/js/prism-languages.min.js, emitted by node.vm from the block's node name).
+// Same palette as STXT/EBNF, mapped onto Prism's generic tokens: keywords take the
+// identifier blue (regular weight — every other word in a Java signature is a keyword,
+// bold would shout); the "key" tokens of data formats — JSON property names, XML tag
+// names — take the identifier blue in bold, exactly like an STXT node name; types,
+// packages, decorators and builtins take the namespace turquoise; strings, numbers and
+// booleans the value magenta; comments the green; operators and punctuation the slate.
+// Function names and plain identifiers keep the body ink.
+pre.language-java,
+pre.language-typescript,
+pre.language-python,
+pre.language-json,
+pre.language-xml {
+	.token.keyword,
+	.token.important {
+		color: $stxt-node;
+	}
+
+	.token.property,
+	.token.tag {
+		color: $stxt-node;
+		font-weight: 700;
+	}
+
+	.token.class-name,
+	.token.builtin,
+	.token.namespace,
+	.token.decorator,
+	.token.annotation,
+	.token.attr-name {
+		color: $stxt-namespace;
+		font-weight: 400;
+	}
+
+	.token.string,
+	.token.char,
+	.token.template-string,
+	.token.number,
+	.token.boolean,
+	.token.attr-value,
+	.token.regex {
+		color: $stxt-value;
+		font-weight: 400;
+	}
+
+	.token.comment,
+	.token.doc-comment {
+		color: $stxt-comment;
+	}
+
+	.token.operator,
+	.token.punctuation {
+		color: $stxt-muted;
+		font-weight: 400;
+	}
+}
+
 // Buttons on code blocks: copy to clipboard (added by static/js/copy-code.js)
 // and, on STXT blocks, the link that opens the block in the playground (emitted
 // by templates/node.vm). Both live in a .code-wrapper around the <pre>, so they

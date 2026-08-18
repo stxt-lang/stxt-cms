@@ -28,6 +28,11 @@
 	<pre class="language-ebnf"><code class="language-ebnf">${utils.escapeHtml($node.text)}</code></pre>
 #elseif(${node.normalizedName} == "listing")
 	<pre class="listing"><code>${utils.escapeHtml($node.text)}</code></pre>
+#elseif(${node.normalizedName} == "java" || ${node.normalizedName} == "python" || ${node.normalizedName} == "typescript" || ${node.normalizedName} == "json" || ${node.normalizedName} == "xml")
+	## Code in another language: the node name is the Prism language (grammars bundled in
+	## static/js/prism-languages.min.js; palette in scss/_panels.scss). Listing stays for
+	## text that is not code (diagrams, console output, shell sessions).
+	<pre class="language-${node.normalizedName}"><code class="language-${node.normalizedName}">${utils.escapeHtml($node.text)}</code></pre>
 #elseif(${node.normalizedName} == "assert")
 	<div class="row">
 		<div class="assert">${wiki.render($node.text)}</div>
