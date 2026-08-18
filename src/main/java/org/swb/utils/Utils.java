@@ -5,9 +5,13 @@ import java.io.File;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.text.Normalizer;
 import java.util.Base64;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.Deflater;
 
 import org.apache.commons.io.FileUtils;
@@ -58,6 +62,41 @@ public class Utils
 	public String escapeHtml(String text)
 	{
 		return StringEscapeUtils.escapeHtml(text);
+	}
+
+	/** A heading that starts with a section number: "4.3 Name", "17.1. Name", "2. Name". */
+	private static final Pattern SECTION_NUMBER = Pattern.compile("^\\s*(\\d+(?:\\.\\d+)*)\\.?\\s+.*", Pattern.DOTALL);
+
+	/**
+	 * Devuelve el ancla estable de un título de sección (Subheader / Subsubheader), la que
+	 * usan node.vm y toc.vm como {@code id} del {@code <h2>}/{@code <h3>} y a la que apuntan
+	 * los enlaces {@code pagina#ancla} del contenido. A diferencia de {@code index_N}, que
+	 * es posicional y cambia al insertar una sección, esta se deriva del propio título:
+	 * <ul>
+	 * <li>Si el título empieza por un número de sección ("4.3 Nombre canónico", "17.1. Asociación",
+	 *     "2. Terminología"), el ancla es ese número con guiones: {@code s4-3}, {@code s17-1},
+	 *     {@code s2}. Es lo que ya se cita en prosa como "§4.3", así que renumerar una sección
+	 *     obliga a revisar la cita y el enlace en el mismo sitio.</li>
+	 * <li>Si no, un slug ASCII del título al estilo de GitHub: sin diacríticos, en minúsculas,
+	 *     toda secuencia de caracteres que no sea [a-z0-9] pasa a un guion, sin guiones en los
+	 *     extremos: "¿Tabuladores o espacios?" → {@code tabuladores-o-espacios},
+	 *     "TypeScript / JavaScript" → {@code typescript-javascript}. El token {@code @STXT@}
+	 *     queda como {@code stxt} (sus arrobas se pierden), lo que además impide que la
+	 *     sustitución posterior de ReplaceText toque el atributo.</li>
+	 * </ul>
+	 * Devuelve la cadena vacía si no queda nada (título vacío o sin caracteres ASCII), y
+	 * entonces las plantillas no emiten {@code id}. Los títulos de una misma página deben ser
+	 * distintos entre sí para que las anclas no choquen; hoy lo son en todo el sitio.
+	 * @param text el texto del título tal como está en el nodo.
+	 */
+	public String headingId(String text)
+	{
+		if (text == null) return "";
+		Matcher m = SECTION_NUMBER.matcher(text);
+		if (m.matches()) return "s" + m.group(1).replace('.', '-');
+		String s = Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("\\p{M}+", "");
+		s = s.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-").replaceAll("^-+|-+$", "");
+		return s;
 	}
 
 	/**
