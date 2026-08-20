@@ -229,7 +229,8 @@ pre.language-xml {
 	opacity: 1;
 }
 
-// Inline code
+// Inline code. Runs of spaces are significant in the examples ("    Mundo"),
+// so keep them instead of collapsing them; still wrap at line ends.
 code {
 	font-family: $font-mono;
 	font-size: 0.9em;
@@ -237,6 +238,12 @@ code {
 	border-radius: 4px;
 	padding: 0.1em 0.4em;
 	color: $color1;
+
+	// Only inline: inside <pre> the block already handles whitespace and
+	// scrolls horizontally, and wrapping there would break long lines.
+	:not(pre) > & {
+		white-space: pre-wrap;
+	}
 }
 
 #advertisement {
