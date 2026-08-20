@@ -1,11 +1,12 @@
 /*
- * Adds a "copy to clipboard" button to every preformatted block: the highlighted
- * ones (<pre class="language-*">, STXT and EBNF) and the plain-text listings
- * (<pre class="listing">, not highlighted). Self-hosted, no dependencies. Runs
+ * Adds a "copy to clipboard" button to the preformatted blocks that have no
+ * other way out of the page: the highlighted non-STXT ones (<pre
+ * class="language-*">: EBNF, Java, Python, JSON...) and the plain-text
+ * listings (<pre class="listing">, not highlighted). STXT blocks are skipped on
+ * purpose: node.vm already gives them an "open in the playground" link, and we
+ * want that to be the one action on them. Self-hosted, no dependencies. Runs
  * after Prism; copying uses the <code> element's textContent so the copied text
- * is the clean source, without highlight markup. STXT blocks come from node.vm
- * already wrapped in a .code-wrapper (with the "open in the playground" link);
- * the others are wrapped here.
+ * is the clean source, without highlight markup.
  */
 (function () {
 	var isEs = (document.documentElement.lang || 'en').toLowerCase().indexOf('es') === 0;
@@ -49,16 +50,12 @@
 
 		var wrapper;
 		if (parent.classList && parent.classList.contains('code-wrapper')) {
-			if (parent.querySelector('.copy-code-button')) {
-				return; // already processed
-			}
-			wrapper = parent; // wrapped by the template (STXT blocks)
-		} else {
-			wrapper = document.createElement('div');
-			wrapper.className = 'code-wrapper';
-			parent.insertBefore(wrapper, pre);
-			wrapper.appendChild(pre);
+			return; // already processed (or a template-wrapped STXT block)
 		}
+		wrapper = document.createElement('div');
+		wrapper.className = 'code-wrapper';
+		parent.insertBefore(wrapper, pre);
+		wrapper.appendChild(pre);
 
 		var btn = document.createElement('button');
 		btn.type = 'button';
@@ -81,7 +78,7 @@
 	}
 
 	function init() {
-		var pres = document.querySelectorAll('pre[class*="language-"], pre.listing');
+		var pres = document.querySelectorAll('pre[class*="language-"]:not(.language-stxt), pre.listing');
 		for (var i = 0; i < pres.length; i++) { addButton(pres[i]); }
 	}
 

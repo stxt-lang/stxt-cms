@@ -174,10 +174,11 @@ pre.language-xml {
 	}
 }
 
-// Buttons on code blocks: copy to clipboard (added by static/js/copy-code.js)
-// and, on STXT blocks, the link that opens the block in the playground (emitted
-// by templates/node.vm). Both live in a .code-wrapper around the <pre>, so they
-// stay pinned even when the block scrolls horizontally, and share one look.
+// Buttons on code blocks: on STXT blocks, only the link that opens the block in
+// the playground (emitted by templates/node.vm); on every other block, the copy
+// to clipboard button (added by static/js/copy-code.js). Both live in a
+// .code-wrapper around the <pre>, so they stay pinned even when the block
+// scrolls horizontally, and share one look and position.
 .code-wrapper {
 	position: relative;
 }
@@ -221,10 +222,6 @@ pre.language-xml {
 		color: #008000;
 		border-color: #008000;
 	}
-}
-
-.play-code-link {
-	right: 2.9rem; // to the left of the copy button
 }
 
 .code-wrapper:hover .copy-code-button,
