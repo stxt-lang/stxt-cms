@@ -9,7 +9,7 @@
 	## The five specifications carry a shared version number (STXT-SPEC 1.1) in Metadata/Version;
 	## it is printed right under the title, with the date the document last changed.
 	#if($meta && $meta.getChild("version"))
-	<p class="doc-version"><span class="doc-version-number">${lang.get("meta.version")} ${meta.getChild("version").value}</span>#if($meta.getChild("last-modif")) <span class="doc-version-date">· ${lang.get("meta.lastmodif")} ${meta.getChild("last-modif").value}</span>#end</p>
+	<p class="doc-version"><span class="doc-version-number">${lang.get("meta.version")} ${meta.getChild("version").value}</span>#if($meta.getChild("last-modif")) <span class="doc-version-date">&middot; ${lang.get("meta.lastmodif")} ${meta.getChild("last-modif").value}</span>#end</p>
 	#end
 	#set($numPart = $numPart + 1)
 #elseif(${node.normalizedName} == "subheader")
