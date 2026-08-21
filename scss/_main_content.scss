@@ -12,6 +12,20 @@
 		margin: 0 0 1.25rem;
 		letter-spacing: -0.01em;
 	}
+	// Version line under the title of the five specifications (Metadata/Version, STXT-SPEC 1.1)
+	.doc-version {
+		margin: -0.9rem 0 1.5rem;
+		font-size: 0.9rem;
+		color: $muted;
+		.doc-version-number {
+			display: inline-block;
+			padding: 0.1rem 0.55rem;
+			border: 1px solid $border;
+			border-radius: 999px;
+			font-weight: 600;
+			color: $color1;
+		}
+	}
 	h2 {
 		font-size: 1.5rem;
 		margin: 2.5rem 0 0.9rem;
