@@ -6,7 +6,7 @@
 	<div class="preamble">${wiki.render($node.text)}</div>
 #elseif(${node.normalizedName} == "header")
 	<h1><a id="index_${numPart}"></a>$node.text</h1>
-	## The five specifications carry a shared version number (STXT-SPEC 1.1) in Metadata/Version;
+	## Each specification carries its own version number in Metadata/Version (see STXT-SPEC 1.1);
 	## it is printed right under the title, with the date the document last changed.
 	#if($meta && $meta.getChild("version"))
 	<p class="doc-version"><span class="doc-version-number">${lang.get("meta.version")} ${meta.getChild("version").value}</span>#if($meta.getChild("last-modif")) <span class="doc-version-date">&middot; ${lang.get("meta.lastmodif")} ${meta.getChild("last-modif").value}</span>#end</p>
