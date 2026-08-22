@@ -19,7 +19,7 @@
 				<a lang="es" href="./es/${doc_name}" title="${lang.get("menu.lang.es")}">ES</a><b lang="en">EN</b>
 			#end
 			</span>
-			<a class="source-link" href="https://github.com/stxt-lang/stxt-web/blob/master/${lang.get("lang")}/${doc_name}.stxt" target="${doc_name}" title="${doc_name}.stxt">.stxt</a>
+			<a class="source-link" href="https://github.com/stxt-lang/stxt-lang/blob/master/${lang.get("lang")}/${doc_name}.stxt" target="${doc_name}" title="${doc_name}.stxt">.stxt</a>
 		</div>
 	</div>
 </header>
