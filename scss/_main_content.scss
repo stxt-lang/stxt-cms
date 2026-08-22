@@ -13,16 +13,37 @@
 		letter-spacing: -0.01em;
 	}
 	// Version line under the title of the five specifications (Metadata/Version, STXT-SPEC 1.1)
-	.doc-version {
-		margin: -0.9rem 0 1.5rem;
+	.doc-meta {
+		display: grid;
+		grid-template-columns: max-content max-content;
+		column-gap: 1.25rem;
+		row-gap: 0.3rem;
+		align-items: baseline;
+		width: fit-content;
+		margin: -0.6rem 0 1rem;
+		padding: 0.7rem 1.1rem;
+		background: $color4;
+		border: 1px solid $border;
+		border-left: 3px solid $color1;
+		border-radius: 6px;
 		font-size: 0.9rem;
-		color: $muted;
-		.doc-version-number {
-			display: inline-block;
-			padding: 0.1rem 0.55rem;
-			border: 1px solid $border;
-			border-radius: 999px;
+		dt {
+			margin: 0;
+			color: $muted;
+			font-size: 0.8rem;
 			font-weight: 600;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+		}
+		dd {
+			margin: 0;
+			font-variant-numeric: tabular-nums;
+		}
+		& + h2 {
+			margin-top: 1.4rem;
+		}
+		.doc-meta-version {
+			font-weight: 700;
 			color: $color1;
 		}
 	}
