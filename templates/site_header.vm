@@ -8,6 +8,7 @@
 			<a href="lang-tutorial" #if(${doc_name} == "lang-tutorial")aria-current="page"#end>${lang.get("menu.tutorial")}</a>
 			<a href="lang-tools" #if(${doc_name} == "lang-tools")aria-current="page"#end>${lang.get("menu.tools")}</a>
 			<a href="https://play.stxt.dev" target="stxt-play">${lang.get("menu.playground")}</a>
+			<a href="https://github.com/orgs/stxt-lang/discussions" target="_blank" rel="noopener noreferrer">${lang.get("menu.feedback")}</a>
 			<a href="https://github.com/stxt-lang" target="_blank" rel="noopener noreferrer" title="${lang.get("menu.github")}">GitHub</a>
 		</nav>
 		<div class="site-actions">
