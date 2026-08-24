@@ -8,7 +8,14 @@
 			#if($node.getChild('url'))
 				<a class="site-index-link" href="${node.getChild('url').getText()}" target="_blank" rel="noopener noreferrer">${node.text}</a>
 			#else
-				<a class="site-index-link#if(${doc_name}==${node.getChild('page').getText()}) selected#end" href="${node.getChild('page').getText()}"#if(${doc_name}==${node.getChild('page').getText()}) aria-current="page"#end>${node.text}</a>
+				## Pages whose Metadata carries a Version (the five specifications) show it on the right
+				#set($page_name = ${node.getChild('page').getText()})
+				#set($page_doc = $pages.get($page_name))
+				#set($page_version = "")
+				#if($page_doc && $page_doc.getChild("metadata") && $page_doc.getChild("metadata").getChild("version"))
+					#set($page_version = $page_doc.getChild("metadata").getChild("version").value)
+				#end
+				<a class="site-index-link#if(${doc_name}==$page_name) selected#end" href="$page_name"#if(${doc_name}==$page_name) aria-current="page"#end>${node.text}#if($page_version != "")<span class="site-index-version">$page_version</span>#end</a>
 			#end
 		#end
 	#end

@@ -41,5 +41,12 @@
 			color: $color1;
 			font-weight: 600;
 		}
+
+		// Version of the five specifications (Metadata/Version), on the right of the link
+		.site-index-version {
+			float: right;
+			color: #aaa;
+			font-weight: 400;
+		}
 	}
 }
