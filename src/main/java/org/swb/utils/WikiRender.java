@@ -62,6 +62,26 @@ public class WikiRender
         return finalHtml;
     }    
     
+    /**
+     * Renderiza solo el markdown inline (enfasis, `codigo`, enlaces...) de un texto de una
+     * linea, tipicamente un titulo de seccion. Se desactivan todos los tipos de bloque para
+     * que un titulo numerado ("2. Terminologia") no se interprete como lista ordenada, y se
+     * quita el <p> envolvente.
+     */
+    public static String renderInline(String markdown)
+    {
+        Parser parser = Parser.builder()
+                .enabledBlockTypes(java.util.Collections.<Class<? extends org.commonmark.node.Block>>emptySet())
+                .build();
+        Node document = parser.parse(markdown == null ? "" : markdown);
+        String result = HtmlRenderer.builder().build().render(document).trim();
+        if (result.startsWith("<p>") && result.endsWith("</p>"))
+        {
+            result = result.substring(3, result.length() - 4);
+        }
+        return result;
+    }
+
     public static String renderNoP(String markdown)
     {
     	String result = render(markdown).trim();

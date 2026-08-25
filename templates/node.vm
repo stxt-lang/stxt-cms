@@ -5,7 +5,9 @@
 #elseif(${node.normalizedName} == "preamble")
 	<div class="preamble">${wiki.render($node.text)}</div>
 #elseif(${node.normalizedName} == "header")
-	<h1><a id="index_${numPart}"></a>$node.text</h1>
+	## Heading text goes through the inline-only markdown render (backticks, emphasis...);
+	## headingId keeps working on the raw text, so anchors do not change.
+	<h1><a id="index_${numPart}"></a>${wiki.renderInline($node.text)}</h1>
 	## Each specification carries its own version number in Metadata/Version (see STXT-SPEC 1.1);
 	## it is printed right under the title, with the date the document last changed.
 	#if($meta && $meta.getChild("version"))
@@ -22,11 +24,11 @@
 	## "s4-3" for "4.3 ...", a slug otherwise) is the one content links and toc.vm use; the
 	## positional index_N is kept so old links keep working.
 	#set($hid = $utils.headingId($node.text))
-	<h2#if($hid != "") id="$hid"#end><a id="index_${numPart}"></a>$node.text</h2>
+	<h2#if($hid != "") id="$hid"#end><a id="index_${numPart}"></a>${wiki.renderInline($node.text)}</h2>
 	#set($numPart = $numPart + 1)
 #elseif(${node.normalizedName} == "subsubheader")
 	#set($hid = $utils.headingId($node.text))
-	<h3#if($hid != "") id="$hid"#end><a id="index_${numPart}"></a>$node.text</h3>
+	<h3#if($hid != "") id="$hid"#end><a id="index_${numPart}"></a>${wiki.renderInline($node.text)}</h3>
 	#set($numPart = $numPart + 1)
 #elseif(${node.normalizedName} == "code")
 	## STXT block: wrapped already, with a single action: a link that opens the block as a new

@@ -18,12 +18,12 @@
 			#elseif(${node.normalizedName} == "subheader")
 				#set($hid = $utils.headingId($node.text))
 				#if($hid == "")#set($hid = "index_${tocN}")#end
-				<a href="#$hid">$node.text</a>
+				<a href="#$hid">${wiki.renderInline($node.text)}</a>
 				#set($tocN = $tocN + 1)
 			#elseif(${node.normalizedName} == "subsubheader")
 				#set($hid = $utils.headingId($node.text))
 				#if($hid == "")#set($hid = "index_${tocN}")#end
-				<a class="l3" href="#$hid">$node.text</a>
+				<a class="l3" href="#$hid">${wiki.renderInline($node.text)}</a>
 				#set($tocN = $tocN + 1)
 			#end
 		#end
