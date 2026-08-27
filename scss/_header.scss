@@ -37,15 +37,8 @@
 			letter-spacing: 0.02em;
 			line-height: 1;
 		}
-		.brand-sub {
-			font-size: 0.9rem;
-			opacity: 0.85;
-		}
 		&:hover {
 			text-decoration: none;
-			.brand-sub {
-				opacity: 1;
-			}
 		}
 	}
 
@@ -113,9 +106,6 @@
 			gap: 0.5rem 1rem;
 			padding-top: 0.4rem;
 			padding-bottom: 0.4rem;
-		}
-		.brand .brand-sub {
-			display: none;
 		}
 		.site-nav {
 			order: 3;

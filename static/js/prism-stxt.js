@@ -1,5 +1,5 @@
 /*
- * Prism language definition for STXT (Semantic Text).
+ * Prism language definition for STXT.
  *
  * STXT is a bespoke, tab-indented language: each node is `Name : value`
  * (inline) or `Name >>` (a block whose indented children are literal text),

@@ -9,7 +9,7 @@ A continuación muestro los RFC's que usas:
 
 # STXT-SPEC-DRAFT
 
-**Semantic Text (STXT) — Core Language Specification**
+**STXT — Core Language Specification**
 **Category:** Standards Track
 **Status:** Draft
 **Format:** Markdown (RFC-style)
@@ -18,11 +18,11 @@ A continuación muestro los RFC's que usas:
 
 # 1. Introducción
 
-Este documento define la especificación del lenguaje **STXT (Semantic Text)**.
+Este documento define la especificación del lenguaje **STXT**.
 
 STXT es un lenguaje **Human-First**, diseñado para que su forma natural sea legible, clara y cómoda para las personas, manteniendo al mismo tiempo una estructura precisa y fácilmente procesable por máquinas.
 
-STXT es un formato textual jerárquico y semántico orientado a:
+STXT es un formato de texto estructurado, basado en indentación, orientado a:
 
 * Representar documentos y datos de manera clara.
 * Ser extremadamente sencillo de leer y escribir.
@@ -562,7 +562,7 @@ El sistema de schemas es un componente separado y opcional que opera **sobre** e
 
 # STXT-SCHEMA-SPEC-DRAFT
 
-**Semantic Text (STXT) — Schema Language Specification**
+**STXT — Schema Language Specification**
 **Category:** Standards Track
 **Status:** Draft
 **Format:** Markdown (RFC-style)

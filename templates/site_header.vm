@@ -2,7 +2,7 @@
 ## switch and a link to the page source. Replaces the old top_header.vm + top_bar.vm.
 <header class="site-header">
 	<div class="site-header-inner">
-		<a class="brand" href="$indexPage" title="STXT - Semantic Text"><span class="brand-name">STXT</span><span class="brand-sub">Semantic Text</span></a>
+		<a class="brand" href="$indexPage" title="STXT"><span class="brand-name">STXT</span></a>
 		<nav class="site-nav" aria-label="${lang.get("nav.site")}">
 			<a href="$indexPage" #if(${doc_name} == "index")aria-current="page"#end>${lang.get("menu.hello")}</a>
 			<a href="lang-tutorial" #if(${doc_name} == "lang-tutorial")aria-current="page"#end>${lang.get("menu.tutorial")}</a>
