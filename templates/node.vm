@@ -1,10 +1,10 @@
-#if(${node.normalizedName} == "html")
+#if(${node.canonicalName} == "html")
 	${node.text}
-#elseif(${node.normalizedName} == "content" || ${node.normalizedName} == "text")
+#elseif(${node.canonicalName} == "content" || ${node.canonicalName} == "text")
 	${wiki.render($node.text)}
-#elseif(${node.normalizedName} == "preamble")
+#elseif(${node.canonicalName} == "preamble")
 	<div class="preamble">${wiki.render($node.text)}</div>
-#elseif(${node.normalizedName} == "header")
+#elseif(${node.canonicalName} == "header")
 	## Heading text goes through the inline-only markdown render (backticks, emphasis...);
 	## headingId keeps working on the raw text, so anchors do not change.
 	<h1><a id="index_${numPart}"></a>${wiki.renderInline($node.text)}</h1>
@@ -19,41 +19,41 @@
 	</dl>
 	#end
 	#set($numPart = $numPart + 1)
-#elseif(${node.normalizedName} == "subheader")
+#elseif(${node.canonicalName} == "subheader")
 	## Two anchors per section heading: the stable id derived from the title (Utils.headingId:
 	## "s4-3" for "4.3 ...", a slug otherwise) is the one content links and toc.vm use; the
 	## positional index_N is kept so old links keep working.
 	#set($hid = $utils.headingId($node.text))
 	<h2#if($hid != "") id="$hid"#end><a id="index_${numPart}"></a>${wiki.renderInline($node.text)}</h2>
 	#set($numPart = $numPart + 1)
-#elseif(${node.normalizedName} == "subsubheader")
+#elseif(${node.canonicalName} == "subsubheader")
 	#set($hid = $utils.headingId($node.text))
 	<h3#if($hid != "") id="$hid"#end><a id="index_${numPart}"></a>${wiki.renderInline($node.text)}</h3>
 	#set($numPart = $numPart + 1)
-#elseif(${node.normalizedName} == "code")
+#elseif(${node.canonicalName} == "code")
 	## STXT block: wrapped already, with a single action: a link that opens the block as a new
 	## document in the playground ("#d=" fragment). copy-code.js skips these blocks on purpose.
 	## The named target reuses one playground tab for every click; no rel="noopener", since it
 	## would put the tab in another browsing context group and defeat the reuse.
 	<div class="code-wrapper"><pre class="language-stxt"><code class="language-stxt">${utils.escapeHtml($node.text)}</code></pre><a class="play-code-link" href="${utils.escapeHtml($utils.playgroundUrl($node.text, $doc.getText()))}" target="stxt-play" title="${lang.get("code.playground")}" aria-label="${lang.get("code.playground")}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg></a></div>
-#elseif(${node.normalizedName} == "grammar")
+#elseif(${node.canonicalName} == "grammar")
 	<pre class="language-ebnf"><code class="language-ebnf">${utils.escapeHtml($node.text)}</code></pre>
-#elseif(${node.normalizedName} == "listing")
+#elseif(${node.canonicalName} == "listing")
 	<pre class="listing"><code>${utils.escapeHtml($node.text)}</code></pre>
-#elseif(${node.normalizedName} == "java" || ${node.normalizedName} == "python" || ${node.normalizedName} == "typescript" || ${node.normalizedName} == "json" || ${node.normalizedName} == "xml")
+#elseif(${node.canonicalName} == "java" || ${node.canonicalName} == "python" || ${node.canonicalName} == "typescript" || ${node.canonicalName} == "json" || ${node.canonicalName} == "xml")
 	## Code in another language: the node name is the Prism language (grammars bundled in
 	## static/js/prism-languages.min.js; palette in scss/_panels.scss). Listing stays for
 	## text that is not code (diagrams, console output, shell sessions).
-	<pre class="language-${node.normalizedName}"><code class="language-${node.normalizedName}">${utils.escapeHtml($node.text)}</code></pre>
-#elseif(${node.normalizedName} == "assert")
+	<pre class="language-${node.canonicalName}"><code class="language-${node.canonicalName}">${utils.escapeHtml($node.text)}</code></pre>
+#elseif(${node.canonicalName} == "assert")
 	<div class="row">
 		<div class="assert">${wiki.render($node.text)}</div>
 	</div>
-#elseif(${node.normalizedName} == "alert")
+#elseif(${node.canonicalName} == "alert")
 	<div class="row">
 		<div class="alert">${wiki.render($node.text)}</div>
 	</div>
-#elseif(${node.normalizedName} == "link")
+#elseif(${node.canonicalName} == "link")
 	<div class="link">
 	#if($node.getChild('url'))
 		## External link (Url instead of Page): opens in a new tab, never "selected"

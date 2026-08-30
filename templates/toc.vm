@@ -4,7 +4,7 @@
 ## ($tocN counts header, subheader and subsubheader like $numPart in node.vm).
 #set($tocCount = 0)
 #foreach($node in ${doc.children})
-	#if(${node.normalizedName} == "subheader")
+	#if(${node.canonicalName} == "subheader")
 		#set($tocCount = $tocCount + 1)
 	#end
 #end
@@ -13,14 +13,14 @@
 	<nav class="page-toc" aria-label="${lang.get("toc.title")}">
 		<h2 class="page-toc-title">${lang.get("toc.title")}</h2>
 		#foreach($node in ${doc.children})
-			#if(${node.normalizedName} == "header")
+			#if(${node.canonicalName} == "header")
 				#set($tocN = $tocN + 1)
-			#elseif(${node.normalizedName} == "subheader")
+			#elseif(${node.canonicalName} == "subheader")
 				#set($hid = $utils.headingId($node.text))
 				#if($hid == "")#set($hid = "index_${tocN}")#end
 				<a href="#$hid">${wiki.renderInline($node.text)}</a>
 				#set($tocN = $tocN + 1)
-			#elseif(${node.normalizedName} == "subsubheader")
+			#elseif(${node.canonicalName} == "subsubheader")
 				#set($hid = $utils.headingId($node.text))
 				#if($hid == "")#set($hid = "index_${tocN}")#end
 				<a class="l3" href="#$hid">${wiki.renderInline($node.text)}</a>
