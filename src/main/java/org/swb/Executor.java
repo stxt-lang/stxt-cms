@@ -24,7 +24,7 @@ public class Executor
         File f = new File(file);
         if (!f.exists()||!f.isFile())
         {
-            System.out.println("No se ha encontrado el fichero de ejecuci�n: " + f.getAbsolutePath());
+            System.out.println("No se ha encontrado el fichero de ejecución: " + f.getAbsolutePath());
             System.exit(1);
         }
         
