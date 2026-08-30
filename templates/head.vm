@@ -5,8 +5,8 @@
 #if($meta && $meta.getChild("description"))
 	<meta name="description" content="${meta.getChild("description").text}">
 #end
-#if($meta && $meta.getChild("author"))
-	<meta name="author" content="${meta.getChild("author").value}">
+#if($meta && !$meta.getChildren("author").isEmpty())
+	<meta name="author" content="#foreach($a in $meta.getChildren("author"))$a.value#if($foreach.hasNext), #end#end">
 #end
 
 	<link rel="icon" href="/favicon.ico?v=${utils.assetHash('/favicon.ico')}" sizes="48x48">
