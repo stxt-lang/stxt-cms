@@ -1,2 +1,14 @@
-/index             /                     301
-/es/index          /es/                  301
+/index                  /                        301
+/es/index               /es/                     301
+/lang-tutorial          /tutorial                301
+/es/lang-tutorial       /es/tutorial             301
+/lang-workflow          /working-environment     301
+/es/lang-workflow       /es/working-environment  301
+/lang-tools             /tools                   301
+/es/lang-tools          /es/tools                301
+/lang-principles        /design-principles       301
+/es/lang-principles     /es/design-principles    301
+/lang-stability         /stability               301
+/es/lang-stability      /es/stability            301
+/ia-llms                /ai-llms                 301
+/es/ia-llms             /es/ai-llms              301

@@ -15,7 +15,9 @@
 				#if($page_doc && $page_doc.getChild("metadata") && $page_doc.getChild("metadata").getChild("version"))
 					#set($page_version = $page_doc.getChild("metadata").getChild("version").value)
 				#end
-				<a class="site-index-link#if(${doc_name}==$page_name) selected#end" href="$page_name"#if(${doc_name}==$page_name) aria-current="page"#end>${node.text}#if($page_version != "")<span class="site-index-version">$page_version</span>#end</a>
+				## The home page is linked as "/" or "/es/" (never "/index", a 301); $indexPage comes from head.vm
+				#if($page_name == "index")#set($page_href = $indexPage)#else#set($page_href = $page_name)#end
+				<a class="site-index-link#if(${doc_name}==$page_name) selected#end" href="$page_href"#if(${doc_name}==$page_name) aria-current="page"#end>${node.text}#if($page_version != "")<span class="site-index-version">$page_version</span>#end</a>
 			#end
 		#end
 	#end
