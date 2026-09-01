@@ -6,9 +6,16 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +23,11 @@ import java.util.zip.Deflater;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+
+import dev.stxt.InlineNode;
+import dev.stxt.Node;
+import dev.stxt.Parser;
+import dev.stxt.TextNode;
 
 public class Utils
 {
@@ -111,6 +123,54 @@ public class Utils
 	 */
 	public String playgroundUrl(String text, String title)
 	{
+		return playgroundUrl(text, title, Collections.<String>emptyList());
+	}
+
+	/**
+	 * Como {@link #playgroundUrl(String, String)}, pero añadiendo las gramáticas que el
+	 * documento del bloque necesita para validar y que están en otros bloques Code de la misma
+	 * página: un parámetro "&amp;g=&lt;payload&gt;" por gramática, que el playground recibe
+	 * como documento aparte (ver README de stxt-play). Un namespace que el propio bloque ya
+	 * define no viaja; para los demás rige la misma regla que website.test.ts de stxt-js
+	 * aplica al validar los ejemplos del portal: la definición «más cercana» de la página, la
+	 * última mostrada antes del bloque o, si ninguna lo precede, la primera mostrada después.
+	 * Así el portal puede enseñar documento y gramática por separado y aun así enviarlos
+	 * juntos al playground.
+	 * @param page  el nodo raíz de la página ($doc en las plantillas).
+	 * @param code  el nodo del bloque de código (un TextNode "Code").
+	 * @param title el título del documento en el playground, normalmente el de la página.
+	 */
+	public String playgroundUrl(Node page, Node code, String title)
+	{
+		String text = code == null ? "" : code.getText();
+		return playgroundUrl(text, title, grammarsFor(page, code, text));
+	}
+
+	private String playgroundUrl(String text, String title, List<String> grammars)
+	{
+		StringBuilder url = new StringBuilder(PLAYGROUND_URL);
+		url.append("#d=").append(encodeFragmentPayload(text));
+		if (title != null && title.trim().length() > 0)
+		{
+			try
+			{
+				url.append("&t=").append(URLEncoder.encode(title.trim(), "UTF-8"));
+			}
+			catch (Exception e)
+			{
+				// UTF-8 siempre existe; si algo fallara, el enlace va sin título
+			}
+		}
+		for (String grammar : grammars)
+		{
+			url.append("&g=").append(encodeFragmentPayload(grammar));
+		}
+		return url.toString();
+	}
+
+	/** Base64url (sin relleno) del deflate-raw del texto en UTF-8: el payload de los fragmentos. */
+	private static String encodeFragmentPayload(String text)
+	{
 		byte[] input = (text == null ? "" : text).getBytes(StandardCharsets.UTF_8);
 		Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION, true); // true = raw deflate
 		deflater.setInput(input);
@@ -123,21 +183,197 @@ public class Utils
 			out.write(buffer, 0, n);
 		}
 		deflater.end();
+		return Base64.getUrlEncoder().withoutPadding().encodeToString(out.toByteArray());
+	}
 
-		StringBuilder url = new StringBuilder(PLAYGROUND_URL);
-		url.append("#d=").append(Base64.getUrlEncoder().withoutPadding().encodeToString(out.toByteArray()));
-		if (title != null && title.trim().length() > 0)
+	/** Una definición de la página: un bloque Code de solo gramáticas, con su posición. */
+	private static final class PageDefinition
+	{
+		final int position;
+		final Set<String> namespaces;
+		final String text;
+
+		PageDefinition(int position, Set<String> namespaces, String text)
 		{
-			try
-			{
-				url.append("&t=").append(URLEncoder.encode(title.trim(), "UTF-8"));
-			}
-			catch (Exception e)
-			{
-				// UTF-8 siempre existe; si algo fallara, el enlace va sin título
-			}
+			this.position = position;
+			this.namespaces = namespaces;
+			this.text = text;
 		}
-		return url.toString();
+	}
+
+	/** Caché por página (identidad del nodo raíz) de sus definiciones, en orden de lectura. */
+	private static final Map<Node, List<PageDefinition>> PAGE_DEFINITIONS_CACHE =
+			Collections.synchronizedMap(new IdentityHashMap<Node, List<PageDefinition>>());
+
+	/**
+	 * Las gramáticas de la página que el documento de un bloque Code necesita: las de los
+	 * namespaces que usa y no define él mismo, cada uno resuelto a su definición más cercana
+	 * (la última anterior al bloque o, si no hay, la primera posterior), en orden de aparición
+	 * y sin repetir bloque. Un texto que no parsea no necesita nada (el enlace va sin
+	 * gramáticas, como hasta ahora).
+	 */
+	private List<String> grammarsFor(Node page, Node code, String text)
+	{
+		List<String> grammars = new ArrayList<String>();
+		List<Node> roots = parseQuiet(text);
+		if (page == null || roots == null) return grammars;
+
+		Set<String> defined = definedNamespaces(roots);
+		List<PageDefinition> definitions = pageDefinitions(page);
+		int position = positionOf(page, code);
+		Set<String> added = new HashSet<String>(); // por texto de bloque: una gramática puede definir varios namespaces
+
+		for (String namespace : usedNamespaces(roots))
+		{
+			if (defined.contains(namespace)) continue;
+			PageDefinition definition = closestDefinition(definitions, namespace, position);
+			if (definition != null && added.add(definition.text)) grammars.add(definition.text);
+		}
+		return grammars;
+	}
+
+	/** La posición del bloque entre los Code de la página (por identidad), o -1 si no está. */
+	private static int positionOf(Node page, Node code)
+	{
+		List<TextNode> blocks = codeBlocksOf(page);
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			if (blocks.get(i) == code) return i;
+		}
+		return -1;
+	}
+
+	/**
+	 * La definición de un namespace que aplica al bloque de una posición: la última mostrada
+	 * antes o, si ninguna lo precede, la primera mostrada después. Es la misma regla con la
+	 * que website.test.ts de stxt-js valida los ejemplos del portal.
+	 */
+	private static PageDefinition closestDefinition(List<PageDefinition> definitions, String namespace, int position)
+	{
+		PageDefinition before = null;
+		PageDefinition after = null;
+		for (PageDefinition definition : definitions)
+		{
+			if (!definition.namespaces.contains(namespace)) continue;
+			if (definition.position < position) before = definition;
+			else if (after == null && definition.position > position) after = definition;
+		}
+		return before != null ? before : after;
+	}
+
+	/**
+	 * Las definiciones de la página: los bloques Code cuyos nodos raíz son todos gramáticas
+	 * (un bloque que mezcla documento y gramática se envía entero con su propio enlace y no
+	 * sirve de definición para otros), con los namespaces que define cada uno. Se calcula una
+	 * vez por página.
+	 */
+	private List<PageDefinition> pageDefinitions(Node page)
+	{
+		List<PageDefinition> cached = PAGE_DEFINITIONS_CACHE.get(page);
+		if (cached != null) return cached;
+
+		List<PageDefinition> definitions = new ArrayList<PageDefinition>();
+		List<TextNode> blocks = codeBlocksOf(page);
+		for (int position = 0; position < blocks.size(); position++)
+		{
+			String text = blocks.get(position).getText();
+			List<Node> roots = parseQuiet(text);
+			if (roots == null || roots.isEmpty()) continue;
+
+			Set<String> namespaces = definedNamespaces(roots);
+			boolean allGrammars = true;
+			for (Node root : roots)
+			{
+				if (!isGrammarRoot(root)) { allGrammars = false; break; }
+			}
+			if (!allGrammars || namespaces.isEmpty()) continue;
+
+			definitions.add(new PageDefinition(position, namespaces, text));
+		}
+
+		PAGE_DEFINITIONS_CACHE.put(page, definitions);
+		return definitions;
+	}
+
+	/** Los bloques Code de la página, en orden de documento. */
+	private static List<TextNode> codeBlocksOf(Node node)
+	{
+		List<TextNode> blocks = new ArrayList<TextNode>();
+		collectCodeBlocks(node, blocks);
+		return blocks;
+	}
+
+	private static void collectCodeBlocks(Node node, List<TextNode> blocks)
+	{
+		if (node instanceof TextNode && "code".equals(node.getCanonicalName()))
+		{
+			blocks.add((TextNode) node);
+		}
+		if (node instanceof InlineNode)
+		{
+			for (Node child : ((InlineNode) node).getChildren()) collectCodeBlocks(child, blocks);
+		}
+	}
+
+	/** Los namespaces reservados de las gramáticas (normativos y estables desde la 1.0). */
+	private static final String SCHEMA_NAMESPACE = "@stxt.schema";
+	private static final String TEMPLATE_NAMESPACE = "@stxt.template";
+
+	/** true si el nodo raíz define una gramática: un esquema o una plantilla. */
+	private static boolean isGrammarRoot(Node root)
+	{
+		String namespace = root.getNamespace();
+		return SCHEMA_NAMESPACE.equals(namespace) || TEMPLATE_NAMESPACE.equals(namespace);
+	}
+
+	/** El namespace que define una raíz de gramática (su valor), o "" si no es una gramática inline. */
+	private static String definedNamespaceOf(Node root)
+	{
+		if (!isGrammarRoot(root) || !(root instanceof InlineNode)) return "";
+		return ((InlineNode) root).getValue().trim().toLowerCase(Locale.ROOT);
+	}
+
+	/** Los namespaces que definen las raíces de gramática de un bloque. */
+	private static Set<String> definedNamespaces(List<Node> roots)
+	{
+		Set<String> defined = new HashSet<String>();
+		for (Node root : roots)
+		{
+			String namespace = definedNamespaceOf(root);
+			if (namespace.length() > 0) defined.add(namespace);
+		}
+		return defined;
+	}
+
+	/** Los namespaces efectivos que usa un árbol, en orden de aparición, sin los @stxt.* reservados. */
+	private static Set<String> usedNamespaces(List<Node> roots)
+	{
+		Set<String> used = new LinkedHashSet<String>();
+		for (Node root : roots) collectUsedNamespaces(root, used);
+		return used;
+	}
+
+	private static void collectUsedNamespaces(Node node, Set<String> used)
+	{
+		String namespace = node.getNamespace();
+		if (namespace != null && namespace.length() > 0 && !namespace.startsWith("@")) used.add(namespace);
+		if (node instanceof InlineNode)
+		{
+			for (Node child : ((InlineNode) node).getChildren()) collectUsedNamespaces(child, used);
+		}
+	}
+
+	/** Parsea un texto STXT, o null si no es válido: un ejemplo de error se enlaza sin gramáticas. */
+	private static List<Node> parseQuiet(String text)
+	{
+		try
+		{
+			return new Parser().parse(text == null ? "" : text);
+		}
+		catch (RuntimeException e)
+		{
+			return null;
+		}
 	}
     public int parseInt(String text)
     {
