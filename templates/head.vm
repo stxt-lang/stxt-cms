@@ -1,5 +1,33 @@
+## Head of every page. Canonical URLs, hreflang and Open Graph are built from
+## $origin + $doc_name; the home page maps to "/" and "/es/" (never "/index").
+## Keep this file ASCII-only: Velocity reads templates as ISO-8859-1.
+#set($origin = "https://stxt.dev")
+#set($hash = "#")
+#if(${doc_name} == "index")
+	#set($urlEn = "${origin}/")
+	#set($urlEs = "${origin}/es/")
+#else
+	#set($urlEn = "${origin}/${doc_name}")
+	#set($urlEs = "${origin}/es/${doc_name}")
+#end
+#if(${lang.get("lang")} == "en")
+	#set($canonicalUrl = $urlEn)
+	#set($ogLocale = "en_US")
+	#set($ogLocaleAlt = "es_ES")
+	#set($indexPage = "/")
+#end
+#if(${lang.get("lang")} == "es")
+	#set($canonicalUrl = $urlEs)
+	#set($ogLocale = "es_ES")
+	#set($ogLocaleAlt = "en_US")
+	#set($indexPage = "/es/")
+#end
+#if(${doc_name} == "index")
+	#set($ogType = "website")
+#else
+	#set($ogType = "article")
+#end
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${doc.getText()}</title>
 #if($meta && $meta.getChild("description"))
@@ -8,6 +36,29 @@
 #if($meta && !$meta.getChildren("author").isEmpty())
 	<meta name="author" content="#foreach($a in $meta.getChildren("author"))$a.value#if($foreach.hasNext), #end#end">
 #end
+	<meta name="theme-color" content="${hash}E8F4FA">
+#if(${doc_name} == "_index")
+	<meta name="robots" content="noindex">
+#end
+
+	<link rel="canonical" href="$canonicalUrl">
+#if(${doc_name} != "_index")
+	<link rel="alternate" hreflang="en" href="$urlEn" />
+	<link rel="alternate" hreflang="es" href="$urlEs" />
+	<link rel="alternate" hreflang="x-default" href="$urlEn" />
+#end
+
+	<meta property="og:site_name" content="STXT">
+	<meta property="og:type" content="$ogType">
+	<meta property="og:title" content="${doc.getText()}">
+#if($meta && $meta.getChild("description"))
+	<meta property="og:description" content="${meta.getChild("description").text}">
+#end
+	<meta property="og:url" content="$canonicalUrl">
+	<meta property="og:image" content="${origin}/icon-512.png">
+	<meta property="og:locale" content="$ogLocale">
+	<meta property="og:locale:alternate" content="$ogLocaleAlt">
+	<meta name="twitter:card" content="summary">
 
 	<link rel="icon" href="/favicon.ico?v=${utils.assetHash('/favicon.ico')}" sizes="48x48">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=${utils.assetHash('/favicon-32.png')}">
@@ -20,15 +71,3 @@
 	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/site.css?v=${utils.assetHash('/css/site.css')}">
-		
-	#if(${lang.get("lang")} == "en")
-		<link rel="alternate" hreflang="es" href="https://stxt.dev/es/${doc_name}" />
-		#set($indexPage = "/")
-	#end
-		
-	#if(${lang.get("lang")} == "es")
-		<link rel="alternate" hreflang="en" href="https://stxt.dev/${doc_name}" />
-		#set($indexPage = "/es")
-	#end
-	
-	<link rel="alternate" hreflang="x-default" href="https://stxt.dev/${doc_name}" />
