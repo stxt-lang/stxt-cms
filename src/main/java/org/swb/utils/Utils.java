@@ -31,6 +31,8 @@ public class Utils
 	/**
 	 * Devuelve un hash corto (sha1, 10 hex) del contenido de un asset, para
 	 * cache-busting: el token sólo cambia cuando el fichero cambia de verdad.
+	 * Un asset que no se puede leer detiene el build (RuntimeException): una
+	 * plantilla que referencia un fichero inexistente es un error, no un "?v=0".
 	 * @param path ruta pública del asset, p.ej. "/css/site.css" o "js/copy-code.js";
 	 *             se resuelve contra el directorio "static".
 	 */
@@ -51,8 +53,7 @@ public class Utils
 		}
 		catch (Exception e)
 		{
-			System.err.println("assetHash: no se pudo hashear '" + key + "': " + e.getMessage());
-			hash = "0";
+			throw new RuntimeException("assetHash: cannot hash '" + key + "': " + e.getMessage(), e);
 		}
 
 		HASH_CACHE.put(key, hash);

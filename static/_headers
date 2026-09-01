@@ -9,6 +9,10 @@
 /js/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Self-hosted fonts change (at most) with a redesign: cache like the hashed assets.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Published .stxt sources: readable as plain text, but not competing with their HTML.
 /*.stxt
   Content-Type: text/plain; charset=utf-8

@@ -17,5 +17,6 @@ set -e
 cd "$(dirname "$0")"
 
 # Ejecutar node-sass para compilar SCSS a CSS
-sass scss:static/css --style=compressed
+# (--no-source-map: el .map no debe llegar a producción)
+sass scss:static/css --style=compressed --no-source-map
 

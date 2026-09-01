@@ -1,0 +1,39 @@
+# STXT
+
+> STXT is a Human-First markup language for structured documents and data: no braces,
+> no closing tags, just indentation. It ships an optional, built-in schema layer, five
+> normative specifications frozen at 1.0, and parsers for TypeScript, Java and Python.
+
+Every page of this site is also published as its STXT source: append `.stxt` to any
+page URL. The sources are UTF-8 plain text and parse with any STXT implementation;
+Spanish versions live under `/es/`.
+
+## Start here
+
+- [Introduction](https://stxt.dev/index.stxt): what the language is and where to start
+- [Tutorial](https://stxt.dev/tutorial.stxt): the whole language in fifteen short sections
+- [FAQ](https://stxt.dev/faq.stxt): short answers, each linking to the governing rule
+- [AI and LLMs](https://stxt.dev/ai-llms.stxt): generating verifiable STXT documents with a language model, with the generate → validate → fix loop
+
+## Specifications (normative)
+
+- [STXT-SPEC](https://stxt.dev/stxt-core-ref.stxt): base syntax — indentation, inline nodes, text blocks, namespaces, comments, error codes, security
+- [STXT-SCHEMA-SPEC](https://stxt.dev/stxt-schema-ref.stxt): semantic validation — nodes, types, cardinalities, closed content model
+- [STXT-TEMPLATE-SPEC](https://stxt.dev/stxt-template-ref.stxt): the simplified authoring form, compilable to an equivalent schema
+- [STXT-DISCOVERY-SPEC](https://stxt.dev/stxt-discovery-ref.stxt): how tools locate schemas and templates
+- [STXT-TREE-SPEC](https://stxt.dev/stxt-tree-ref.stxt): the canonical JSON tree, the canonical text form and reformatting
+
+## Tools
+
+- [Tools overview](https://stxt.dev/tools.stxt): playground, editor support, command line, libraries
+- [Command line](https://stxt.dev/tools-cli.stxt): the complete `stxt` CLI reference
+- [TypeScript library](https://stxt.dev/tools-typescript.stxt), [Java library](https://stxt.dev/tools-java.stxt), [Python library](https://stxt.dev/tools-python.stxt)
+- [Stability and versions](https://stxt.dev/stability.stxt): what 1.0 freezes and what it does not
+
+## Optional
+
+- [Design principles](https://stxt.dev/design-principles.stxt): why the language is the way it is
+- [The working environment](https://stxt.dev/working-environment.stxt): projects, `.stxt/` directories, CI
+- Comparisons: [STXT vs YAML](https://stxt.dev/stxt-vs-yaml.stxt), [STXT vs JSON](https://stxt.dev/stxt-vs-json.stxt), [STXT vs XML](https://stxt.dev/stxt-vs-xml.stxt), [STXT vs Markdown](https://stxt.dev/stxt-vs-markdown.stxt)
+- Use cases: [corporate documents](https://stxt.dev/use-cases-corporate-docs.stxt), [CMS and publishing](https://stxt.dev/use-cases-cms.stxt), [configuration files](https://stxt.dev/use-cases-config-files.stxt), [RFCs](https://stxt.dev/use-cases-rfcs.stxt), [contracts](https://stxt.dev/use-cases-contracts.stxt)
+- [Conformance kit and corpus](https://github.com/stxt-lang/stxt-lang/tree/master/conformance): data-only cases any implementation can run

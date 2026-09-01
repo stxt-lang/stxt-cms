@@ -1,6 +1,9 @@
 <footer class="site-footer">${lang.get("foot.1")}</footer>
-<script src="/js/prism-core.min.js?v=${utils.assetHash('/js/prism-core.min.js')}"></script>
-<script src="/js/prism-languages.min.js?v=${utils.assetHash('/js/prism-languages.min.js')}"></script>
-<script src="/js/prism-stxt.js?v=${utils.assetHash('/js/prism-stxt.js')}"></script>
-<script src="/js/prism-ebnf.js?v=${utils.assetHash('/js/prism-ebnf.js')}"></script>
-<script src="/js/copy-code.js?v=${utils.assetHash('/js/copy-code.js')}"></script>
+## All scripts are decorative (syntax highlighting, copy buttons): defer keeps them
+## off the parser's critical path. Order is preserved among deferred scripts, and
+## Prism's DOMContentLoaded highlight runs after every grammar has loaded.
+<script defer src="/js/prism-core.min.js?v=${utils.assetHash('/js/prism-core.min.js')}"></script>
+<script defer src="/js/prism-languages.min.js?v=${utils.assetHash('/js/prism-languages.min.js')}"></script>
+<script defer src="/js/prism-stxt.js?v=${utils.assetHash('/js/prism-stxt.js')}"></script>
+<script defer src="/js/prism-ebnf.js?v=${utils.assetHash('/js/prism-ebnf.js')}"></script>
+<script defer src="/js/copy-code.js?v=${utils.assetHash('/js/copy-code.js')}"></script>

@@ -1,5 +1,18 @@
 @use "settings" as *;
 
+// Russo One, the identity font ($font-brand), self-hosted since 2026-09-01 (latin
+// subset, OFL license next to the file): the Google Fonts stylesheet was
+// render-blocking for a purely decorative use. "swap" shows the fallback stack
+// until the ~7 KB woff2 arrives; head.vm preloads it.
+@font-face {
+	font-family: "Russo One";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/russo-one-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF;
+}
+
 :root {
 	box-sizing: border-box;
 	font-size: 16px;

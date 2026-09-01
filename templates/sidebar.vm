@@ -3,7 +3,9 @@
 	<nav class="site-index" aria-label="${lang.get("nav.index")}">
 	#foreach($node in $index.children)
 		#if(${node.canonicalName} == "subheader")
-			<h2 class="site-index-title">$node.text</h2>
+## Not a heading: the sidebar precedes the <h1> in the DOM, and these group labels
+## would outline above the page's own title. The nav already carries aria-label.
+			<p class="site-index-title">$node.text</p>
 		#elseif(${node.canonicalName} == "link")
 			#if($node.getChild('url'))
 				<a class="site-index-link" href="${node.getChild('url').getText()}" target="_blank" rel="noopener noreferrer">${node.text}</a>
