@@ -142,4 +142,36 @@ public class Utils
     {
         return Integer.parseInt(text);
     }
+
+	/**
+	 * Escapa un texto para incrustarlo dentro de una cadena JSON (el JSON-LD que emite
+	 * head.vm): comillas dobles, barra invertida y caracteres de control, y además
+	 * {@code <}, {@code >} y {@code &} como {@code \\uXXXX}, para que un
+	 * {@code </script>} del contenido no pueda cerrar el bloque {@code <script>}.
+	 * @param text el texto a escapar; null devuelve la cadena vacía.
+	 */
+	public String jsonEscape(String text)
+	{
+		if (text == null) return "";
+		StringBuilder sb = new StringBuilder(text.length() + 16);
+		for (int i = 0; i < text.length(); i++)
+		{
+			char c = text.charAt(i);
+			switch (c)
+			{
+				case '"': sb.append("\\\""); break;
+				case '\\': sb.append("\\\\"); break;
+				case '\n': sb.append("\\n"); break;
+				case '\r': sb.append("\\r"); break;
+				case '\t': sb.append("\\t"); break;
+				case '<': sb.append("\\u003C"); break;
+				case '>': sb.append("\\u003E"); break;
+				case '&': sb.append("\\u0026"); break;
+				default:
+					if (c < 0x20) sb.append(String.format("\\u%04X", (int) c));
+					else sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
 }

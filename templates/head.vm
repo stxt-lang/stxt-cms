@@ -60,6 +60,29 @@
 	<meta property="og:locale:alternate" content="$ogLocaleAlt">
 	<meta name="twitter:card" content="summary">
 
+## JSON-LD: WebSite on the home page, FAQPage on the FAQ (one Question per
+## Subsubheader, its answer the Content nodes up to the next heading). The
+## @STXT@ token is resolved here to plain "STXT" so ReplaceText finds nothing
+## to touch inside the JSON.
+#if(${doc_name} == "index")
+	<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"STXT","url":"${origin}/","inLanguage":"${lang.get("lang")}"#if($meta && $meta.getChild("description")),"description":"$utils.jsonEscape($meta.getChild("description").text)"#end}</script>
+#end
+#if(${doc_name} == "faq")
+#set($faqItems = [])
+#set($curFaq = false)
+#foreach($n in $doc.children)
+#if($n.canonicalName == "subsubheader")
+#set($curFaq = {"q": $n.text, "a": []})
+#set($ignore = $faqItems.add($curFaq))
+#elseif($n.canonicalName == "subheader")
+#set($curFaq = false)
+#elseif($n.canonicalName == "content" && $curFaq)
+#set($ignore = $curFaq.a.add($wiki.render($n.text)))
+#end
+#end
+	<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[#foreach($it in $faqItems){"@type":"Question","name":"$utils.jsonEscape($it.q.replace("@STXT@","STXT"))","acceptedAnswer":{"@type":"Answer","text":"#foreach($h in $it.a)$utils.jsonEscape($h.replace("@STXT@","STXT"))#end"}}#if($foreach.hasNext),#end#end]}</script>
+#end
+
 	<link rel="icon" href="/favicon.ico?v=${utils.assetHash('/favicon.ico')}" sizes="48x48">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=${utils.assetHash('/favicon-32.png')}">
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=${utils.assetHash('/favicon-16.png')}">
