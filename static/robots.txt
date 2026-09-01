@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /set
+Disallow:
 
 Sitemap: https://stxt.dev/sitemap.xml

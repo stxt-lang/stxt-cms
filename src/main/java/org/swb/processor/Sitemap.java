@@ -15,6 +15,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.swb.Processor;
 
+import dev.stxt.InlineNode;
+import dev.stxt.Node;
+
 public class Sitemap implements Processor
 {
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
@@ -83,46 +86,35 @@ public class Sitemap implements Processor
     
     private Page createPage(Object object, String name, String prefix) throws IOException
     {
+        // The _index pages are navigation, not public content: out of the sitemap
+        if (name.equals("_index")) return null;
+
         // Creamos result
         Page result = new Page();
-        
-        // Create name
-        result.setUrl("https://" + domain + prefix + '/' + name);
-        
-        // Obtenemos metadata // TODO Rehacer correctamente
-        /*
-        if (!(object instanceof Node))
+
+        // The home page is "/" and "/es/", never "/index" (a 301)
+        if (name.equals("index")) result.setUrl("https://" + domain + prefix + '/');
+        else result.setUrl("https://" + domain + prefix + '/' + name);
+
+        // <lastmod> from Metadata/Last modif ("last-modif" is its canonical name)
+        if (object instanceof InlineNode)
         {
-            System.out.println("No soportado!!!");
-            return null;
-        }
-        Node node = (Node) object;
-        node = node.getChild("metadata");
-        if (node == null) return result;
-        
-        // Obtenemos nodos
-        Node priority = node.getChild("priority");
-        if (priority != null)
-        {
-            float pvalue = Float.parseFloat(priority.getValue());
-            if (pvalue == 0) return null;
-            result.setPriority(pvalue);
-        }
-        
-        Node lastmodif = node.getChild("last_modif");
-        if (lastmodif != null)
-        {
-            try
+            Node metadata = ((InlineNode) object).getChild("metadata");
+            Node lastmodif = metadata instanceof InlineNode
+                    ? ((InlineNode) metadata).getChild("last-modif") : null;
+            if (lastmodif instanceof InlineNode)
             {
-                result.setLastModif(SDF.parse(lastmodif.getValue()));
-            }
-            catch (Exception e)
-            {
-                throw new IOException("Error parsing: " + name, e);
+                try
+                {
+                    result.setLastModif(SDF.parse(((InlineNode) lastmodif).getValue()));
+                }
+                catch (Exception e)
+                {
+                    throw new IOException("Error parsing Last modif of: " + name, e);
+                }
             }
         }
-        */
-        
+
         // Retorno de resultado
         return result;
     }
@@ -137,10 +129,6 @@ public class Sitemap implements Processor
         {
             result.append("<lastmod>").append(SDF.format(page.getLastModif())).append("</lastmod>");
         }
-        if (page.getPriority()!=0)
-        {
-            result.append("<priority>" + page.getPriority() + "</priority>"); 
-        }
         result.append("</url>");
         
         return result.toString();
@@ -152,8 +140,7 @@ class Page
 {
     private String url;
     private Date lastModif;
-    private float priority = 0.5f;
-    
+
     public String getUrl()
     {
         return url;
@@ -170,12 +157,4 @@ class Page
     {
         this.lastModif = lastModif;
     }
-    public float getPriority()
-    {
-        return priority;
-    }
-    public void setPriority(float priority)
-    {
-        this.priority = priority;
-    }    
 }
