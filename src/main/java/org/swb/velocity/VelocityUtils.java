@@ -36,7 +36,7 @@ public class VelocityUtils
         ve.init(props);
     }
     
-    public static String render(String template, Map model) throws IOException
+    public static String render(String template, Map<String, Object> model) throws IOException
     {
         StringWriter out = null;
         try

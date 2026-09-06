@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.swb.utils.PropertiesUtils;
 import org.swb.utils.Utils;
 import org.swb.utils.WikiRender;
@@ -46,7 +45,8 @@ public class Velocity extends AbstractDirProcessor
     }
     
     @Override
-    public void execute(Map context) throws Exception
+    @SuppressWarnings("unchecked")
+    public void execute(Map<String, Object> context) throws Exception
     {
         // Ejecutamos
         if (in == null)
@@ -66,11 +66,11 @@ public class Velocity extends AbstractDirProcessor
             if (inObject != null && inObject instanceof Map)
             {
                 // Creamos mapa de salida si es necesario
-                Map outMap = null;
-                if (out != null) outMap = new LinkedHashMap();
+                Map<String, Object> outMap = null;
+                if (out != null) outMap = new LinkedHashMap<>();
                 
                 // Vamos recorriendo insertando
-                Map<String, Object> inMap = (Map) inObject;
+                Map<String, Object> inMap = (Map<String, Object>) inObject;
                 for (String key: inMap.keySet())
                 {
                     String result = render(context, inMap.get(key), key);
@@ -92,11 +92,12 @@ public class Velocity extends AbstractDirProcessor
         }
     }
 
-    private String render(Map context, Object inObject, String name) throws IOException
+    @SuppressWarnings("unchecked")
+    private String render(Map<String, Object> context, Object inObject, String name) throws IOException
     {
         // Creamos context
-        Map velocityContext = new HashMap();
-        velocityContext.putAll(model);
+        Map<String, Object> velocityContext = new HashMap<>();
+        for (String key: model.stringPropertyNames()) velocityContext.put(key, model.getProperty(key));
         velocityContext.putAll(context);
         velocityContext.put("doc", inObject);
         velocityContext.put("doc_name", name);
@@ -104,8 +105,8 @@ public class Velocity extends AbstractDirProcessor
         velocityContext.put("utils", new Utils());
         
         // Obtenemos índice
-        String lang = (String) ((Map) context.get("nav_lang")).get("lang");
-        Map pages = (Map) context.get("pages_" + lang);
+        String lang = (String) ((Map<String, Object>) context.get("nav_lang")).get("lang");
+        Map<String, Object> pages = (Map<String, Object>) context.get("pages_" + lang);
         Object index = pages.get("_index");
         // The whole page map of the language: the sidebar reads each page's Metadata/Version
         velocityContext.put("pages", pages);

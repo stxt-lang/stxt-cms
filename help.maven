@@ -1,1 +1,1 @@
-dependency:copy-dependencies
+clean compile dependency:copy-dependencies

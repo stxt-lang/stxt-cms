@@ -48,12 +48,12 @@ public class CopyFiles extends AbstractDirProcessor
     // -----------------
     
     @Override
-    protected void startProcess(Map context) throws IOException
+    protected void startProcess(Map<String, Object> context) throws IOException
     {
         System.out.println("Copy start: " + dir.getCanonicalPath() + " to " + todir.getCanonicalPath());
     }
     @Override
-    protected void endProcess(Map context) throws IOException
+    protected void endProcess(Map<String, Object> context) throws IOException
     {
         System.out.println("Copy end.");
     }    
@@ -63,7 +63,7 @@ public class CopyFiles extends AbstractDirProcessor
     // ----------------
     
     @Override
-    protected void process(Map context, File srcFile) throws IOException, Exception
+    protected void process(Map<String, Object> context, File srcFile) throws IOException, Exception
     {
         File dstFile = new File(todir, srcFile.getCanonicalPath().substring(lengthBaseDir));
         if (dstFile.exists() && !overwrite) return;

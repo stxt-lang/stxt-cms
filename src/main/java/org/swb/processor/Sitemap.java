@@ -48,19 +48,20 @@ public class Sitemap implements Processor
     // ---------
     
     @Override
-    public void execute(Map context) throws Exception
+    public void execute(Map<String, Object> context) throws Exception
     {
         String result = generateSitemap(context);
         FileUtils.writeStringToFile(new File(todir, "sitemap.xml"), result, StandardCharsets.UTF_8.toString());
     }
     
-    public String generateSitemap(Map context) throws IOException
+    @SuppressWarnings("unchecked")
+    public String generateSitemap(Map<String, Object> context) throws IOException
     {
         List<Page> pages = new ArrayList<Page>();
         for(int i = 0; i<this.pages.length; i++)
         {
             // Obtenemos mapa de p�ginas a usar
-            Map<String, Object> mapPages = (Map) context.get(this.pages[i]);
+            Map<String, Object> mapPages = (Map<String, Object>) context.get(this.pages[i]);
             String prefix = this.prefix[i];
             
             // Vamos iterando

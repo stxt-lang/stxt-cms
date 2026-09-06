@@ -12,7 +12,7 @@ public class DeleteDir implements Processor
     private File dir = null;
     
     @Override
-    public void execute(Map context) throws Exception
+    public void execute(Map<String, Object> context) throws Exception
     {
         if (dir.exists() && dir.isDirectory())
         {

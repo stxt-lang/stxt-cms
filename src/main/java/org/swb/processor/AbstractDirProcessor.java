@@ -48,7 +48,7 @@ public abstract class AbstractDirProcessor implements Processor
     }
     
     @Override
-    public void execute(Map context) throws Exception 
+    public void execute(Map<String, Object> context) throws Exception 
 	{
         // Si directorio es distinto de nulo procesamos entrada
 		if (dir != null) 
@@ -82,15 +82,15 @@ public abstract class AbstractDirProcessor implements Processor
 		}
 	}
     
-    protected void startProcess(Map context) throws IOException
+    protected void startProcess(Map<String, Object> context) throws IOException
     {
         System.out.println("Processing: " + dir.getAbsolutePath());
     }
-    protected void endProcess(Map context) throws IOException
+    protected void endProcess(Map<String, Object> context) throws IOException
     {
         System.out.println("End processing: " + dir.getAbsolutePath());
     }
-    protected void process(Map context, File srcFile) throws IOException, Exception
+    protected void process(Map<String, Object> context, File srcFile) throws IOException, Exception
     {
         System.out.println("Processing: " + srcFile.getCanonicalPath());
     }

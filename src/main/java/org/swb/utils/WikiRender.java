@@ -3,6 +3,7 @@ package org.swb.utils;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.commonmark.Extension;
 import org.commonmark.ext.gfm.tables.TablesExtension; // Importar la extensión de tablas
 
 import java.util.Arrays;
@@ -40,7 +41,7 @@ public class WikiRender
         String processedMarkdown = markdown.replaceAll("\\\\\\n", "@@BR@@");  // Reemplaza `\n` con un marcador único
         
         // Crear una lista de extensiones con la extensión de tablas
-        List extensions = Arrays.asList(TablesExtension.create());
+        List<Extension> extensions = Arrays.asList(TablesExtension.create());
         
         // Crear el parser y renderer con las extensiones habilitadas
         Parser parser = Parser.builder()

@@ -13,7 +13,7 @@ public abstract class AbstractRead extends AbstractDirProcessor
     // -------------
     
     private String outName = "out";
-    private Map result = new LinkedHashMap();
+    private Map<String, Object> result = new LinkedHashMap<>();
     
     @Override
     public void init(String name, Properties config) throws Exception
@@ -26,7 +26,7 @@ public abstract class AbstractRead extends AbstractDirProcessor
     // Finalización del proceso -> insertamos resultado
     // ------------------------------------------------
     
-    protected void endProcess(Map context)
+    protected void endProcess(Map<String, Object> context)
     {
         context.put(outName, result);
     }        
@@ -36,7 +36,7 @@ public abstract class AbstractRead extends AbstractDirProcessor
     // ------------------------------------ 
     
     @Override
-    protected void process(Map context, File srcFile) throws IOException, Exception
+    protected void process(Map<String, Object> context, File srcFile) throws IOException, Exception
     {
         final String EXTENSION = getExtension();
         final int EXTENSION_SIZE = EXTENSION.length();

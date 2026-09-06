@@ -58,7 +58,7 @@ public class PropertiesLoader
     
     private static Properties trim(Properties result)
     {
-        Set keys = result.keySet();
+        Set<Object> keys = result.keySet();
         for (Object key: keys)
         {
             String k = (String) key;
@@ -71,7 +71,7 @@ public class PropertiesLoader
     {
         Map<String, String> replaceVars = new HashMap<String, String>(); 
         
-        Set keys = p.keySet();
+        Set<Object> keys = p.keySet();
         for (Object key: keys)
         {
             String k = (String) key;

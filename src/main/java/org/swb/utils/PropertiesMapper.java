@@ -27,15 +27,15 @@ public class PropertiesMapper
     
     private static final String POST_KEYS       = "__KEY_ORDER";
     
-    public static Map propertiesToMap(Properties props) throws IOException
+    public static Map<String, Object> propertiesToMap(Properties props) throws IOException
     {
         // Creamos var de resultado
-        Map result = null;
+        Map<String, Object> result = null;
         List<String> keysOrder = null;
         if (props.containsKey(POST_KEYS))
         {
             // Creamos resultado con claves de antemano
-            result = new LinkedHashMap();
+            result = new LinkedHashMap<>();
             
             // Obtenemos claves
             keysOrder = getClaves(props.getProperty(POST_KEYS));
@@ -48,15 +48,15 @@ public class PropertiesMapper
         }
         else
         {
-            result = new HashMap();
+            result = new HashMap<>();
         }
         
         // Vamos recorriendo propiedades insertando
         // Map de subpropiedades
-        Map subproperties = new HashMap();
+        Map<String, Object> subproperties = new HashMap<>();
         
         // Buscamos claves
-        Set keys = props.keySet();
+        Set<Object> keys = props.keySet();
         for (Object keyO: keys)
         {
             // Obtenemos clave y miramos
@@ -68,13 +68,13 @@ public class PropertiesMapper
             {
                 if (key.endsWith(POST_LIST))
                 {
-                    List list = getList(props, key);
+                    List<String> list = getList(props, key);
                     list = Collections.unmodifiableList(list);
                     result.put(realKey(key, POST_LIST), list);
                 }
                 else if (key.endsWith(POST_SET))
                 {
-                    Set set = getSet(props, key);
+                    Set<String> set = getSet(props, key);
                     set = Collections.unmodifiableSet(set);
                     result.put(realKey(key,POST_SET), set);
                 }
@@ -100,7 +100,7 @@ public class PropertiesMapper
                 }
                 else if (key.endsWith(POST_KEYS))
                 {
-                    // Nada es sólo para orden!!
+                    // Nada es sï¿½lo para orden!!
                 }
                 else
                 {
@@ -115,12 +115,12 @@ public class PropertiesMapper
                 if (!result.containsKey(prop) || result.get(prop)==null)
                 {
                     Properties subprops = PropertiesUtils.getSubproperties(props, parte);
-                    Map subpropsMap = propertiesToMap(subprops);
+                    Map<String, Object> subpropsMap = propertiesToMap(subprops);
                     
                     if (props.containsKey(keysSubprop))
                     {
                         List<String> claves = getClaves(props.getProperty(keysSubprop));
-                        Map finalMap = new LinkedHashMap();
+                        Map<String, Object> finalMap = new LinkedHashMap<>();
                         for (String clave: claves) finalMap.put(clave, null);
                         finalMap.putAll(subpropsMap);
                         subpropsMap = Collections.unmodifiableMap(finalMap);
@@ -136,7 +136,7 @@ public class PropertiesMapper
         // Insertamos subpropiedades
         result.putAll(subproperties);
         
-        // Si había claves comprobamos que todo ok
+        // Si habï¿½a claves comprobamos que todo ok
         if (keysOrder != null)
         {
             check(keysOrder, result);
@@ -147,7 +147,7 @@ public class PropertiesMapper
     }
 
     // -------------------
-    // Métodos utilitarios
+    // Mï¿½todos utilitarios
     // -------------------
     
     private static String realKey(String key, String postFix)
@@ -156,10 +156,10 @@ public class PropertiesMapper
     }
 
 
-    private static void check(List<String> keysOrder, Map result)
+    private static void check(List<String> keysOrder, Map<String, Object> result)
     {
         // Validamos si hay claves no incluidas en listado
-        Set keys = new HashSet(result.keySet());
+        Set<String> keys = new HashSet<>(result.keySet());
         keys.removeAll(keysOrder);
         if (keys.size()>0)
         {
@@ -170,11 +170,11 @@ public class PropertiesMapper
         
         // Validamos que aparezcan todas las informadas
         keys = result.keySet();
-        Set clavesNulas = new HashSet();
+        Set<String> clavesNulas = new HashSet<String>();
         for (Object key: keys)
         {
             Object value = result.get(key);
-            if (value == null) clavesNulas.add(key);
+            if (value == null) clavesNulas.add((String) key);
         }
         if (clavesNulas.size()>0)
         {

@@ -7,7 +7,7 @@ import java.util.Map;
 public class ListFiles extends AbstractDirProcessor
 {
     @Override
-    protected void process(Map context, File file) throws IOException, Exception
+    protected void process(Map<String, Object> context, File file) throws IOException, Exception
     {
         System.out.println("File: " + file.getCanonicalPath());
     }

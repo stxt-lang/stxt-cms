@@ -10,7 +10,7 @@ public class PropertiesUtils
         Properties result = new Properties();
         int index = prefix.lastIndexOf(".");
         
-        Set keys = props.keySet();
+        Set<Object> keys = props.keySet();
         for (Object o: keys)
         {
             // Get key
