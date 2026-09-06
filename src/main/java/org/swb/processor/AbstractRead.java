@@ -9,7 +9,7 @@ import java.util.Properties;
 public abstract class AbstractRead extends AbstractDirProcessor
 {
     // -------------
-    // Configuración
+    // ConfiguraciÃ³n
     // -------------
     
     private String outName = "out";
@@ -23,7 +23,7 @@ public abstract class AbstractRead extends AbstractDirProcessor
     }
     
     // ------------------------------------------------
-    // Finalización del proceso -> insertamos resultado
+    // FinalizaciÃ³n del proceso -> insertamos resultado
     // ------------------------------------------------
     
     protected void endProcess(Map<String, Object> context)

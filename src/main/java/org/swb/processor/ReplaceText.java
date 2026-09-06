@@ -15,7 +15,7 @@ import org.swb.utils.PropertiesUtils;
 public class ReplaceText extends AbstractDirProcessor
 {
     // --------------------------
-    // Variables de configuraci�n
+    // Variables de configuración
     // --------------------------
     
     private String encoding;
@@ -28,7 +28,7 @@ public class ReplaceText extends AbstractDirProcessor
     @Override
     public void init(String name, Properties config) throws Exception
     {
-        // Configuraci�n super()
+        // Configuración super()
         super.init(name, config);
         
         // ContentType
@@ -41,12 +41,12 @@ public class ReplaceText extends AbstractDirProcessor
             System.exit(1);
         }
         
-        // Caracter�sticas a reemplazar
+        // Características a reemplazar
         replaceStrings = PropertiesUtils.getSubproperties(config, "replace.");
     }
     
     // ----------------
-    // M�todo principal
+    // Método principal
     // ----------------
     
     @Override

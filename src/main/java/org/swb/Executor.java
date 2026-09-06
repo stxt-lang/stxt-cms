@@ -63,7 +63,7 @@ public class Executor
         time = System.currentTimeMillis() - time;
         System.out.println("Time execution: " + time + " ms");
         
-        // Fin ejecuci�n
+        // Fin ejecución
         System.out.println("End execution: " + commands);
     }
 

@@ -10,7 +10,7 @@ import org.apache.commons.io.FileUtils;
 public class CopyFiles extends AbstractDirProcessor
 {
     // --------------------------
-    // Variables de configuración
+    // Variables de configuraciÃ³n
     // --------------------------
     
     private int lengthBaseDir = 0;
@@ -23,7 +23,7 @@ public class CopyFiles extends AbstractDirProcessor
     @Override
     public void init(String name, Properties config) throws Exception
     {
-        // Configuración super()
+        // ConfiguraciÃ³n super()
         super.init(name, config);
         
         // Validamos directorio de salida
@@ -59,7 +59,7 @@ public class CopyFiles extends AbstractDirProcessor
     }    
     
     // ----------------
-    // Método principal
+    // MÃ©todo principal
     // ----------------
     
     @Override

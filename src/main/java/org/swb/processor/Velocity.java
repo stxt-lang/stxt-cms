@@ -78,7 +78,7 @@ public class Velocity extends AbstractDirProcessor
                     if (todir != null) FileUtils.writeStringToFile(new File(todir, key + '.' + extension), result, encoding); 
                 }
                 
-                // Si hab�a salida la insertamos en contexto
+                // Si había salida la insertamos en contexto
                 if (out != null) context.put(out, outMap);
             }
             else

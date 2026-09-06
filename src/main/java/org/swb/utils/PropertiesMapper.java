@@ -100,7 +100,7 @@ public class PropertiesMapper
                 }
                 else if (key.endsWith(POST_KEYS))
                 {
-                    // Nada es s�lo para orden!!
+                    // Nada es sólo para orden!!
                 }
                 else
                 {
@@ -136,7 +136,7 @@ public class PropertiesMapper
         // Insertamos subpropiedades
         result.putAll(subproperties);
         
-        // Si hab�a claves comprobamos que todo ok
+        // Si había claves comprobamos que todo ok
         if (keysOrder != null)
         {
             check(keysOrder, result);
@@ -147,7 +147,7 @@ public class PropertiesMapper
     }
 
     // -------------------
-    // M�todos utilitarios
+    // Métodos utilitarios
     // -------------------
     
     private static String realKey(String key, String postFix)

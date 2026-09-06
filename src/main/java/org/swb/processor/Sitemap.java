@@ -28,7 +28,7 @@ public class Sitemap implements Processor
     private String[] prefix;
     
     // -------------
-    // Configuraci�n
+    // Configuración
     // -------------
     
     @Override
@@ -44,7 +44,7 @@ public class Sitemap implements Processor
     }
     
     // ---------
-    // Ejecuci�n
+    // Ejecución
     // ---------
     
     @Override
@@ -60,7 +60,7 @@ public class Sitemap implements Processor
         List<Page> pages = new ArrayList<Page>();
         for(int i = 0; i<this.pages.length; i++)
         {
-            // Obtenemos mapa de p�ginas a usar
+            // Obtenemos mapa de páginas a usar
             Map<String, Object> mapPages = (Map<String, Object>) context.get(this.pages[i]);
             String prefix = this.prefix[i];
             
