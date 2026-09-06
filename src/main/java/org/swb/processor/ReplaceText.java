@@ -56,7 +56,7 @@ public class ReplaceText extends AbstractDirProcessor
         String content = FileUtils.readFileToString(srcFile, encoding);
         
         // Reemplazamos propiedades
-        List<String> keys = new ArrayList(replaceStrings.keySet());
+        List<String> keys = new ArrayList<>(replaceStrings.stringPropertyNames());
         Collections.sort(keys);
         System.out.println("Replace: " + srcFile.getAbsolutePath() + " -> " + keys);
         for (String key: keys)

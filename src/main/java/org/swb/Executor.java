@@ -77,7 +77,7 @@ public class Executor
         p = PropertiesUtils.getSubproperties(p, cmd + ".");
         
         // Creamos objeto
-        Processor result = (Processor) Executor.class.getClassLoader().loadClass("org.swb.processor." + type).newInstance();
+        Processor result = Executor.class.getClassLoader().loadClass("org.swb.processor." + type).asSubclass(Processor.class).getDeclaredConstructor().newInstance();
         System.out.println("Init: " + cmd);
         result.init(cmd, p);
         return result;
