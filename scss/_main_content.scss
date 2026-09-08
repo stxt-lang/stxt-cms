@@ -14,7 +14,8 @@
 		margin: 0 0 1.25rem;
 		letter-spacing: -0.01em;
 	}
-	// Version line under the title of the five specifications (Metadata/Version, STXT-SPEC 1.1)
+	// Status and date under the title of the five specifications (Metadata/Status and
+	// Metadata/Last modif, STXT-SPEC 1.1)
 	.doc-meta {
 		display: grid;
 		grid-template-columns: max-content max-content;
@@ -44,9 +45,13 @@
 		& + h2 {
 			margin-top: 1.4rem;
 		}
-		.doc-meta-version {
+		.doc-meta-status {
 			font-weight: 700;
 			color: $color1;
+		}
+		// Aurora: usable, an incompatible change is still possible; shown in a warmer tone
+		.doc-meta-status-aurora {
+			color: #b45f06;
 		}
 	}
 	h2 {

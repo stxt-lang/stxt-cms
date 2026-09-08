@@ -42,11 +42,12 @@
 			font-weight: 600;
 		}
 
-		// Version of the five specifications (Metadata/Version), on the right of the link
-		.site-index-version {
+		// Status of the five specifications (Metadata/Status), on the right of the link
+		.site-index-status {
 			float: right;
 			color: #aaa;
 			font-weight: 400;
+			font-size: 0.85em;
 		}
 	}
 }

@@ -108,7 +108,7 @@ public class Velocity extends AbstractDirProcessor
         String lang = (String) ((Map<String, Object>) context.get("nav_lang")).get("lang");
         Map<String, Object> pages = (Map<String, Object>) context.get("pages_" + lang);
         Object index = pages.get("_index");
-        // The whole page map of the language: the sidebar reads each page's Metadata/Version
+        // The whole page map of the language: the sidebar reads each page's Metadata/Status
         velocityContext.put("pages", pages);
 		velocityContext.put("index", index);
         System.out.println("Velocity: " + name + " -> " + lang);
