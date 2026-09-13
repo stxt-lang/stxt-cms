@@ -17,8 +17,8 @@ Spanish versions live under `/es/`.
 
 ## Specifications (normative)
 
-- [STXT-SPEC](https://stxt.dev/stxt-core-ref.stxt): base syntax — indentation, inline nodes, text blocks, namespaces, comments, error codes, security
-- [STXT-SCHEMA-SPEC](https://stxt.dev/stxt-schema-ref.stxt): semantic validation — nodes, types, cardinalities, closed content model
+- [STXT-SPEC](https://stxt.dev/stxt-core-ref.stxt): base syntax: indentation, inline nodes, text blocks, namespaces, comments, error codes, security
+- [STXT-SCHEMA-SPEC](https://stxt.dev/stxt-schema-ref.stxt): semantic validation: nodes, types, cardinalities, closed content model
 - [STXT-TEMPLATE-SPEC](https://stxt.dev/stxt-template-ref.stxt): the simplified authoring form, compilable to an equivalent schema
 - [STXT-DISCOVERY-SPEC](https://stxt.dev/stxt-discovery-ref.stxt): how tools locate schemas and templates
 - [STXT-TREE-SPEC](https://stxt.dev/stxt-tree-ref.stxt): the canonical JSON tree, the canonical text form and reformatting

@@ -29,13 +29,13 @@ pre.listing code {
 }
 
 // Listing blocks: preformatted text that is NOT STXT (whitespace diagrams, other
-// formats, console output). Deliberately unhighlighted — same panel as the code
+// formats, console output). Deliberately unhighlighted, same panel as the code
 // blocks, plain body-ink text, so it reads as verbatim text rather than syntax.
 pre.listing {
 	color: $black;
 }
 
-// Syntax palette — ONE semantic scheme shared by STXT and EBNF so the two panels
+// Syntax palette, ONE semantic scheme shared by STXT and EBNF so the two panels
 // read as a system. Keys (inline nodes / EBNF rules) lead the eye in bold blue;
 // the '>>' text-block header gets its own bright azure; a separator takes its key's
 // colour and weight so key+separator read as one unit; values/literals are magenta;
@@ -43,12 +43,12 @@ pre.listing {
 // semantics still match the stxt-vscode extension.
 // The two blues sit a small hue apart so key and block header separate without
 // either leaving "blue": the key leans true blue, the block header leans cyan.
-$stxt-node: #0d5cb6; // identifier — inline node names (STXT) + rule names (EBNF) — portal blue, nudged off $color2 (#0A6FAE) toward true blue
-$stxt-block: #00b2f0; // '>>' text-block header — bright azure, nudged toward cyan
-$stxt-namespace: #0a9396; // namespace / annotation in name position — turquoise
-$stxt-value: #d05a80; // value / literal string — magenta, a touch softer than the block azure's old hue
-$stxt-muted: #6a737d; // EBNF operators/punctuation — slate, so they recede
-$stxt-comment: #008000; // comments — green, upright (no italic)
+$stxt-node: #0d5cb6; // identifier, inline node names (STXT) + rule names (EBNF), portal blue, nudged off $color2 (#0A6FAE) toward true blue
+$stxt-block: #00b2f0; // '>>' text-block header, bright azure, nudged toward cyan
+$stxt-namespace: #0a9396; // namespace / annotation in name position, turquoise
+$stxt-value: #d05a80; // value / literal string, magenta, a touch softer than the block azure's old hue
+$stxt-muted: #6a737d; // EBNF operators/punctuation, slate, so they recede
+$stxt-comment: #008000; // comments, green, upright (no italic)
 
 // STXT examples (grammar in static/js/prism-stxt.js). Keys carry the weight (bold)
 // so they lead the eye; the '>>' block header additionally gets its own hue.
@@ -115,12 +115,12 @@ pre.language-ebnf {
 	}
 }
 
-// Other languages (Java, TypeScript, Python, JSON, XML — grammars bundled in
+// Other languages (Java, TypeScript, Python, JSON, XML, grammars bundled in
 // static/js/prism-languages.min.js, emitted by node.vm from the block's node name).
 // Same palette as STXT/EBNF, mapped onto Prism's generic tokens: keywords take the
-// identifier blue (regular weight — every other word in a Java signature is a keyword,
-// bold would shout); the "key" tokens of data formats — JSON property names, XML tag
-// names — take the identifier blue in bold, exactly like an STXT node name; types,
+// identifier blue (regular weight, every other word in a Java signature is a keyword,
+// bold would shout); the "key" tokens of data formats, JSON property names, XML tag
+// names, take the identifier blue in bold, exactly like an STXT node name; types,
 // packages, decorators and builtins take the namespace turquoise; strings, numbers and
 // booleans the value magenta; comments the green; operators and punctuation the slate.
 // Function names and plain identifiers keep the body ink.
