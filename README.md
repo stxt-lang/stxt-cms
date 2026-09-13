@@ -1,15 +1,15 @@
 # stxt-cms
 
 The static site generator that builds **<https://stxt.dev>**, the [STXT](https://stxt.dev)
-language portal. It reads the portal's pages — one `.stxt` document per page, in English and
-Spanish, from the [stxt-lang](https://github.com/stxt-lang/stxt-lang) repository — parses them
+language portal. It reads the portal's pages (one `.stxt` document per page, in English and
+Spanish, from the [stxt-lang](https://github.com/stxt-lang/stxt-lang) repository), parses them
 with the STXT Java library ([`dev.stxt:stxt-core`](https://central.sonatype.com/artifact/dev.stxt/stxt-core)),
 renders them to HTML with Velocity templates, compiles the SCSS, and writes the finished site.
-The portal is its own proof: every page you read on `stxt.dev` went through this generator, and
-appending `.stxt` to any page's address shows the source it was built from.
+Every page of `stxt.dev` goes through this generator, and appending `.stxt` to any page's
+address shows the source it was built from.
 
 > **Status.** This was an internal tool, made public so it can be read and tried. There is still
-> a lot to polish — no test suite, and the code comments are in Spanish — but it is a real CMS
+> a lot to polish (no test suite, and the code comments are in Spanish), but it is a real CMS
 > running on STXT, in production for the language's own portal.
 
 ## How it works
@@ -18,14 +18,14 @@ The engine is a small, generic **pipeline executor** (`org.swb.Executor`). Every
 declared in [`processor.properties`](processor.properties):
 
 - A pipeline (e.g. `main=`) is a comma-separated list of command names.
-- Each command `X` names a processor class (`X=CopyFiles`, `X=ReadStxt`, `X=Velocity`…) plus its
-  configuration as `X.*` keys (`X.dir`, `X.todir`, `X.out`…). The executor instantiates
+- Each command `X` names a processor class (`X=CopyFiles`, `X=ReadStxt`, `X=Velocity`...) plus its
+  configuration as `X.*` keys (`X.dir`, `X.todir`, `X.out`...). The executor instantiates
   `org.swb.processor.<Type>` reflectively and runs the commands in order.
 - Processors share a single context map and communicate only through named slots: a reader writes
   its result under its `.out` key, a renderer picks it up through `.in`.
 
 Changing what the build does means editing `processor.properties`, not Java. Adding a step means
-writing one class that implements `Processor` and referencing it from the properties file — no
+writing one class that implements `Processor` and referencing it from the properties file, with no
 wiring code.
 
 The `main` pipeline, in order: copy static resources → copy CSS and JS with their content hash in
