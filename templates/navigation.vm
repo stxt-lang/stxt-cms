@@ -1,3 +1,4 @@
+## Previous / next page links, below the article.
 #set($previous = "")
 #set($previous_ok = "")
 #set($next_ok = "")

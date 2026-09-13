@@ -1,6 +1,7 @@
 @use "settings" as *;
 
-// Previous / next page, at the end of the content.
+// Previous / next page: plain links (no boxes since 2026-09-13) at the end of the content.
+// (A copy above the article was tried the same day and dropped.)
 .book-nav {
 	display: flex;
 	justify-content: space-between;
@@ -12,14 +13,11 @@
 	a {
 		flex: 1 1 0;
 		max-width: 48%;
-		padding: 0.75rem 1rem;
-		border: 1px solid $border;
 		color: $ink;
 		font-weight: 600;
 		line-height: 1.35;
 		&:hover {
 			text-decoration: none;
-			border-color: $color1;
 			color: $color1;
 		}
 		&.next {
