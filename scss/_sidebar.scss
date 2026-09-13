@@ -6,10 +6,12 @@
 	top: calc(#{$header_height} + 1.5rem);
 	max-height: calc(100vh - #{$header_height} - 3rem);
 	overflow-y: auto;
-	font-size: 0.95rem;
+	font-size: 0.9rem;
 
+	// Compact on purpose: the index has ~30 entries and must fit a laptop screen
+	// without scrolling the column.
 	.site-index-title {
-		margin: 1.4rem 0 0.35rem;
+		margin: 0.9rem 0 0.2rem;
 		font-size: 0.72rem;
 		font-weight: 700;
 		letter-spacing: 0.09em;
@@ -26,11 +28,11 @@
 
 	.site-index-link {
 		display: block;
-		padding: 0.3rem 0.6rem;
-		margin: 1px 0;
+		padding: 0.15rem 0.6rem;
+		margin: 0;
 		border-radius: 6px;
 		color: $ink;
-		line-height: 1.4;
+		line-height: 1.35;
 		&:hover {
 			background: $panel;
 			text-decoration: none;

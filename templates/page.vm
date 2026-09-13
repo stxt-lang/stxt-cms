@@ -5,9 +5,10 @@
 
 	<body>
 		#parse("/site_header.vm")
-		#if(${doc_name} == "index")
-			#parse("/hero.vm")
-		#end
+## The home page banner (hero.vm) is disabled since 2026-09-13; uncomment to bring it back.
+##		#if(${doc_name} == "index")
+##			#parse("/hero.vm")
+##		#end
 		<div class="layout">
 			<aside class="sidebar">
 				#parse("/sidebar.vm")

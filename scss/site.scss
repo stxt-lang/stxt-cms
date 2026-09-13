@@ -1,7 +1,7 @@
 @use "normalize" as normalize;
 @use "basic" as basic;
 @use "header" as header;
-@use "hero" as hero;
+// @use "hero" as hero; // home page banner, disabled since 2026-09-13 (see templates/hero.vm)
 @use "layout" as layout;
 @use "sidebar" as sidebar;
 @use "toc" as toc;

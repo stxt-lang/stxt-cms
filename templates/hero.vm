@@ -1,4 +1,7 @@
 ## Home page banner: the wordmark in Russo One, the tagline and the three entry points.
+## Disabled on 2026-09-13 (the home page goes straight to the content); kept here in case
+## it comes back. page.vm no longer parses this file and site.scss no longer loads _hero.scss.
+#*
 <section class="hero">
 	<div class="hero-inner">
 		<div class="hero-title">STXT</div>
@@ -10,3 +13,4 @@
 		</p>
 	</div>
 </section>
+*#
