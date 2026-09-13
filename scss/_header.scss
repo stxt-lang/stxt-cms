@@ -50,7 +50,6 @@
 			font-weight: 600;
 			font-size: 0.95rem;
 			padding: 0.4rem 0.7rem;
-			border-radius: 6px;
 			white-space: nowrap;
 			&:hover {
 				background: rgba(255, 255, 255, 0.14);
@@ -73,7 +72,6 @@
 	.lang-switch {
 		display: inline-flex;
 		border: 1px solid rgba(255, 255, 255, 0.55);
-		border-radius: 6px;
 		overflow: hidden;
 		a, b {
 			padding: 0.2rem 0.55rem;
