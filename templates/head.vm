@@ -96,4 +96,4 @@
 ## swap of the brand mark. crossorigin is required for font preloads.
 	<link rel="preload" href="/fonts/russo-one-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-    <link rel="stylesheet" href="/css/site.css?v=${utils.assetHash('/css/site.css')}">
+    <link rel="stylesheet" href="${utils.assetPath('/css/site.css')}">

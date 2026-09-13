@@ -28,7 +28,9 @@ Changing what the build does means editing `processor.properties`, not Java. Add
 writing one class that implements `Processor` and referencing it from the properties file — no
 wiring code.
 
-The `main` pipeline, in order: copy static resources → copy the raw `.stxt` sources next to the
+The `main` pipeline, in order: copy static resources → copy CSS and JS with their content hash in
+the file name (`CopyHashed`: `site.css` is published as `site.<hash>.css`, and the templates
+reference it through `$utils.assetPath()`) → copy the raw `.stxt` sources next to the
 generated pages → parse every page into an STXT tree (`ReadStxt`) → load the i18n properties →
 initialize Velocity → render every page per language (`page.vm` walks the document tree and
 delegates each node to `node.vm` by its canonical name) → post-process text tokens → generate
@@ -42,7 +44,7 @@ delegates each node to `node.vm` by its canonical name) → post-process text to
 | `src/main/java` | The executor, the processors and the template helper beans |
 | `templates/` | Velocity templates: `page.vm` is the entry point, `node.vm` renders each node type |
 | `scss/` | Sass sources, compiled to `static/css/` before generating |
-| `static/` | Static assets, copied verbatim to the site root (CSS, JS, icons, Prism bundle) |
+| `static/` | Static assets, copied to the site root (icons verbatim; CSS and JS renamed with their content hash) |
 | `lang/` | Per-language properties (`pages_en`, `pages_es`) for menus, footer and UI texts |
 
 The input and output directories are variables at the top of `processor.properties`; by default

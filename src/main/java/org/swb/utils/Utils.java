@@ -57,11 +57,7 @@ public class Utils
 		String hash;
 		try
 		{
-			byte[] bytes = FileUtils.readFileToByteArray(new File(STATIC_DIR, key));
-			byte[] digest = MessageDigest.getInstance("SHA-1").digest(bytes);
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < 5; i++) sb.append(String.format("%02x", digest[i]));
-			hash = sb.toString();
+			hash = hashFile(new File(STATIC_DIR, key));
 		}
 		catch (Exception e)
 		{
@@ -70,6 +66,46 @@ public class Utils
 
 		HASH_CACHE.put(key, hash);
 		return hash;
+	}
+
+	/** Length of the hash in hex digits (sha1 truncated to 5 bytes). */
+	public static final int HASH_LENGTH = 10;
+
+	/**
+	 * Short content hash of a file (sha1, {@link #HASH_LENGTH} hex digits). Shared by
+	 * {@link #assetHash} and by the CopyHashed processor, so the name written to disk
+	 * and the name referenced from the templates always agree.
+	 */
+	public static String hashFile(File file) throws Exception
+	{
+		byte[] bytes = FileUtils.readFileToByteArray(file);
+		byte[] digest = MessageDigest.getInstance("SHA-1").digest(bytes);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < HASH_LENGTH / 2; i++) sb.append(String.format("%02x", digest[i]));
+		return sb.toString();
+	}
+
+	/**
+	 * Public path of an asset with its content hash in the file name: "/css/site.css"
+	 * becomes "/css/site.1be47509cb.css". It is the name the CopyHashed processor writes
+	 * to the output, and the one the templates must reference. Unlike a "?v=hash" query
+	 * string, new content means a new URL: a request that reaches a cache during a
+	 * non-atomic deploy gets a short-lived 404, never the old bytes stored under the new
+	 * name for a year.
+	 */
+	public String assetPath(String path)
+	{
+		String hash = assetHash(path);
+		return hashedName(path.startsWith("/") ? path : "/" + path, hash);
+	}
+
+	/** Inserts the hash before the extension: "a/b/site.css" + "abc" gives "a/b/site.abc.css". */
+	public static String hashedName(String path, String hash)
+	{
+		int slash = path.lastIndexOf('/');
+		int dot = path.lastIndexOf('.');
+		if (dot <= slash + 1) return path + "." + hash;
+		return path.substring(0, dot) + "." + hash + path.substring(dot);
 	}
 
 	public String escapeHtml(String text)

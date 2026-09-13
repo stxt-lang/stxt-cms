@@ -17,7 +17,8 @@ public abstract class AbstractDirProcessor implements Processor
     protected String nameCommand;
 	protected File dir;
     protected File todir;
-    protected String filter;
+    protected String filter;   // comma-separated Ant patterns; a file must match one of them
+    protected String exclude;  // comma-separated Ant patterns; a file matching any is skipped
 
     @Override
     public void init(String name, Properties config) throws Exception
@@ -45,6 +46,18 @@ public abstract class AbstractDirProcessor implements Processor
         
         // Miramos filter
         this.filter = config.getProperty("filter");
+        this.exclude = config.getProperty("exclude");
+    }
+
+    /** True if the path (relative to dir, with '/' separators) matches any of the comma-separated Ant patterns. */
+    private static boolean matchesAny(String patterns, String path)
+    {
+        for (String pattern: patterns.split(","))
+        {
+            pattern = pattern.trim();
+            if (!pattern.isEmpty() && AntPathMatcher.match(pattern, path)) return true;
+        }
+        return false;
     }
     
     @Override
@@ -61,18 +74,11 @@ public abstract class AbstractDirProcessor implements Processor
             int dirAbs = dir.getCanonicalPath().length();
     		for (File srcFile: files) 
     		{
-    		    if (filter != null)
+    		    if (filter != null || exclude != null)
     		    {
     		        String path = srcFile.getCanonicalPath().substring(dirAbs).replace('\\', '/');
-    		        if (!AntPathMatcher.match(filter, path))
-    		        {
-    		            //System.out.println("Not match: " + filter + " -> " + path);
-    		            continue;
-    		        }
-    		        else
-    		        {
-    		            //System.out.println("Match: " + filter + " -> " + path);
-    		        }
+    		        if (filter != null && !matchesAny(filter, path)) continue;
+    		        if (exclude != null && matchesAny(exclude, path)) continue;
     		    }
     			process(context, srcFile);
     		}
