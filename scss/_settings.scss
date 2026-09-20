@@ -7,6 +7,18 @@ $grey: #f5f5f5;
 $black: #444;
 $alert: #fae8e8;
 
+// The four states of a specification (Metadata/Status, see STXT-SPEC 1.1). Each one has a
+// hue of its own, so what the specification promises reads at a glance; Zenith keeps the
+// brand blue, because stable is the colour the whole portal is painted with. Used by the
+// header of each specification (_main_content.scss) and by its badge in the site index
+// (_sidebar.scss).
+$status-colors: (
+	"genesis": #D05A80,  // pink: under construction, anything may change
+	"aurora": #6B3FA0,   // violet: usable, an incompatible change is still possible
+	"zenith": $color1,   // brand blue: stable, only additions from here on
+	"twilight": #B45F06, // burnt orange: closed, superseded or withdrawn
+);
+
 // Neutral system, close to the playground's chrome
 $ink: #24313f;      // body text
 $muted: #5b6b7b;    // secondary text

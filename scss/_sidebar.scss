@@ -43,12 +43,19 @@
 			font-weight: 600;
 		}
 
-		// Status of the five specifications (Metadata/Status), on the right of the link
+		// Status of the five specifications (Metadata/Status), on the right of the link,
+		// in the same colour the header of the specification uses ($status-colors). An
+		// unknown state stays grey, as any other badge would.
 		.site-index-status {
 			float: right;
 			color: #aaa;
 			font-weight: 400;
 			font-size: 0.85em;
+		}
+		@each $state, $colour in $status-colors {
+			.site-index-status-#{$state} {
+				color: $colour;
+			}
 		}
 	}
 }

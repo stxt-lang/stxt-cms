@@ -44,13 +44,16 @@
 		& + h2 {
 			margin-top: 1.4rem;
 		}
+		// A state that is not one of the four tokens keeps the plain body colour, so a
+		// misspelled Status stands out instead of passing for a stable specification.
 		.doc-meta-status {
-			font-weight: 700;
-			color: $color1;
+			color: $ink;
 		}
-		// Aurora: usable, an incompatible change is still possible; shown in a warmer tone
-		.doc-meta-status-aurora {
-			color: #b45f06;
+		@each $state, $colour in $status-colors {
+			.doc-meta-status-#{$state} {
+				color: $colour;
+				font-weight: 700;
+			}
 		}
 	}
 	h2 {
