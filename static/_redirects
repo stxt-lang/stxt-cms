@@ -16,3 +16,7 @@
 /es/stxt-vs-markdown    /es/prose-inside-structure       301
 /stxt-vs-markdown.stxt  /prose-inside-structure.stxt     301
 /es/stxt-vs-markdown.stxt /es/prose-inside-structure.stxt 301
+/stxt-vs-toml           /stxt-vs-yaml                    301
+/es/stxt-vs-toml        /es/stxt-vs-yaml                 301
+/stxt-vs-toml.stxt      /stxt-vs-yaml.stxt               301
+/es/stxt-vs-toml.stxt   /es/stxt-vs-yaml.stxt            301
