@@ -12,3 +12,7 @@
 /es/lang-stability      /es/stability            301
 /ia-llms                /ai-llms                 301
 /es/ia-llms             /es/ai-llms              301
+/stxt-vs-markdown       /prose-inside-structure          301
+/es/stxt-vs-markdown    /es/prose-inside-structure       301
+/stxt-vs-markdown.stxt  /prose-inside-structure.stxt     301
+/es/stxt-vs-markdown.stxt /es/prose-inside-structure.stxt 301

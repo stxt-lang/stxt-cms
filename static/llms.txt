@@ -34,7 +34,7 @@ Spanish versions live under `/es/`.
 
 - [Design principles](https://stxt.dev/design-principles.stxt): why the language is the way it is
 - [The working environment](https://stxt.dev/working-environment.stxt): projects, `.stxt/` directories, CI
-- Comparisons: [STXT vs YAML](https://stxt.dev/stxt-vs-yaml.stxt), [STXT vs JSON](https://stxt.dev/stxt-vs-json.stxt), [STXT vs XML](https://stxt.dev/stxt-vs-xml.stxt), [STXT vs Markdown](https://stxt.dev/stxt-vs-markdown.stxt)
+- Comparisons: [STXT vs YAML](https://stxt.dev/stxt-vs-yaml.stxt), [STXT vs JSON](https://stxt.dev/stxt-vs-json.stxt), [STXT vs XML](https://stxt.dev/stxt-vs-xml.stxt)
 - [STXT, prose inside structure](https://stxt.dev/prose-inside-structure.stxt): the same lesson in Markdown with Frontmatter, MDX, Markdoc, YAML and STXT
 - Use cases: [corporate documents](https://stxt.dev/use-cases-corporate-docs.stxt), [CMS and publishing](https://stxt.dev/use-cases-cms.stxt), [configuration files](https://stxt.dev/use-cases-config-files.stxt), [streaming logs](https://stxt.dev/use-cases-logs.stxt), [RFCs](https://stxt.dev/use-cases-rfcs.stxt), [contracts](https://stxt.dev/use-cases-contracts.stxt)
 - [Conformance kit and corpus](https://github.com/stxt-lang/stxt-lang/tree/master/conformance): data-only cases any implementation can run
