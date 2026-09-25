@@ -115,27 +115,34 @@ pre.language-ebnf {
 	}
 }
 
-// Other languages (Java, TypeScript, Python, JSON, XML, grammars bundled in
-// static/js/prism-languages.min.js, emitted by node.vm from the block's node name).
-// Same palette as STXT/EBNF, mapped onto Prism's generic tokens: keywords take the
+// Other languages (Java, TypeScript, Python, JSON, XML, YAML, TOML, Markdown; grammars
+// bundled in static/js/prism-languages.min.js, emitted by node.vm from the block's node
+// name). Same palette as STXT/EBNF, mapped onto Prism's generic tokens: keywords take the
 // identifier blue (regular weight, every other word in a Java signature is a keyword,
 // bold would shout); the "key" tokens of data formats, JSON property names, XML tag
-// names, take the identifier blue in bold, exactly like an STXT node name; types,
-// packages, decorators and builtins take the namespace turquoise; strings, numbers and
-// booleans the value magenta; comments the green; operators and punctuation the slate.
-// Function names and plain identifiers keep the body ink.
+// names, YAML/TOML keys, Markdown headings, take the identifier blue in bold, exactly
+// like an STXT node name; types, packages, decorators, builtins and TOML tables take the
+// namespace turquoise; strings, numbers, booleans, dates, YAML null and Markdown URLs the
+// value magenta; comments the green; operators and punctuation (Markdown list markers
+// included) the slate. Markdown bold and italic keep their weight and style. Function
+// names and plain identifiers keep the body ink.
 pre.language-java,
 pre.language-typescript,
 pre.language-python,
 pre.language-json,
-pre.language-xml {
+pre.language-xml,
+pre.language-yaml,
+pre.language-toml,
+pre.language-markdown {
 	.token.keyword,
 	.token.important {
 		color: $stxt-node;
 	}
 
 	.token.property,
-	.token.tag {
+	.token.tag,
+	.token.key,
+	.token.title {
 		color: $stxt-node;
 		font-weight: 700;
 	}
@@ -155,8 +162,10 @@ pre.language-xml {
 	.token.template-string,
 	.token.number,
 	.token.boolean,
+	.token.null,
 	.token.attr-value,
-	.token.regex {
+	.token.regex,
+	.token.url {
 		color: $stxt-value;
 		font-weight: 400;
 	}
@@ -170,6 +179,14 @@ pre.language-xml {
 	.token.punctuation {
 		color: $stxt-muted;
 		font-weight: 400;
+	}
+
+	.token.bold {
+		font-weight: 700;
+	}
+
+	.token.italic {
+		font-style: italic;
 	}
 }
 
