@@ -19,48 +19,6 @@ to the address of any page shows its source, for example <https://stxt.dev/faq.s
 3. Renders them to HTML with Velocity templates.
 4. Compiles the SCSS, and writes the finished site.
 
-## How it works
-
-The engine is a small, generic **pipeline executor** (`org.swb.Executor`). Everything it does is
-declared in [`processor.properties`](processor.properties):
-
-- A pipeline (`main=`) is a comma-separated list of command names.
-- Each command `X` names a processor class (`X=CopyFiles`, `X=ReadStxt`, `X=Velocity`...), plus its
-  configuration as `X.*` keys (`X.dir`, `X.todir`, `X.out`...).
-- The executor instantiates `org.swb.processor.<Type>` by reflection, and runs the commands in order.
-- Processors share a single context map. A reader writes its result under its `.out` key, and a
-  renderer picks it up through `.in`.
-
-Changing what the build does means editing `processor.properties`. Adding a step means writing one
-class that implements `Processor`, and naming it in the properties file.
-
-The `main` pipeline, in order:
-
-| Step | What it does |
-|---|---|
-| Copy static resources | Icons, fonts, `_headers`, `_redirects` |
-| `CopyHashed` | Copies CSS and JS with their content hash in the file name: `site.css` is published as `site.<hash>.css`, and the templates reference it through `$utils.assetPath()` |
-| Copy sources | The raw `.stxt` files, next to the generated pages |
-| `ReadStxt` | Parses every page into an STXT tree |
-| i18n | Loads the properties of each language |
-| `Velocity` | Renders every page per language: `page.vm` walks the document tree, and delegates each node to `node.vm` by its canonical name |
-| Post-process | Replaces text tokens |
-| Sitemap | Generates `sitemap.xml` |
-
-## Layout
-
-| Path | What it is |
-|---|---|
-| `processor.properties` | The build, declared: variables, pipelines, commands |
-| `src/main/java` | The executor, the processors and the template helper beans |
-| `templates/` | Velocity templates: `page.vm` is the entry point, `node.vm` renders each node type |
-| `scss/` | Sass sources, compiled to `static/css/` before generating |
-| `static/` | Static assets, copied to the site root (icons as they are, CSS and JS renamed with their content hash) |
-| `lang/` | Per-language properties (`pages_en`, `pages_es`) for menus, footer and UI texts |
-
-The input and output directories are variables at the top of `processor.properties`. By default
-they point to the sibling checkouts `../stxt-lang` (content) and `../stxt-dev` (generated site).
-
 ## Building and running
 
 Requirements: Java 11+, Maven and the [`sass`](https://sass-lang.com/install) CLI.
