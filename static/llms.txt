@@ -28,6 +28,7 @@ Spanish versions live under `/es/`.
 - [Tools overview](https://stxt.dev/tools.stxt): playground, editor support, command line, libraries
 - [Command line](https://stxt.dev/tools-cli.stxt): the complete `stxt` CLI reference
 - [TypeScript library](https://stxt.dev/tools-typescript.stxt), [Java library](https://stxt.dev/tools-java.stxt), [Python library](https://stxt.dev/tools-python.stxt)
+- [Editor for web pages](https://stxt.dev/tools-editor.stxt): `@stxt-lang/editor`, an STXT editor and a static highlighter for any page, loadable from a CDN
 - [Stability and versions](https://stxt.dev/stability.stxt): what 1.0 freezes and what it does not
 
 ## Optional
