@@ -18,9 +18,11 @@ pre {
 	}
 }
 
-// Syntax highlighting (Prism). Shared: strip the inline <code> styling inside
-// a block <pre> so tokens (or plain listing text) sit on the panel background.
+// Syntax highlighting (STXT by the highlighter of @stxt-lang/editor, the rest by
+// Prism). Shared: strip the inline <code> styling inside a block <pre> so tokens
+// (or plain listing text) sit on the panel background.
 pre[class*="language-"] code,
+pre.code-stxt code,
 pre.listing code {
 	background: none;
 	padding: 0;
@@ -50,43 +52,35 @@ $stxt-value: #d05a80; // value / literal string, magenta, a touch softer than th
 $stxt-muted: #6a737d; // EBNF operators/punctuation, slate, so they recede
 $stxt-comment: #008000; // comments, green, upright (no italic)
 
-// STXT examples (grammar in static/js/prism-stxt.js). Keys carry the weight (bold)
-// so they lead the eye; the '>>' block header additionally gets its own hue.
-pre.language-stxt {
-	.token.node {
+// STXT examples. No grammar here: static/js/highlight-stxt.js runs the static
+// highlighter of @stxt-lang/editor, whose tokens come from the parser of
+// @stxt-lang/core, and the classes are the library's "stxt-tok-*". Its own stylesheet
+// is not loaded: the portal paints them with the palette above, and in bold, so keys
+// carry the weight and lead the eye. A separator belongs to its key's token, so
+// key + separator read as one unit.
+pre.code-stxt {
+	// Inline node: its name and its ':'.
+	.stxt-tok-property {
 		color: $stxt-node;
 		font-weight: 700;
 	}
 
-	// '>>' text-block header: bold like a node, but a distinct bright azure so a text
-	// block reads at a glance. Comes after .token.node (which it also matches via
-	// its alias) so this colour wins.
-	.token.block-node {
+	// '>>' text-block header, name and '>>': bold like a node, but a distinct bright
+	// azure so a text block reads at a glance.
+	.stxt-tok-macro {
 		color: $stxt-block;
 		font-weight: 700;
 	}
 
-	.token.namespace {
+	.stxt-tok-namespace {
 		color: $stxt-namespace;
 	}
 
-	.token.value {
+	.stxt-tok-string {
 		color: $stxt-value;
 	}
 
-	// Separators take their key's colour *and* weight so key + separator read as
-	// one unit: ':' with the inline node (blue), '>>' with the block header (magenta).
-	.token.operator {
-		color: $stxt-node;
-		font-weight: 700;
-	}
-
-	.token.block-operator {
-		color: $stxt-block;
-		font-weight: 700;
-	}
-
-	.token.comment {
+	.stxt-tok-comment {
 		color: $stxt-comment;
 	}
 }

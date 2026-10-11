@@ -2,10 +2,10 @@
  * Adds a "copy to clipboard" button to the preformatted blocks that have no
  * other way out of the page: the highlighted non-STXT ones (<pre
  * class="language-*">: EBNF, Java, Python, JSON...) and the plain-text
- * listings (<pre class="listing">, not highlighted). STXT blocks are skipped on
- * purpose: node.vm already gives them an "open in the playground" link, and we
- * want that to be the one action on them. Self-hosted, no dependencies. Runs
- * after Prism; copying uses the <code> element's textContent so the copied text
+ * listings (<pre class="listing">, not highlighted). STXT blocks (<pre
+ * class="code-stxt">) are left out on purpose: node.vm already gives them an
+ * "open in the playground" link, and we want that to be the one action on them.
+ * Self-hosted, no dependencies. Runs after Prism; copying uses the <code> element's textContent so the copied text
  * is the clean source, without highlight markup.
  */
 (function () {
@@ -78,7 +78,7 @@
 	}
 
 	function init() {
-		var pres = document.querySelectorAll('pre[class*="language-"]:not(.language-stxt), pre.listing');
+		var pres = document.querySelectorAll('pre[class*="language-"], pre.listing');
 		for (var i = 0; i < pres.length; i++) { addButton(pres[i]); }
 	}
 
