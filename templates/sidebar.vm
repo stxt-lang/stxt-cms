@@ -10,7 +10,7 @@
 			#if($node.getChild('url'))
 				<a class="site-index-link" href="${node.getChild('url').getText()}" target="_blank" rel="noopener noreferrer">${node.text}</a>
 			#else
-				## Pages whose Metadata carries a Status (the five specifications) show it on the right
+				## Pages whose Metadata carries a Status (the specifications) show it on the right
 				#set($page_name = ${node.getChild('page').getText()})
 				#set($page_doc = $pages.get($page_name))
 				#set($page_status = "")

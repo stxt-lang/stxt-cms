@@ -22,6 +22,7 @@ Spanish versions live under `/es/`.
 - [STXT-TEMPLATE-SPEC](https://stxt.dev/stxt-template-ref.stxt): the simplified authoring form, compilable to an equivalent schema
 - [STXT-DISCOVERY-SPEC](https://stxt.dev/stxt-discovery-ref.stxt): how tools locate schemas and templates
 - [STXT-TREE-SPEC](https://stxt.dev/stxt-tree-ref.stxt): the canonical JSON tree, the canonical text form and reformatting
+- [STXT-TRANSFORM-SPEC](https://stxt.dev/stxt-transform-ref.stxt): export to JSON and other formats, import from them, and fill of a document with data; in Genesis, under construction
 
 ## Tools
 
