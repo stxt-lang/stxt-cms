@@ -12,3 +12,4 @@
 <script defer src="${utils.assetPath('/js/highlight-stxt.js')}"></script>
 <script defer src="${utils.assetPath('/js/copy-code.js')}"></script>
 <script defer src="${utils.assetPath('/js/page-toc.js')}"></script>
+<script defer src="${utils.assetPath('/js/theme-toggle.js')}"></script>

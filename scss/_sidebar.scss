@@ -16,7 +16,7 @@
 		font-weight: 700;
 		letter-spacing: 0.09em;
 		text-transform: uppercase;
-		color: $muted;
+		color: var(--site-muted);
 		&:first-child {
 			margin-top: 0;
 		}
@@ -30,31 +30,31 @@
 		display: block;
 		padding: 0.15rem 0.6rem;
 		margin: 0;
-		color: $ink;
+		color: var(--site-text);
 		line-height: 1.35;
 		&:hover {
-			background: $panel;
+			background: var(--site-panel);
 			text-decoration: none;
-			color: $color1;
+			color: var(--site-accent);
 		}
 		&.selected {
-			background: $color3;
-			color: $color1;
+			background: var(--site-selected);
+			color: var(--site-accent);
 			font-weight: 600;
 		}
 
 		// Status of the five specifications (Metadata/Status), on the right of the link,
 		// in the same colour the header of the specification uses ($status-colors). An
-		// unknown state stays grey, as any other badge would.
+		// unknown state stays in the muted grey, as any other badge would.
 		.site-index-status {
 			float: right;
-			color: #aaa;
+			color: var(--site-muted);
 			font-weight: 400;
 			font-size: 0.85em;
 		}
 		@each $state, $colour in $status-colors {
 			.site-index-status-#{$state} {
-				color: $colour;
+				color: var(--site-status-#{$state});
 			}
 		}
 	}

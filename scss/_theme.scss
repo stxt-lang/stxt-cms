@@ -1,0 +1,83 @@
+@use "settings" as *;
+
+// The colours of the portal as custom properties, so the theme can change without a reload.
+// The light values are the palette of _settings.scss; the dark ones are those of the dark
+// theme of the playground (stxt-play, css/_theme.scss) and, for the code, those of the dark
+// theme of @stxt-lang/editor. The theme is the `data-theme` of <html>: the script in
+// templates/head.vm sets it before the first paint, static/js/theme-toggle.js after that.
+// Without a choice it is the one of the system.
+
+:root {
+	color-scheme: light;
+
+	--site-page: #fff; // the page
+	--site-text: #{$ink};
+	--site-muted: #{$muted};
+	--site-border: #{$border};
+	--site-accent: #{$color1}; // links, headings, the wordmark
+	--site-bar: #{$color2}; // the header; what is written on it is always white
+	--site-tint: #{$color4}; // the card under the title of a specification
+	--site-selected: #{$color3}; // the selected page, table headings, Assert
+	--site-panel: #{$panel}; // code panels, quotes, the hover of the site index
+	--site-surface: #fff; // the buttons on the code blocks
+	--site-row: #fbfdfe; // even table rows
+	--site-quote: #334155;
+	--site-code: #eef3f7; // inline code
+	--site-quote-code: #e6edf3; // inline code in a quote
+	--site-listing: #{$black};
+	--site-button-border: #ddd;
+	--site-button: #888;
+	--site-ok: #008000; // the copy button, once copied
+	--site-alert: #{$alert};
+	--site-alert-border: #d9534f;
+	--site-chrome: #{$color3}; // the theme-color of the browser
+
+	// Syntax (see _panels.scss)
+	--site-code-node: #{$stxt-node};
+	--site-code-block: #{$stxt-block};
+	--site-code-namespace: #{$stxt-namespace};
+	--site-code-value: #{$stxt-value};
+	--site-code-muted: #{$stxt-muted};
+	--site-code-comment: #{$stxt-comment};
+
+	@each $state, $colour in $status-colors {
+		--site-status-#{$state}: #{$colour};
+	}
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+
+	--site-page: #0b1016;
+	--site-text: #d3dae1;
+	--site-muted: #8a96a3;
+	--site-border: #24323f;
+	--site-accent: #6db3f2;
+	--site-bar: #0e3a5c;
+	--site-tint: #10171e;
+	--site-selected: #1f3449;
+	--site-panel: #10171e;
+	--site-surface: #10171e;
+	--site-row: #0e141b;
+	--site-quote: #b4bec8;
+	--site-code: #162230;
+	--site-quote-code: #1a2836;
+	--site-listing: #d3dae1;
+	--site-button-border: #24323f;
+	--site-button: #8a96a3;
+	--site-ok: #6cc070;
+	--site-alert: #2a1618;
+	--site-alert-border: #ff8a80;
+	--site-chrome: #0b1016;
+
+	--site-code-node: #6db3f2;
+	--site-code-block: #35c4f5;
+	--site-code-namespace: #3fc4c7;
+	--site-code-value: #f08fb0;
+	--site-code-muted: #8a96a3;
+	--site-code-comment: #6cc070;
+
+	@each $state, $colour in $status-colors-dark {
+		--site-status-#{$state}: #{$colour};
+	}
+}

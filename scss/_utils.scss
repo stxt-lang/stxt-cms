@@ -7,7 +7,7 @@
 // The @STXT@ token: the wordmark inline, always in the identity font.
 span.stxt {
 	font-family: $font-brand;
-	color: $color1 !important;
+	color: var(--site-accent) !important;
 	font-weight: normal;
 	font-style: normal;
 	letter-spacing: 0.02em;

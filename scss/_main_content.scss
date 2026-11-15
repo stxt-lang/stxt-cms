@@ -2,7 +2,7 @@
 
 .content {
 	h1, h2, h3, h4 {
-		color: $color1;
+		color: var(--site-accent);
 		font-weight: 700;
 		line-height: 1.25;
 		// Anchors land just below the sticky header: only the header plus a small gap,
@@ -25,13 +25,13 @@
 		width: fit-content;
 		margin: -0.6rem 0 1rem;
 		padding: 0.7rem 1.1rem;
-		background: $color4;
-		border: 1px solid $border;
-		border-left: 3px solid $color1;
+		background: var(--site-tint);
+		border: 1px solid var(--site-border);
+		border-left: 3px solid var(--site-accent);
 		font-size: 0.9rem;
 		dt {
 			margin: 0;
-			color: $muted;
+			color: var(--site-muted);
 			font-size: 0.8rem;
 			font-weight: 600;
 			letter-spacing: 0.06em;
@@ -47,11 +47,11 @@
 		// A state that is not one of the four tokens keeps the plain body colour, so a
 		// misspelled Status stands out instead of passing for a stable specification.
 		.doc-meta-status {
-			color: $ink;
+			color: var(--site-text);
 		}
 		@each $state, $colour in $status-colors {
 			.doc-meta-status-#{$state} {
-				color: $colour;
+				color: var(--site-status-#{$state});
 				font-weight: 700;
 			}
 		}
@@ -60,7 +60,7 @@
 		font-size: 1.5rem;
 		margin: 2.5rem 0 0.9rem;
 		padding-bottom: 0.35rem;
-		border-bottom: 1px solid $border;
+		border-bottom: 1px solid var(--site-border);
 	}
 	h3 {
 		font-size: 1.15rem;
@@ -93,8 +93,8 @@
 	.assert, .alert {
 		margin: 1.25rem 0;
 		padding: 0.9rem 1.15rem;
-		border-left: 4px solid $color1;
-		background: $color3;
+		border-left: 4px solid var(--site-accent);
+		background: var(--site-selected);
 		p, ul {
 			margin: 0;
 			background: none;
@@ -111,13 +111,13 @@
 		text-align: center;
 	}
 	.alert {
-		background: $alert;
-		border-left-color: #d9534f;
+		background: var(--site-alert);
+		border-left-color: var(--site-alert-border);
 	}
 
 	div.preamble p {
 		text-align: right;
-		color: $muted;
+		color: var(--site-muted);
 		font-size: 0.95rem;
 	}
 }

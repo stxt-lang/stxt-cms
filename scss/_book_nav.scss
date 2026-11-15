@@ -8,17 +8,17 @@
 	gap: 1rem;
 	margin-top: 3rem;
 	padding-top: 1.25rem;
-	border-top: 1px solid $border;
+	border-top: 1px solid var(--site-border);
 
 	a {
 		flex: 1 1 0;
 		max-width: 48%;
-		color: $ink;
+		color: var(--site-text);
 		font-weight: 600;
 		line-height: 1.35;
 		&:hover {
 			text-decoration: none;
-			color: $color1;
+			color: var(--site-accent);
 		}
 		&.next {
 			text-align: right;
@@ -27,6 +27,6 @@
 	}
 	.book-nav-arrow {
 		font-size: 0.75em;
-		color: $muted;
+		color: var(--site-muted);
 	}
 }

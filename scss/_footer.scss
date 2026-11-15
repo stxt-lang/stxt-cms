@@ -4,14 +4,14 @@
 	max-width: $main_width;
 	margin: 2rem auto 0;
 	padding: 1.5rem $gutter 2rem;
-	border-top: 1px solid $border;
+	border-top: 1px solid var(--site-border);
 	text-align: center;
-	color: $muted;
+	color: var(--site-muted);
 	font-size: 0.85rem;
 	p {
 		margin: 0;
 	}
 	a {
-		color: $muted;
+		color: var(--site-muted);
 	}
 }

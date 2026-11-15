@@ -14,25 +14,25 @@
 		font-weight: 700;
 		letter-spacing: 0.09em;
 		text-transform: uppercase;
-		color: $muted;
+		color: var(--site-muted);
 	}
 
 	// Same vertical rhythm as the site index (_sidebar.scss): 0.15rem padding, line-height 1.35.
 	a {
 		display: block;
 		padding: 0.15rem 0 0.15rem 0.8rem;
-		border-left: 2px solid $border;
-		color: $muted;
+		border-left: 2px solid var(--site-border);
+		color: var(--site-muted);
 		line-height: 1.35;
 		&:hover {
-			color: $color1;
-			border-left-color: $color1;
+			color: var(--site-accent);
+			border-left-color: var(--site-accent);
 			text-decoration: none;
 		}
 		// Section the reader is in, set by page-toc.js as the page scrolls
 		&.active {
-			color: $color1;
-			border-left-color: $color1;
+			color: var(--site-accent);
+			border-left-color: var(--site-accent);
 			font-weight: 600;
 		}
 		&.l3 {

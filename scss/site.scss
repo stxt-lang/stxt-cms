@@ -1,4 +1,5 @@
 @use "normalize" as normalize;
+@use "theme" as theme;
 @use "basic" as basic;
 @use "header" as header;
 // @use "hero" as hero; // home page banner, disabled since 2026-09-13 (see templates/hero.vm)

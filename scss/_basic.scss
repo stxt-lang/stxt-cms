@@ -23,7 +23,7 @@
 }
 
 html {
-	background-color: #fff;
+	background-color: var(--site-page);
 	// No scroll-padding here: the anchor offset lives in the headings' scroll-margin-top
 	// (_main_content.scss). Both would add up and leave the previous section peeking out.
 }
@@ -31,7 +31,7 @@ html {
 body {
 	margin: 0;
 	font-family: $font-body;
-	color: $ink;
+	color: var(--site-text);
 	line-height: 1.6;
 	tab-size: 4;
 	-webkit-font-smoothing: antialiased;
@@ -42,7 +42,7 @@ body {
 /* ------- */
 
 a {
-	color: $color1;
+	color: var(--site-accent);
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;
@@ -51,7 +51,7 @@ a {
 
 hr {
 	border: 0;
-	border-top: 1px solid $border;
+	border-top: 1px solid var(--site-border);
 	margin: 2rem 0;
 }
 
@@ -65,7 +65,7 @@ table {
 }
 
 tr, td, th {
-	border: 1px solid $border;
+	border: 1px solid var(--site-border);
 	margin: 0;
 	padding: 0.45rem 0.75rem;
 	a {
@@ -78,22 +78,22 @@ tr, td, th {
 }
 
 th {
-	background-color: $color3;
-	color: $color1;
+	background-color: var(--site-selected);
+	color: var(--site-accent);
 	text-align: left;
 	font-weight: 600;
 }
 
 tbody tr:nth-child(even) td {
-	background-color: #fbfdfe;
+	background-color: var(--site-row);
 }
 
 blockquote {
 	margin: 1.5rem 0;
 	padding: 1rem 1.25rem;
-	border-left: 4px solid $border;
-	background: $panel;
-	color: #334155;
+	border-left: 4px solid var(--site-border);
+	background: var(--site-panel);
+	color: var(--site-quote);
 	font-style: italic;
 }
 
@@ -106,9 +106,9 @@ blockquote cite {
 	margin-top: 0.75rem;
 	font-size: 0.9rem;
 	font-style: normal;
-	color: $muted;
+	color: var(--site-muted);
 }
 
 blockquote code {
-	background-color: #e6edf3;
+	background-color: var(--site-quote-code);
 }

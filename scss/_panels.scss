@@ -4,8 +4,8 @@
 .panel, pre {
 	margin: 0 0 1.25rem;
 	padding: 0.9rem 1.1rem;
-	background: $panel;
-	border: 1px solid $border;
+	background: var(--site-panel);
+	border: 1px solid var(--site-border);
 	line-height: 1.5;
 	font-size: 0.9rem;
 	font-family: $font-mono;
@@ -14,7 +14,7 @@
 
 pre {
 	strong {
-		color: $color1;
+		color: var(--site-accent);
 	}
 }
 
@@ -34,23 +34,10 @@ pre.listing code {
 // formats, console output). Deliberately unhighlighted, same panel as the code
 // blocks, plain body-ink text, so it reads as verbatim text rather than syntax.
 pre.listing {
-	color: $black;
+	color: var(--site-listing);
 }
 
-// Syntax palette, ONE semantic scheme shared by STXT and EBNF so the two panels
-// read as a system. Keys (inline nodes / EBNF rules) lead the eye in bold blue;
-// the '>>' text-block header gets its own bright azure; a separator takes its key's
-// colour and weight so key+separator read as one unit; values/literals are magenta;
-// comments are green. Only EBNF operators/punctuation stay muted slate. Token
-// semantics still match the stxt-vscode extension.
-// The two blues sit a small hue apart so key and block header separate without
-// either leaving "blue": the key leans true blue, the block header leans cyan.
-$stxt-node: #0d5cb6; // identifier, inline node names (STXT) + rule names (EBNF), portal blue, nudged off $color2 (#0A6FAE) toward true blue
-$stxt-block: #00b2f0; // '>>' text-block header, bright azure, nudged toward cyan
-$stxt-namespace: #0a9396; // namespace / annotation in name position, turquoise
-$stxt-value: #d05a80; // value / literal string, magenta, a touch softer than the block azure's old hue
-$stxt-muted: #6a737d; // EBNF operators/punctuation, slate, so they recede
-$stxt-comment: #008000; // comments, green, upright (no italic)
+// Syntax palette: $stxt-* in _settings.scss, as --site-code-* (_theme.scss).
 
 // STXT examples. No grammar here: static/js/highlight-stxt.js runs the static
 // highlighter of @stxt-lang/editor, whose tokens come from the parser of
@@ -61,27 +48,27 @@ $stxt-comment: #008000; // comments, green, upright (no italic)
 pre.code-stxt {
 	// Inline node: its name and its ':'.
 	.stxt-tok-property {
-		color: $stxt-node;
+		color: var(--site-code-node);
 		font-weight: 700;
 	}
 
 	// '>>' text-block header, name and '>>': bold like a node, but a distinct bright
 	// azure so a text block reads at a glance.
 	.stxt-tok-macro {
-		color: $stxt-block;
+		color: var(--site-code-block);
 		font-weight: 700;
 	}
 
 	.stxt-tok-namespace {
-		color: $stxt-namespace;
+		color: var(--site-code-namespace);
 	}
 
 	.stxt-tok-string {
-		color: $stxt-value;
+		color: var(--site-code-value);
 	}
 
 	.stxt-tok-comment {
-		color: $stxt-comment;
+		color: var(--site-code-comment);
 	}
 }
 
@@ -91,21 +78,21 @@ pre.code-stxt {
 // the defined symbol still stands out as the grammar's structural anchor.
 pre.language-ebnf {
 	.token.rule {
-		color: $stxt-node;
+		color: var(--site-code-node);
 		font-weight: 700;
 	}
 
 	.token.string {
-		color: $stxt-value;
+		color: var(--site-code-value);
 	}
 
 	.token.operator,
 	.token.punctuation {
-		color: $stxt-muted;
+		color: var(--site-code-muted);
 	}
 
 	.token.comment {
-		color: $stxt-comment;
+		color: var(--site-code-comment);
 	}
 }
 
@@ -130,14 +117,14 @@ pre.language-toml,
 pre.language-markdown {
 	.token.keyword,
 	.token.important {
-		color: $stxt-node;
+		color: var(--site-code-node);
 	}
 
 	.token.property,
 	.token.tag,
 	.token.key,
 	.token.title {
-		color: $stxt-node;
+		color: var(--site-code-node);
 		font-weight: 700;
 	}
 
@@ -147,7 +134,7 @@ pre.language-markdown {
 	.token.decorator,
 	.token.annotation,
 	.token.attr-name {
-		color: $stxt-namespace;
+		color: var(--site-code-namespace);
 		font-weight: 400;
 	}
 
@@ -160,18 +147,18 @@ pre.language-markdown {
 	.token.attr-value,
 	.token.regex,
 	.token.url {
-		color: $stxt-value;
+		color: var(--site-code-value);
 		font-weight: 400;
 	}
 
 	.token.comment,
 	.token.doc-comment {
-		color: $stxt-comment;
+		color: var(--site-code-comment);
 	}
 
 	.token.operator,
 	.token.punctuation {
-		color: $stxt-muted;
+		color: var(--site-code-muted);
 		font-weight: 400;
 	}
 
@@ -205,9 +192,9 @@ pre.language-markdown {
 	width: 2rem;
 	height: 2rem;
 	padding: 0;
-	border: 1px solid #ddd;
-	background: #fff;
-	color: #888;
+	border: 1px solid var(--site-button-border);
+	background: var(--site-surface);
+	color: var(--site-button);
 	cursor: pointer;
 	opacity: 0.55;
 	transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease;
@@ -221,15 +208,15 @@ pre.language-markdown {
 	&:hover,
 	&:focus {
 		opacity: 1;
-		color: $color2;
-		border-color: $color2;
+		color: var(--site-accent);
+		border-color: var(--site-accent);
 		outline: none;
 	}
 
 	&.copied {
 		opacity: 1;
-		color: #008000;
-		border-color: #008000;
+		color: var(--site-ok);
+		border-color: var(--site-ok);
 	}
 }
 
@@ -243,9 +230,9 @@ pre.language-markdown {
 code {
 	font-family: $font-mono;
 	font-size: 0.9em;
-	background: #eef3f7;
+	background: var(--site-code);
 	padding: 0.1em 0.4em;
-	color: $color1;
+	color: var(--site-accent);
 
 	// Only inline: inside <pre> the block already handles whitespace and
 	// scrolls horizontally, and wrapping there would break long lines.

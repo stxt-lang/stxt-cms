@@ -93,4 +93,9 @@
 ## swap of the brand mark. crossorigin is required for font preloads.
 	<link rel="preload" href="/fonts/russo-one-latin.woff2" as="font" type="font/woff2" crossorigin>
 
+## The theme, before the first paint, so a dark page does not flash light: the one
+## chosen with the button, or the system's. Same decision and storage key as
+## static/js/theme-toggle.js, which takes over after load; keep both in step.
+## No hash or dollar signs in here: Velocity would read them as its own.
+	<script>(function () { var t = null; try { t = localStorage.getItem("stxt.theme"); } catch (e) {} if (t !== "dark" && t !== "light") { t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-theme", t); })();</script>
     <link rel="stylesheet" href="${utils.assetPath('/css/site.css')}">

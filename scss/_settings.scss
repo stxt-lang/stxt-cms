@@ -19,11 +19,36 @@ $status-colors: (
 	"twilight": #B45F06, // burnt orange: closed, superseded or withdrawn
 );
 
+// The same four hues, lighter, for the dark theme (_theme.scss).
+$status-colors-dark: (
+	"genesis": #f08fb0,
+	"aurora": #b48ee0,
+	"zenith": #6db3f2,
+	"twilight": #eba05a,
+);
+
 // Neutral system, close to the playground's chrome
 $ink: #24313f;      // body text
 $muted: #5b6b7b;    // secondary text
 $border: #dbe6ee;   // hairlines
 $panel: #f6f9fc;    // code / listing panels
+
+// Syntax palette, ONE semantic scheme shared by STXT and EBNF so the two panels
+// read as a system. Keys (inline nodes / EBNF rules) lead the eye in bold blue;
+// the '>>' text-block header gets its own bright azure; a separator takes its key's
+// colour and weight so key+separator read as one unit; values/literals are magenta;
+// comments are green. Only EBNF operators/punctuation stay muted slate. Token
+// semantics still match the stxt-vscode extension.
+// The two blues sit a small hue apart so key and block header separate without
+// either leaving "blue": the key leans true blue, the block header leans cyan.
+// These are the light values; _theme.scss turns them into custom properties
+// (--site-code-*) with their dark counterparts, and _panels.scss uses those.
+$stxt-node: #0d5cb6; // identifier, inline node names (STXT) + rule names (EBNF), portal blue, nudged off $color2 (#0A6FAE) toward true blue
+$stxt-block: #00b2f0; // '>>' text-block header, bright azure, nudged toward cyan
+$stxt-namespace: #0a9396; // namespace / annotation in name position, turquoise
+$stxt-value: #d05a80; // value / literal string, magenta, a touch softer than the block azure's old hue
+$stxt-muted: #6a737d; // EBNF operators/punctuation, slate, so they recede
+$stxt-comment: #008000; // comments, green, upright (no italic)
 
 // Type
 $font-brand: "Russo One", "Arial Black", sans-serif; // identity font: wordmark, hero, @STXT@ token
