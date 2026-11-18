@@ -5,7 +5,7 @@
 
 	<body>
 		#parse("/book/header.vm")
-		<div class="layout">
+		<div class="layout book-layout">
 			<aside class="sidebar">
 				#parse("/book/sidebar.vm")
 			</aside>

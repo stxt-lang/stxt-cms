@@ -3,6 +3,22 @@
 // The book pages (templates/book/, the "book" pipeline): what the portal pages do not have.
 // The rest (header, columns, headings, code panels, previous / next) is the portal's.
 
+// Wider than the portal (1280 / 820), for the code: with 0.9rem mono, 76 columns fitted in
+// the 700px the portal leaves to the text, and two thirds of the listings scrolled sideways.
+// At 1720px the text gets 1100px (some 125 columns); on a 1440px screen, 860px (about 95).
+$book_main_width: 1720px;
+$book_content_width: 1100px;
+
+.layout.book-layout {
+	max-width: $book_main_width;
+	.content {
+		max-width: $book_content_width;
+	}
+}
+.book-header .site-header-inner {
+	max-width: $book_main_width;
+}
+
 // Left column: chapters not written yet, dimmed; the number of each chapter, muted.
 .book-index {
 	.book-pending {
