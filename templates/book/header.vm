@@ -1,0 +1,13 @@
+## Book header: the STXT brand (to the portal home), the title of the book (to its table of
+## contents) and the theme button. Same markup and styles as site_header.vm.
+<header class="site-header">
+	<div class="site-header-inner">
+		<a class="brand" href="${bl.get("book.home")}" title="STXT"><span class="brand-name">STXT</span></a>
+		<nav class="site-nav" aria-label="${bl.get("book.nav.site")}">
+			<a href="$bookPath"#if(!$chapter) aria-current="page"#end>$utils.escapeHtml($book.title)</a>
+		</nav>
+		<div class="site-actions">
+			#parse("/theme_toggle.vm")
+		</div>
+	</div>
+</header>

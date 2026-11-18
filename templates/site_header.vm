@@ -31,7 +31,7 @@
 			</span>
 			<a class="source-link" href="https://github.com/stxt-lang/stxt-lang/blob/master/${lang.get("lang")}/${doc_name}.stxt" target="${doc_name}" title="${doc_name}.stxt">.stxt</a>
 			## Light or dark theme (static/js/theme-toggle.js); pressed is the dark one
-			<button id="theme-toggle" type="button" class="theme-toggle" aria-pressed="false" aria-label="${lang.get("theme.label")}" title="${lang.get("theme.todark")}" data-title-dark="${lang.get("theme.todark")}" data-title-light="${lang.get("theme.tolight")}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"></path></svg></button>
+			#parse("/theme_toggle.vm")
 		</div>
 	</div>
 </header>

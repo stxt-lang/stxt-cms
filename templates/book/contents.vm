@@ -1,0 +1,15 @@
+## The index page: title, subtitle, reference version and the chapters of every part.
+<h1>$utils.escapeHtml($book.title)</h1>
+#if($book.subtitle)
+<p class="book-subtitle">$utils.escapeHtml($book.subtitle)</p>
+#end
+<p class="book-reference">${bl.get("book.reference")} <code>$utils.escapeHtml($book.reference)</code></p>
+#foreach($part in $book.parts)
+	#set($hid = $utils.headingId($part.title))
+	<h2#if($hid != "") id="$hid"#end>$utils.escapeHtml($part.title)</h2>
+	<ul class="book-contents">
+	#foreach($c in $part.chapters)
+		<li#if($c.pending) class="book-pending"#end><a href="$c.name">#if($c.number)<span class="book-number">${c.number}.</span> #end${wiki.renderInline($c.title)}</a>#if($c.pending) <span class="book-pending-tag">${bl.get("book.pending.tag")}</span>#end</li>
+	#end
+	</ul>
+#end

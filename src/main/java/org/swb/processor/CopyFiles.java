@@ -2,6 +2,7 @@ package org.swb.processor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -15,7 +16,11 @@ public class CopyFiles extends AbstractDirProcessor
     
     private int lengthBaseDir = 0;
     private boolean overwrite = true;
-    
+    // flatten=true copies every file straight into todir, without its subfolders (the images of
+    // the book, one folder per part); two sources with the same name stop the build.
+    private boolean flatten = false;
+    private final Map<String, File> flattened = new HashMap<>();
+
     // ----
     // Init
     // ----
@@ -41,6 +46,7 @@ public class CopyFiles extends AbstractDirProcessor
         {
             overwrite = Boolean.parseBoolean(config.getProperty("overwrite"));
         }
+        flatten = Boolean.parseBoolean(config.getProperty("flatten", "false"));
     }
     
     // -----------------
@@ -65,7 +71,21 @@ public class CopyFiles extends AbstractDirProcessor
     @Override
     protected void process(Map<String, Object> context, File srcFile) throws IOException, Exception
     {
-        File dstFile = new File(todir, srcFile.getCanonicalPath().substring(lengthBaseDir));
+        File dstFile;
+        if (flatten)
+        {
+            dstFile = new File(todir, srcFile.getName());
+            File previous = flattened.put(srcFile.getName(), srcFile);
+            if (previous != null)
+            {
+                throw new IllegalArgumentException("Two files named " + srcFile.getName() + " in " + dir.getCanonicalPath()
+                        + ": " + previous.getCanonicalPath() + " and " + srcFile.getCanonicalPath());
+            }
+        }
+        else
+        {
+            dstFile = new File(todir, srcFile.getCanonicalPath().substring(lengthBaseDir));
+        }
         if (dstFile.exists() && !overwrite) return;
         
         System.out.println((dstFile.exists() ? "Overwrite: " : "Copy: ") + srcFile.getCanonicalPath() + " to " + dstFile.getCanonicalPath());

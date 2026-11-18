@@ -1,0 +1,9 @@
+## Book pages (stxt-pdf-book, rendered by the "book" pipeline): $book is the org.swb.book.Book
+## built by ReadBook, $doc the page node (the Book of the index, or a Chapter) and $doc_name its
+## page name ("index", or the chapter file name without .stxt). $lang keeps the portal texts
+## (theme button, "On this page"); $bl holds the book ones (lang/book_<lang>.properties).
+## Keep every template of this folder ASCII-only: Velocity reads them as ISO-8859-1.
+#parse("/init.vm")
+#set($bl = ${langs.get("book_$nn")})
+#set($bookPath = ${bl.get("book.path")})
+#set($chapter = $book.getChapter($doc_name))

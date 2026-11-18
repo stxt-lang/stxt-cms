@@ -1,0 +1,127 @@
+@use "settings" as *;
+
+// The book pages (templates/book/, the "book" pipeline): what the portal pages do not have.
+// The rest (header, columns, headings, code panels, previous / next) is the portal's.
+
+// Left column: chapters not written yet, dimmed; the number of each chapter, muted.
+.book-index {
+	.book-pending {
+		color: var(--site-muted);
+	}
+}
+.book-number {
+	color: var(--site-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.content.book {
+	// "Capitulo 2" above the title
+	.book-kicker {
+		margin: 0 0 0.3rem;
+		color: var(--site-muted);
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+	}
+
+	// Inline code in a chapter title (El `Paginator`): the heading colour, no chip.
+	h1 code {
+		background: none;
+		padding: 0;
+		color: inherit;
+	}
+
+	// The index page: subtitle, reference version and the chapters of each part.
+	.book-subtitle {
+		margin: -0.75rem 0 0.5rem;
+		font-size: 1.2rem;
+		color: var(--site-muted);
+	}
+	.book-reference {
+		color: var(--site-muted);
+		font-size: 0.9rem;
+	}
+	.book-contents {
+		list-style: none;
+		padding-left: 0;
+		li {
+			margin: 0.25rem 0;
+		}
+		.book-pending a {
+			color: var(--site-muted);
+		}
+	}
+	.book-pending-tag {
+		margin-left: 0.4rem;
+		color: var(--site-muted);
+		font-size: 0.8rem;
+	}
+
+	// A chapter not written yet: what is planned, in a quiet card.
+	.book-pending-note {
+		margin: 1.25rem 0;
+		padding: 0.9rem 1.15rem;
+		background: var(--site-tint);
+		border: 1px solid var(--site-border);
+		border-left: 3px solid var(--site-muted);
+		p:last-child, ul:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	// Born / Grows / Final: the classes of the chapter, one line each, stacked in one card.
+	.book-classes {
+		display: flex;
+		gap: 1rem;
+		align-items: baseline;
+		margin: 0;
+		padding: 0.45rem 1rem;
+		background: var(--site-tint);
+		border: 1px solid var(--site-border);
+		border-left: 3px solid var(--site-accent);
+		font-size: 0.9rem;
+		& + .book-classes {
+			border-top: 0;
+		}
+	}
+	.book-classes + :not(.book-classes) {
+		margin-top: 1.25rem;
+	}
+	.book-classes-label {
+		flex: 0 0 6.5rem;
+		color: var(--site-muted);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	// Images: screenshots of PDF pages, on white; a border keeps them apart in the dark theme.
+	.book-image {
+		margin: 0 0 1.25rem;
+		img {
+			display: block;
+			max-width: 100%;
+			border: 1px solid var(--site-border);
+		}
+	}
+
+	// A listing with its file: the path on a tab above the panel.
+	.book-listing {
+		margin: 0 0 1.25rem;
+		pre {
+			margin: 0;
+		}
+	}
+	.book-file {
+		padding: 0.3rem 1.1rem;
+		background: var(--site-selected);
+		border: 1px solid var(--site-border);
+		border-bottom: 0;
+		font-family: $font-mono;
+		font-size: 0.8rem;
+		color: var(--site-muted);
+		overflow-wrap: anywhere;
+	}
+}

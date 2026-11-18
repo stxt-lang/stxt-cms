@@ -1,0 +1,34 @@
+## Right column, "On this page": the Header (and Subheader) nodes of a chapter, or the parts on
+## the index page; only with more than one entry. static/js/page-toc.js lights the current one.
+#set($tocCount = 0)
+#if($chapter)
+	#if(!$chapter.pending)
+		#foreach($node in ${doc.children})
+			#if(${node.canonicalName} == "header")#set($tocCount = $tocCount + 1)#end
+		#end
+	#end
+#else
+	#set($tocCount = $book.parts.size())
+#end
+#if($tocCount > 1)
+	<nav class="page-toc" aria-label="${lang.get("toc.title")}">
+		<h2 class="page-toc-title">${lang.get("toc.title")}</h2>
+	#if($chapter)
+		#foreach($node in ${doc.children})
+			#if(${node.canonicalName} == "header" || ${node.canonicalName} == "subheader")
+				#set($hid = $utils.headingId($node.text))
+				#if($hid != "")
+		<a#if(${node.canonicalName} == "subheader") class="l3"#end href="#$hid">${wiki.renderInline($node.text)}</a>
+				#end
+			#end
+		#end
+	#else
+		#foreach($part in $book.parts)
+			#set($hid = $utils.headingId($part.title))
+			#if($hid != "")
+		<a href="#$hid">$utils.escapeHtml($part.title)</a>
+			#end
+		#end
+	#end
+	</nav>
+#end

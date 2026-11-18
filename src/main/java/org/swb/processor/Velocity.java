@@ -21,6 +21,10 @@ public class Velocity extends AbstractDirProcessor
     private Properties model = null;
     private String template;
     private String encoding = "UTF-8";
+    // Context key of the page map exposed as $pages, and the name of the index page in it ($index).
+    // By default the portal's: "pages_<lang>" and "_index". The book uses its own (see ReadBook).
+    private String pages = null;
+    private String index = "_index";
 
     @Override
     public void init(String name, Properties config) throws Exception
@@ -41,6 +45,8 @@ public class Velocity extends AbstractDirProcessor
         out = config.getProperty("out");
         encoding = config.getProperty("encoding", encoding);
         extension = config.getProperty("extension", extension);
+        pages = config.getProperty("pages");
+        index = config.getProperty("index", index);
         model = PropertiesUtils.getSubproperties(config, "model.");
     }
     
@@ -106,11 +112,11 @@ public class Velocity extends AbstractDirProcessor
         
         // Obtenemos índice
         String lang = (String) ((Map<String, Object>) context.get("nav_lang")).get("lang");
-        Map<String, Object> pages = (Map<String, Object>) context.get("pages_" + lang);
-        Object index = pages.get("_index");
+        Map<String, Object> pageMap = (Map<String, Object>) context.get(pages != null ? pages : "pages_" + lang);
+        Object indexPage = pageMap.get(index);
         // The whole page map of the language: the sidebar reads each page's Metadata/Status
-        velocityContext.put("pages", pages);
-		velocityContext.put("index", index);
+        velocityContext.put("pages", pageMap);
+		velocityContext.put("index", indexPage);
         System.out.println("Velocity: " + name + " -> " + lang);
         
         // Renderizamos

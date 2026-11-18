@@ -83,19 +83,5 @@
 	<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[#foreach($it in $faqItems){"@type":"Question","name":"$utils.jsonEscape($it.q.replace("@STXT@","STXT"))","acceptedAnswer":{"@type":"Answer","text":"#foreach($h in $it.a)$utils.jsonEscape($h.replace("@STXT@","STXT"))#end"}}#if($foreach.hasNext),#end#end]}</script>
 #end
 
-	<link rel="icon" href="/favicon.ico?v=${utils.assetHash('/favicon.ico')}" sizes="48x48">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=${utils.assetHash('/favicon-32.png')}">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=${utils.assetHash('/favicon-16.png')}">
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=${utils.assetHash('/apple-touch-icon.png')}">
-	<link rel="manifest" href="/site.webmanifest">
-
-## Russo One is self-hosted (see scss/_basic.scss); preloading avoids the late
-## swap of the brand mark. crossorigin is required for font preloads.
-	<link rel="preload" href="/fonts/russo-one-latin.woff2" as="font" type="font/woff2" crossorigin>
-
-## The theme, before the first paint, so a dark page does not flash light: the one
-## chosen with the button, or the system's. Same decision and storage key as
-## static/js/theme-toggle.js, which takes over after load; keep both in step.
-## No hash or dollar signs in here: Velocity would read them as its own.
-	<script>(function () { var t = null; try { t = localStorage.getItem("stxt.theme"); } catch (e) {} if (t !== "dark" && t !== "light") { t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-theme", t); })();</script>
-    <link rel="stylesheet" href="${utils.assetPath('/css/site.css')}">
+## Icons, the brand font, the theme script and the stylesheet: shared with the book (book/head.vm).
+#parse("/head_assets.vm")

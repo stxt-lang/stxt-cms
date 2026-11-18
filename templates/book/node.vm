@@ -1,0 +1,43 @@
+## One node of a chapter (template dev.stxt.pdf.book). Not the portal's node.vm: the vocabulary
+## differs (Header is a section, h2; Html is a listing, never raw HTML; Stxt is the STXT code).
+#set($cn = $node.canonicalName)
+#if($cn == "content")
+	${wiki.render($node.text)}
+#elseif($cn == "header")
+	#set($hid = $utils.headingId($node.text))
+	<h2#if($hid != "") id="$hid"#end>${wiki.renderInline($node.text)}</h2>
+#elseif($cn == "subheader")
+	#set($hid = $utils.headingId($node.text))
+	<h3#if($hid != "") id="$hid"#end>${wiki.renderInline($node.text)}</h3>
+#elseif($cn == "born" || $cn == "grows" || $cn == "final")
+	<p class="book-classes"><span class="book-classes-label">${bl.get("book.$cn")}</span><span class="book-classes-text">${wiki.renderInline($node.text)}</span></p>
+#elseif($cn == "image")
+	## Width only as a percentage (80%), the only form the book uses
+	#set($width = "")
+	#if($node.getChild("width") && $node.getChild("width").text.matches('^[0-9]+(\.[0-9]+)?%$'))
+		#set($width = $node.getChild("width").text)
+	#end
+	<figure class="book-image"><img src="$utils.escapeHtml($node.text)" alt="$utils.escapeHtml($node.getChild("alt").text)"#if($width != "") style="width: $width"#end loading="lazy"></figure>
+#elseif($cn == "file")
+	#set($file = $node.text)
+#elseif($cn == "stxt" || $cn == "java" || $cn == "xml" || $cn == "json" || $cn == "yaml" || $cn == "html" || $cn == "markdown" || $cn == "shell" || $cn == "output")
+	## STXT is coloured by stxt-highlight.js (pre.code-stxt, as in the portal); the others by
+	## Prism, whose language is the node name except Html (markup). Shell and Output are not
+	## coloured (the Prism bundle has no bash).
+	#set($codeClass = "")
+	#if($cn == "stxt")
+		#set($preClass = "code-stxt")
+	#elseif($cn == "shell" || $cn == "output")
+		#set($preClass = "listing")
+	#else
+		#if($cn == "html")#set($prism = "markup")#{else}#set($prism = $cn)#end
+		#set($preClass = "language-$prism")
+		#set($codeClass = "language-$prism")
+	#end
+	#if($file != "")
+	<figure class="book-listing"><figcaption class="book-file">$utils.escapeHtml($file)</figcaption><pre class="$preClass"><code#if($codeClass != "") class="$codeClass"#end>$utils.escapeHtml($node.text)</code></pre></figure>
+		#set($file = "")
+	#else
+	<pre class="$preClass"><code#if($codeClass != "") class="$codeClass"#end>$utils.escapeHtml($node.text)</code></pre>
+	#end
+#end

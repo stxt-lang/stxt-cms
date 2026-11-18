@@ -1,0 +1,16 @@
+## Head of a book page. The book is published out of sight: noindex on every page (and the
+## X-Robots-Tag of static/_headers for the whole folder), no canonical, no hreflang, no Open
+## Graph, and nothing in sitemap.xml. Titles lose the backticks of their inline code.
+#set($hash = "#")
+#if($chapter)
+	#set($plainTitle = $chapter.title.replace('`', ''))
+	#set($pageTitle = "$plainTitle - $book.title")
+#else
+	#set($pageTitle = $book.title)
+#end
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$utils.escapeHtml($pageTitle)</title>
+	<meta name="robots" content="noindex">
+	<meta name="theme-color" content="${hash}E8F4FA">
+#parse("/head_assets.vm")

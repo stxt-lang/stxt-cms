@@ -1,0 +1,16 @@
+## Previous / next chapter, below the article, in reading order. The first chapter goes back to
+## the table of contents, which leads to the first chapter.
+#set($prev = $book.previous($doc_name))
+#set($next = $book.next($doc_name))
+<nav class="book-nav" aria-label="${bl.get("book.nav")}">
+	#if($prev)
+	<a class="prev" href="$prev.name" title="$utils.escapeHtml($prev.title.replace('`', ''))"><span class="book-nav-arrow">&#x25C4;</span>&nbsp;${wiki.renderInline($prev.title)}</a>
+	#elseif($chapter)
+	<a class="prev" href="$bookPath"><span class="book-nav-arrow">&#x25C4;</span>&nbsp;${bl.get("book.contents")}</a>
+	#else
+	<span></span>
+	#end
+	#if($next)
+	<a class="next" href="$next.name" title="$utils.escapeHtml($next.title.replace('`', ''))">${wiki.renderInline($next.title)}&nbsp;<span class="book-nav-arrow">&#x25BA;</span></a>
+	#end
+</nav>

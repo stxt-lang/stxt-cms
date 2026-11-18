@@ -1,0 +1,15 @@
+## A chapter: "Chapter N" (or "Appendix A"; nothing for the preface), the title and its nodes in
+## order. A chapter not written yet shows only what is planned (Pending), as the PDF does.
+#if($chapter.number)
+<p class="book-kicker">#if($chapter.appendix)${bl.get("book.appendix")}#else${bl.get("book.chapter")}#end ${chapter.number}</p>
+#end
+<h1>${wiki.renderInline($chapter.title)}</h1>
+#if($chapter.pending)
+	<div class="book-pending-note"><p><strong>${bl.get("book.pending")}</strong></p>${wiki.render($doc.getChild("pending").text)}</div>
+#else
+	## File names the listing that follows it: kept here until that listing is written.
+	#set($file = "")
+	#foreach($node in ${doc.children})
+		#parse("/book/node.vm")
+	#end
+#end

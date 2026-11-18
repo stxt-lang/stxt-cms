@@ -1,0 +1,3 @@
+<footer class="site-footer"><p>$utils.escapeHtml($book.title) &middot; ${bl.get("book.reference")} $utils.escapeHtml($book.reference)</p></footer>
+#parse("/footer_scripts.vm")
+<script defer src="${utils.assetPath('/js/book-index.js')}"></script>

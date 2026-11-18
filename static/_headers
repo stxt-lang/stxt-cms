@@ -18,3 +18,7 @@
   Content-Type: text/plain; charset=utf-8
   X-Content-Type-Options: nosniff
   X-Robots-Tag: noindex
+
+# The book of stxt-pdf (the "book" pipeline): published out of sight, never indexed.
+/es/pdf-book/*
+  X-Robots-Tag: noindex

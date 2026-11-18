@@ -9,5 +9,6 @@
 @use "main_content" as main_content;
 @use "panels" as panels;
 @use "book_nav" as book_nav;
+@use "book" as book; // the pages of the book (templates/book/)
 @use "footer" as footer_styles;
 @use "utils" as utils;

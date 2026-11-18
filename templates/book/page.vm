@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+#parse("/book/init.vm")
+<html lang="${book.language}">
+	<head>#parse("/book/head.vm")</head>
+
+	<body>
+		#parse("/book/header.vm")
+		<div class="layout">
+			<aside class="sidebar">
+				#parse("/book/sidebar.vm")
+			</aside>
+			<main class="content book">
+				<article>
+				#if($chapter)
+					#parse("/book/chapter.vm")
+				#else
+					#parse("/book/contents.vm")
+				#end
+				</article>
+				#parse("/book/navigation.vm")
+			</main>
+			<aside class="toc">
+				#parse("/book/toc.vm")
+			</aside>
+		</div>
+		#parse("/book/footer.vm")
+	</body>
+</html>

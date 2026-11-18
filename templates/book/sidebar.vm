@@ -1,0 +1,11 @@
+## Left column: the table of contents of the book, by parts. Chapters not written yet (Pending)
+## are dimmed; static/js/book-index.js scrolls the column to the current chapter.
+<nav class="site-index book-index" aria-label="${bl.get("book.contents")}">
+	<a class="site-index-link#if(!$chapter) selected#end" href="$bookPath"#if(!$chapter) aria-current="page"#end>${bl.get("book.contents")}</a>
+	#foreach($part in $book.parts)
+	<p class="site-index-title">$utils.escapeHtml($part.title)</p>
+		#foreach($c in $part.chapters)
+	<a class="site-index-link#if($c.name == $doc_name) selected#end#if($c.pending) book-pending#end" href="$c.name"#if($c.name == $doc_name) aria-current="page"#end>#if($c.number)<span class="book-number">${c.number}.</span> #end${wiki.renderInline($c.title)}</a>
+		#end
+	#end
+</nav>
