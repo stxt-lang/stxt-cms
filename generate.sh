@@ -22,7 +22,7 @@ cd "$(dirname "$0")"
 # Ejecuta el programa Java con el classpath adecuado
 java -cp "target/classes:lib/*:target/dependency/*" org.swb.Executor processor.properties main
 
-# El libro de stxt-pdf (pipeline "book", en es/pdf-book/), si ../stxt-pdf-book está al lado
+# Los libros de stxt-pdf-book (pipeline "book", en es/pdf-book/ y es/layout-book/), si ../stxt-pdf-book está al lado
 if [[ -d ../stxt-pdf-book/book ]]; then
     java -cp "target/classes:lib/*:target/dependency/*" org.swb.Executor processor.properties book
 fi
